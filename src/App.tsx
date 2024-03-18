@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     return auth.events.addAccessTokenExpired((error) => {
-      auth.signoutSilent().catch(console.error)
+      auth.signoutSilent().catch(error => console.error("auth error", error))
     })
   }, [auth])
 
