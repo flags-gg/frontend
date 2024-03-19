@@ -8,25 +8,31 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {oidcConfig} from "./app.config";
+import {DevSupport} from "@react-buddy/ide-toolbox";
+import {ComponentPreviews, useInitial} from "./dev";
 
 const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
+    palette: {
+        mode: 'dark',
+    },
 });
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <AuthProvider {...oidcConfig}>
-        <App />
-      </AuthProvider>
-    </ThemeProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <ThemeProvider theme={darkTheme}>
+            <CssBaseline/>
+            <AuthProvider {...oidcConfig}>
+                <DevSupport ComponentPreviews={ComponentPreviews}
+                            useInitialHook={useInitial}
+                >
+                    <App/>
+                </DevSupport>
+            </AuthProvider>
+        </ThemeProvider>
+    </React.StrictMode>
 );
 
 reportWebVitals();
