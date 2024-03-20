@@ -12,6 +12,27 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import {useAuth} from "react-oidc-context";
 
+
+interface MenuLinks {
+  name: string;
+  id: string;
+}
+const links: MenuLinks[] = [
+  {
+    name: 'Features',
+    id: 'features'
+  },
+  {
+    name: 'Pricing',
+    id: 'pricing'
+  },
+  {
+    name: 'FAQ',
+    id: 'faq'
+  }
+]
+
+
 const TopBar: FC = () => {
   const auth = useAuth()
   const [open, setOpen] = useState(false)
@@ -58,16 +79,13 @@ const TopBar: FC = () => {
             }}>
               <img src={"/images/logo.svg"} alt={"flags.gg"} style={{width: 100}}/>
               <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                <MenuItem onClick={() => scrollToSection('features')} sx={{py: '0.6rem', px: '1.2rem'}}>
-                  <Typography variant={"body2"} color={"text.primary"}>
-                    Features
-                  </Typography>
-                </MenuItem>
-                <MenuItem onClick={() => scrollToSection('pricing')} sx={{py: '0.6rem', px: '1.2rem'}}>
-                  <Typography variant={"body2"} color={"text.primary"}>
-                    Pricing
-                  </Typography>
-                </MenuItem>
+                {links.map(({id, name}, index) => (
+                  <MenuItem key={index} onClick={() => scrollToSection(id)} sx={{py: '0.6rem', px: '1.2rem'}}>
+                    <Typography variant={"body2"} color={"text.primary"}>
+                      {name}
+                    </Typography>
+                  </MenuItem>
+                ))}
               </Box>
             </Box>
             <Box sx={{display: {xs: 'none', md: 'flex'}, gap: 0.5, alignItems: 'center'}}>
@@ -90,8 +108,13 @@ const TopBar: FC = () => {
                   backgroundColor: 'background.paper',
                   flexGrow: 1,
                 }}>
-                  <MenuItem onClick={() => scrollToSection('features')}>Features</MenuItem>
-                  <MenuItem onClick={() => scrollToSection('pricing')}>Pricing</MenuItem>
+                  {links.map(({id, name}, index) => (
+                    <MenuItem key={index} onClick={() => scrollToSection(id)}>
+                      <Typography variant={"body2"} color={"text.primary"}>
+                        {name}
+                      </Typography>
+                    </MenuItem>
+                  ))}
                   <Divider />
                   <MenuItem>
                     <Button color={"primary"} variant={"contained"} onClick={() => auth.signinRedirect().catch((error) => console.error("failed login", error))}>
