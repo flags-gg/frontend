@@ -56,7 +56,7 @@ const TopBar: FC = () => {
     <div>
       <AppBar position={"fixed"} sx={{
         boxShadow: 0,
-        bgcolor: 'transparent',
+        bgcolor: 'none',
         backgroundImage: 'none',
         mt: 2,
       }}>
@@ -65,7 +65,7 @@ const TopBar: FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            bgcolor: 'rgba(68, 71, 90, 0.4)',
+            bgcolor: 'rgba(98, 114, 164, 0.4)',
             flexShrink: 0,
             borderColor: 'rgba(189, 147, 249, 0.4)',
             borderStyle: 'solid',
@@ -80,7 +80,10 @@ const TopBar: FC = () => {
               <img src={"/images/logo.svg"} alt={"flags.gg"} style={{width: 100}}/>
               <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                 {links.map(({id, name}, index) => (
-                  <MenuItem key={index} onClick={() => scrollToSection(id)} sx={{py: '0.6rem', px: '1.2rem'}}>
+                  <MenuItem key={index} onClick={() => scrollToSection(id)} sx={{
+                    py: '0.6rem',
+                    px: '1.2rem'
+                  }}>
                     <Typography variant={"body2"} color={"text.primary"}>
                       {name}
                     </Typography>
@@ -88,7 +91,13 @@ const TopBar: FC = () => {
                 ))}
               </Box>
             </Box>
-            <Box sx={{display: {xs: 'none', md: 'flex'}, gap: 0.5, alignItems: 'center'}}>
+            <Box sx={{
+              display: {
+                xs: 'none',
+                md: 'flex'
+              },
+              gap: 0.5,
+              alignItems: 'center'}}>
               <Button color={"primary"} variant={"contained"} sx={{ml: 2}} onClick={() => auth.signinRedirect().catch((error) => console.error("failed login", error))}>
                 Sign In
               </Button>
@@ -98,7 +107,10 @@ const TopBar: FC = () => {
               gap: 0.5,
               alignItems: 'center',
             }}>
-              <Button variant={"text"} color={"primary"} onClick={toggleDrawer(true)} sx={{ minWidth: '30px', p: '4px'}}>
+              <Button variant={"text"} color={"primary"} onClick={toggleDrawer(true)} sx={{
+                minWidth: '30px',
+                p: '4px'
+              }}>
                 <MenuIcon />
               </Button>
               <Drawer anchor={"right"} open={open} onClose={toggleDrawer(false)}>

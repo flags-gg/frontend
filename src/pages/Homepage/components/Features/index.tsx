@@ -1,18 +1,19 @@
-import {FC, useState} from "react";
+import {FC, ReactElement, useState} from "react";
 import {Box, Button, Card, Chip, Container, Grid, Stack, Typography} from "@mui/material";
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 interface Feature {
   title: string;
   description: string;
-  icon: string;
+  icon: string | ReactElement;
   image: string;
 }
 
 const items: Feature[] = [
   {
-    title: 'Feature 1',
-    description: 'Description 1',
-    icon: 'icon1',
+    title: 'No Credit Card Needed to start',
+    description: 'You are automaticlly added to the free place when you sign up, only upgrade to paid if you need it',
+    icon: <CreditCardIcon />,
     image: 'image1'
   },
   {
@@ -137,7 +138,11 @@ const Features: FC = () => {
                   }}
                 >
                   <Box sx={{ color: selectedItemIndex === index ? 'primary.main' : 'grey.700'}}>
-                    {icon}
+                    { typeof icon === 'string' ? (
+                      <img src={icon} alt={title} />
+                    ) : (
+                      icon
+                    )}
                   </Box>
                   <Box sx={{ textTransform: 'none' }}>
                     <Typography color="text.primary" variant="body2" fontWeight="bold">
