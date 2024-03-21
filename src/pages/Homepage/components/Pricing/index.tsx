@@ -15,31 +15,41 @@ const tiers: Tiers[] = [
     title: 'Free',
     price: 0,
     features: [
-      '10 Users',
-      '3 Projects',
-      '20,000 Requests a month',
+      '10 Team Members',
+      '1 Projects',
+      '50,000 Requests a month',
       'Community Support',
     ]
   },
   {
-    title: 'Pro',
+    title: 'Startup',
     subheader: 'Most popular',
     price: 15,
     features: [
-      '50 users',
-      '10 projects',
-      '50,000 Requests a month',
-      'Priority support',
+      '20 Team Members',
+      '5 Projects',
+      '1,000,000 Requests a month',
+      'A/B traffic based testing',
+    ]
+  },
+  {
+    title: 'Pro',
+    price: 50,
+    features: [
+      '50 Team Members',
+      '10 Projects',
+      '5,000,000 Requests a month',
+      'Extended support',
     ]
   },
   {
     title: 'Enterprise',
-    price: 30,
+    price: 100,
     features: [
-      'Unlimited users',
-      'Unlimited projects',
+      'Unlimited Team Members',
+      'Unlimited Projects',
       'Unlimited Requests a month',
-      'Dedicated Server Resources',
+      'Priority Support',
     ]
   }
 ]
@@ -80,15 +90,15 @@ const Pricing: FC = () => {
       </Box>
       <Grid container spacing={3} alignItems="center" justifyContent="center">
         {tiers.map((tier) => (
-          <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
+          <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={3}>
             <Card sx={{
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 4,
-                border: tier.title === 'Pro' ? '1px solid' : undefined,
-                borderColor: tier.title === 'Pro' ? 'primary.main' : undefined,
-                background: tier.title === 'Pro' ? 'linear-gradient(#033363, #021F3B)' : undefined,
+                border: tier.subheader === undefined ? tier.subheader : '1px solid',
+                borderColor: tier.subheader === undefined ? tier.subheader : 'primary.main',
+                background: tier.subheader === undefined ? tier.subheader : 'linear-gradient(#033363, #021F3B)',
               }}>
               <CardContent>
                 <Box sx={{
@@ -101,7 +111,7 @@ const Pricing: FC = () => {
                   <Typography component="h3" variant="h6">
                     {tier.title}
                   </Typography>
-                  {tier.title === 'Pro' && (
+                  {tier.subheader !== undefined && (
                     <Chip icon={<AutoAwesomeIcon />} label={tier.subheader} size="small" sx={{
                         background: 'none',
                         backgroundColor: 'primary.contrastText',
@@ -117,12 +127,12 @@ const Pricing: FC = () => {
                 <Box sx={{
                     display: 'flex',
                     alignItems: 'baseline',
-                    color: tier.title === 'Pro' ? 'grey.50' : undefined,
+                    color: tier.subheader === undefined ? tier.subheader : 'grey.50',
                   }}>
-                  <Typography component="h3" variant="h2">
+                  <Typography component="h4" variant="h2">
                     ${tier.price}
                   </Typography>
-                  <Typography component="h3" variant="h6">
+                  <Typography component="h4" variant="h6">
                     &nbsp; per month
                   </Typography>
                 </Box>
@@ -140,11 +150,11 @@ const Pricing: FC = () => {
                     }}>
                     <CheckCircleRoundedIcon sx={{
                         width: 20,
-                        color: tier.title === 'Pro' ? 'primary.light' : 'primary.main',
+                        color: tier.subheader === undefined ? 'primary.main' : 'primary.light',
                       }} />
-                    <Typography component="text"
+                    <Typography component="span"
                       variant="subtitle2" sx={{
-                        color: tier.title === 'Pro' ? 'grey.200' : undefined,
+                        color: tier.subheader === undefined ? tier.subheader : 'grey.200',
                       }}>
                       {line}
                     </Typography>

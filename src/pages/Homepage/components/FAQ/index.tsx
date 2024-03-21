@@ -9,8 +9,8 @@ interface Question {
 
 const questions: Question[] = [
   {
-    question: '',
-    answer: '',
+    question: 'What does request mean?',
+    answer: 'When a user visits your site, and you are using Flags.gg, a request is made to our servers to determine which features to show the user. This is called a request.',
   }
 ]
 
