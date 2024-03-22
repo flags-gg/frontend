@@ -15,9 +15,10 @@ const Dashboard: FC = () => {
         </Toolbar>
       </AppBar>
       <Sidebar />
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}>
+      <Box component="main" sx={{
+        flexGrow: 1,
+        bgcolor: 'background.default',
+        p: 3 }}>
         <Outlet />
       </Box>
     </Box>
