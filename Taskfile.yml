@@ -15,7 +15,7 @@ tasks:
         if [[ -z "$latest_tag" ]]; then
           echo "0.0.1" > .latest_tag
         else
-          echo $latest_tag | awk -F. '{printf "%d.%d.%d", $1, $2, $3+1}' > .latest_tag
+          echo $latest_tag | awk -F. '{printf "%d.%d.%d", $1, $2, $3}' > .latest_tag
         fi
     silent: true
   get-commit-hash:
@@ -81,11 +81,21 @@ tasks:
 
   # Deploy Commands
   deploy:
-    cmd: kubectl set image deployment/{{.SERVICE_NAME}} {{.SERVICE_NAME}}=containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.GIT_COMMIT_HASH}} -n {{.NAMESPACE}}
+    cmd: kubectl set image deployment/{{.SERVICE_NAME}} {{.SERVICE_NAME}}=containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.COMMIT_HASH}} -n {{.NAMESPACE}}
+    vars:
+      COMMIT_HASH:
+        sh: cat .commit_hash
   deploy-latest:
     cmds:
       - kubectl set image deployment/{{.SERVICE_NAME}} {{.SERVICE_NAME}}=containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest -n {{.NAMESPACE}}
       - kubectl rollout restart deployment/{{.SERVICE_NAME}} -n {{.NAMESPACE}}
+  deploy-latest-tag:
+    cmds:
+      - kubectl set image deployment/{{.SERVICE_NAME}} {{.SERVICE_NAME}}=containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.LATEST_TAG}} -n {{.NAMESPACE}}
+      - kubectl rollout restart deployment/{{.SERVICE_NAME}} -n {{.NAMESPACE}}
+    vars:
+      LATEST_TAG:
+        sh: cat .latest_tag
 
   # Extras
   build-deploy:
