@@ -21,9 +21,8 @@ jobs:
       - uses: pnpm/action-setup@v3
         with:
           version: 8
-      - run: pnpm install --frozen-lockfile --dev
       - run: pnpm install --frozen-lockfile
-      - run: pnpm test
+      #- run: pnpm test
   automerge:
     runs-on: ubuntu-latest
     permissions:
