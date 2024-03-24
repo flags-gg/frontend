@@ -13,10 +13,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Echo GitHub SHA version
-        run: echo ${{ github.sha }}
-      - name: Echo Version
-        run: echo VERSION=${{ startsWith(github.ref, 'refs/tags/') && github.ref || github.sha }}
+      - name: Extract tag
+        id: extract_tag
+        run: echo "::set-output name=tag::${GITHUB_REF/refs\/tags\//}"
       - name: Meta
         id: meta
         uses: docker/metadata-action@v4
@@ -57,7 +56,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           build-args:
-            VERSION=${{ startsWith(github.ref, 'refs/tags/') && replace(github.ref, 'refs/tags/', '') || github.sha }}
+            VERSION=${{ startsWith(github.ref, 'refs/tags/') && steps.extract_tag.outputs.tag || github.sha }}
             BUILD=${{ github.sha }}
             SERVICE_NAME=frontend
             KEYCLOAK_SECRET=${{ secrets.KEYCLOAK_SECRET }}
