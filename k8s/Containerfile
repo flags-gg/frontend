@@ -30,4 +30,7 @@ WORKDIR /runner
 COPY --from=build /frontend/build /runner
 RUN npm install -g serve
 
+ENV REACT_APP_COMMIT_HASH=${BUILD}
+ENV REACT_APP_GIT_TAG=${VERSION}
+
 CMD ["serve", "-s", "/runner", "-l", "80"]

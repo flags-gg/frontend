@@ -1,12 +1,12 @@
 import {FC} from "react";
-import Hero from "./components/Hero";
 import {Box} from "@mui/material";
 
+import Hero from "./components/Hero";
 import TopBar from "./components/TopBar";
 import Features from "./components/Features";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
-import Footer from "./components/Footer";
+import Footer from "../../components/Footer";
 
 const Homepage: FC = () => {
   return (
