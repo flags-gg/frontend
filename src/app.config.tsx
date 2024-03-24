@@ -11,3 +11,8 @@ export const oidcConfig = {
   },
   useStore: new WebStorageStateStore({store: window.localStorage}),
 } as AuthProviderProps
+
+export const BuildDetails = {
+    Hash: process.env.REACT_APP_COMMIT_HASH,
+    Tag: process.env.REACT_APP_GIT_TAG,
+}

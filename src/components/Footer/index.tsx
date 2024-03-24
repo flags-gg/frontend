@@ -2,6 +2,8 @@ import {Box, Container, IconButton, Link, Stack, Typography} from "@mui/material
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import {FC} from "react";
 
+import {BuildDetails} from "./../../app.config";
+
 const logoStyle = {
   width: '100px',
   height: '100px',
@@ -91,6 +93,11 @@ const Footer: FC = () => {
       }}>
         <div>
           <Copyright />
+          <Typography variant={"caption"}>
+            Hash: {BuildDetails.Hash}
+            <br />
+            Tag: {BuildDetails.Tag}
+          </Typography>
         </div>
         <Stack direction={"row"} spacing={1} justifyContent={"left"} useFlexGap sx={{
         color: 'text.secondary',

@@ -3,6 +3,7 @@ import {Outlet} from "react-router-dom";
 import {AppBar, Box, Toolbar, Typography} from "@mui/material";
 
 import Sidebar from "./components/Sidebar";
+import Footer from "../../components/Footer";
 
 const Dashboard: FC = () => {
   return (
@@ -21,6 +22,7 @@ const Dashboard: FC = () => {
         p: 3 }}>
         <Outlet />
       </Box>
+      <Footer />
     </Box>
   )
 }
