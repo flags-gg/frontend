@@ -19,6 +19,8 @@
     "@types/react-dom": "^18.2.22",
     "oidc-client-ts": "^3.0.1",
     "react": "^18.2.0",
+    "react-app-rewire-alias": "^1.1.7",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-oidc-context": "^3.0.0",
     "react-router-dom": "^6.22.3",
@@ -27,9 +29,9 @@
     "web-vitals": "^3.5.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

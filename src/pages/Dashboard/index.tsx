@@ -2,8 +2,8 @@ import {FC} from "react";
 import {Outlet} from "react-router-dom";
 import {AppBar, Box, Toolbar, Typography} from "@mui/material";
 
-import Sidebar from "./components/Sidebar";
-import Footer from "../../components/Footer";
+import Sidebar from "@DC/Sidebar";
+import Footer from "@C/Footer";
 
 const Dashboard: FC = () => {
   return (
