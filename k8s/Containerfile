@@ -14,9 +14,29 @@ COPY public ./public
 COPY tsconfig.json ./
 COPY config-overrides.js ./
 
+## Set Args
+ARG KEYCLOAK_SECRET
+ARG BUILD
+ARG VERSION
+
+## Set Envs for build
+ENV REACT_APP_KEYCLOAK_SECRET=${KEYCLOAK_SECRET}
+ENV REACT_APP_COMMIT_HASH=${BUILD}
+ENV REACT_APP_GIT_TAG=${VERSION}
+
 # Install dependencies
 FROM base AS dependencies
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --production
+
+## Set Args
+ARG KEYCLOAK_SECRET
+ARG BUILD
+ARG VERSION
+
+## Set Envs for build
+ENV REACT_APP_KEYCLOAK_SECRET=${KEYCLOAK_SECRET}
+ENV REACT_APP_COMMIT_HASH=${BUILD}
+ENV REACT_APP_GIT_TAG=${VERSION}
 
 # Build
 FROM base AS build
@@ -39,5 +59,15 @@ FROM containers.chewed-k8s.net/docker_hub_cache/library/node:20-alpine AS runner
 WORKDIR /runner
 COPY --from=build /frontend/build /runner
 RUN npm install -g serve
+
+## Set Args
+ARG KEYCLOAK_SECRET
+ARG BUILD
+ARG VERSION
+
+## Set Envs for build
+ENV REACT_APP_KEYCLOAK_SECRET=${KEYCLOAK_SECRET}
+ENV REACT_APP_COMMIT_HASH=${BUILD}
+ENV REACT_APP_GIT_TAG=${VERSION}
 
 CMD ["serve", "-s", "/runner", "-l", "80"]

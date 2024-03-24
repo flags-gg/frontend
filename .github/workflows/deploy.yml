@@ -53,7 +53,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           build-args:
-            VERSION=${{ steps.meta.outputs.tags }}
+            VERSION=${{ github.ref_name }}
             BUILD=${{ github.sha }}
             SERVICE_NAME=frontend
             KEYCLOAK_SECRET=${{ secrets.KEYCLOAK_SECRET }}
