@@ -2,7 +2,7 @@ import {Box, Container, IconButton, Link, Stack, Typography} from "@mui/material
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import {FC} from "react";
 
-import {BuildDetails} from "./../../app.config";
+import {BuildDetails} from "@/app.config";
 
 const logoStyle = {
   width: '100px',

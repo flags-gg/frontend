@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter} from "react-router-dom";
 
-import SiteRouter from "./components/SiteRouter";
+import SiteRouter from "@C/SiteRouter";
 
 function App() {
   return (
