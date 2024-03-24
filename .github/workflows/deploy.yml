@@ -57,7 +57,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           build-args:
-            VERSION=${{ startsWith(github.ref, 'refs/tags/') && github.ref || github.sha }}
+            VERSION=${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || github.sha }}
             BUILD=${{ github.sha }}
             SERVICE_NAME=frontend
             KEYCLOAK_SECRET=${{ secrets.KEYCLOAK_SECRET }}
