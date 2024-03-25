@@ -17,4 +17,3 @@ export const BuildDetails = {
     Tag: process.env.REACT_APP_GIT_TAG,
 }
 
-console.info("Process env", process.env)
