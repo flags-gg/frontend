@@ -12,6 +12,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import {useAuth} from "react-oidc-context";
 
+import Logo from "@C/Logo";
 
 interface MenuLinks {
   name: string;
@@ -77,7 +78,7 @@ const TopBar: FC = () => {
               alignItems: 'center',
               flexGrow: 1
             }}>
-              <img src={"/images/logo.svg"} alt={"flags.gg"} style={{width: 100}}/>
+              <Logo />
               <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                 {links.map(({id, name}, index) => (
                   <MenuItem key={index} onClick={() => scrollToSection(id)} sx={{

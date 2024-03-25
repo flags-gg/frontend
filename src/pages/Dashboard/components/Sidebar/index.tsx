@@ -1,7 +1,7 @@
 import {Box} from "@mui/material";
 import {FC} from "react";
 
-import Logo from "../Logo";
+import Logo from "@C/Logo"
 
 const Sidebar: FC = () => {
   return (
