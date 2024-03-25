@@ -14,22 +14,19 @@ COPY public ./public
 COPY tsconfig.json ./
 COPY config-overrides.js ./
 
-# Install dependencies
-FROM base AS dependencies
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --production
-
 # Build
-FROM dependencies AS build
+FROM base AS build
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --production
 
 ## Set Args
 ARG KEYCLOAK_SECRET
-ARG BUILD
-ARG VERSION
+ARG GIT_BUILD
+ARG GIT_VERSION
 
 ## Set Envs for build
 ENV REACT_APP_KEYCLOAK_SECRET=${KEYCLOAK_SECRET}
-ENV REACT_APP_COMMIT_HASH=${BUILD}
-#ENV REACT_APP_GIT_TAG=${VERSION}
+ENV REACT_APP_COMMIT_HASH=${GIT_BUILD}
+#ENV REACT_APP_GIT_TAG=${GIT_VERSION}
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm build
