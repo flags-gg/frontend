@@ -7,11 +7,11 @@ import Sidebar from "@DC/Sidebar";
 import Footer from "@C/Footer";
 
 const Dashboard: FC = () => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Header open={open} setOpen={setOpen} />
+      <Header open={open} />
       <Sidebar open={open} setOpen={setOpen} />
       <Box component="main" sx={{
         flexGrow: 1,

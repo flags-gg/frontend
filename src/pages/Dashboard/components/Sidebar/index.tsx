@@ -19,8 +19,6 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
-  console.log("sidebar open", open)
-
   return (
     <Drawer
       variant={"permanent"}

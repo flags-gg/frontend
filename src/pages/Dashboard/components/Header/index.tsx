@@ -1,15 +1,13 @@
-import {FC, Dispatch} from "react";
-import {AppBar, Badge, Box, IconButton, Toolbar, Typography} from "@mui/material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import {FC} from "react";
+import {AppBar, Box, Toolbar, Typography} from "@mui/material";
+import Notifications from "@DC/Notifications";
+import AccountMenu from "@DC/AccountMenu";
 
 interface HeaderProps {
   open: boolean,
-  setOpen: Dispatch<boolean>
 }
 
-const Header: FC<HeaderProps> = ({open, setOpen}) => {
-  console.log("header open", open)
-
+const Header: FC<HeaderProps> = ({open}) => {
   return (
     <AppBar position={"absolute"}>
       <Toolbar sx={{ pr: '24px' }}>
@@ -26,11 +24,8 @@ const Header: FC<HeaderProps> = ({open, setOpen}) => {
         }}>
           Dashboard
         </Typography>
-        <IconButton color={"inherit"}>
-          <Badge badgeContent={4} color={"secondary"}>
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
+        <AccountMenu />
+        <Notifications />
       </Toolbar>
     </AppBar>
   )
