@@ -3,11 +3,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import {FC} from "react";
 
 import {BuildDetails} from "@/app.config";
-
-const logoStyle = {
-  width: '100px',
-  height: '100px',
-};
+import Logo from "@C/Logo";
 
 function Copyright() {
   return (
@@ -63,7 +59,7 @@ const Footer: FC = () => {
             }
           }}>
             <Box sx={{ml: '-15px'}}>
-              <img src={"/images/logo.svg"} alt={"logo"} style={logoStyle}/>
+              <Logo />
             </Box>
           </Box>
         </Box>
