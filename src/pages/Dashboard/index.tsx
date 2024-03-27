@@ -1,6 +1,6 @@
 import {FC, useState} from "react";
 import {Outlet} from "react-router-dom";
-import {Box, Container, Toolbar} from "@mui/material";
+import {Box, Container} from "@mui/material";
 
 import Header from "@DC/Header";
 import Sidebar from "@DC/Sidebar";
@@ -19,11 +19,10 @@ const Dashboard: FC = () => {
         height: '100vh',
         overflow: 'auto',
         p: 3 }}>
-        <Toolbar />
         <Container
           maxWidth={false}
           sx={{
-            mt: 4,
+            mt: 5,
             mb: 4
         }}>
           <Outlet />

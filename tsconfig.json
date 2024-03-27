@@ -28,7 +28,8 @@
       "@/*": ["./*"],
       "@C/*": ["./components/*"],
       "@HC/*": ["./pages/Homepage/components/*"],
-      "@DC/*": ["./pages/Dashboard/components/*"]
+      "@DC/*": ["./pages/Dashboard/components/*"],
+      "@DL/*": ["./pages/Dashboard/lib/*"],
     }
   },
   "include": [

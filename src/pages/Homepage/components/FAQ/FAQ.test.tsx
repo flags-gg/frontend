@@ -1,4 +1,4 @@
-import { render, within, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import FAQ from './'; // change to your actual component path
 
 describe('FAQ Component', () => {

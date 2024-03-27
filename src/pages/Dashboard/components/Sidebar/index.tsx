@@ -1,17 +1,17 @@
 import {
   Divider,
   Drawer,
-  List,
-  ListItemButton,
   ListItemIcon,
   Toolbar,
   ListItemText,
-  IconButton
+  IconButton, Box, MenuItem, MenuList
 } from "@mui/material";
-import {Dispatch, FC, Fragment} from "react";
+import {Dispatch, FC} from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MenuIcon from "@mui/icons-material/Menu";
+import Logo from "@C/Logo";
+import {Link} from "react-router-dom";
 
 interface SidebarProps {
   open: boolean
@@ -23,22 +23,26 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
     <Drawer
       variant={"permanent"}
       sx={{
-        width: '240px',
+        width: '57px',
         flexShrink: 0,
         '& .MuiDrawer-paper': {
           width: '240px',
           boxSizing: 'border-box',
           ...(!open && {
             overflowX: 'hidden',
-            width: '72px',
+            width: '57px',
           }),
         },
       }}>
       <Toolbar sx={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
         px: [1]}}>
+        <Box sx={{
+          flexGrow: 1
+        }}>
+          <Logo size={open ? 80 : 1} />
+        </Box>
         <IconButton
           onClick={() => setOpen(!open)}
           color={"inherit"}>
@@ -46,17 +50,17 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
         </IconButton>
       </Toolbar>
       <Divider />
-      <List component={"nav"}>
-        <Fragment>
-          <ListItemButton>
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Dashboard"} />
-          </ListItemButton>
-        </Fragment>
-        <Divider sx={{ my: 1 }} />
-      </List>
+      <MenuList>
+        <MenuItem component={Link} to={"/"} onClick={() => {setOpen(!open)}}>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText sx={{
+            marginLeft: '10px',
+          }} primary={"Overview"} />
+        </MenuItem>
+        <Divider />
+      </MenuList>
     </Drawer>
   )
 }
