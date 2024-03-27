@@ -9,7 +9,9 @@ const Hero: FC = () => {
       backgroundSize: '100% 20%',
       backgroundRepeat: 'no-repeat',
     }}>
-        <Container sx={{
+        <Container
+          maxWidth={false}
+          sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

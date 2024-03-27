@@ -24,6 +24,7 @@ const FAQ: FC = () => {
 
   return (
     <Container
+      maxWidth={false}
       id="faq"
       sx={{
         pt: { xs: 4, sm: 12 },

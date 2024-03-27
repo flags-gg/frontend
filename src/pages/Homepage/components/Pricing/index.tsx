@@ -56,7 +56,10 @@ const tiers: Tiers[] = [
 
 const Pricing: FC = () => {
   return (
-    <Container id="pricing" sx={{
+    <Container
+      id="pricing"
+      maxWidth={false}
+      sx={{
         pt: {
           xs: 4,
           sm: 12

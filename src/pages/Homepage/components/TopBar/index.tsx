@@ -54,14 +54,14 @@ const TopBar: FC = () => {
   }
 
   return (
-    <div>
+    <Container maxWidth={false}>
       <AppBar position={"fixed"} sx={{
         boxShadow: 0,
         bgcolor: 'none',
         backgroundImage: 'none',
         mt: 2,
       }}>
-        <Container maxWidth={"lg"}>
+        <Container maxWidth={false}>
           <Toolbar variant={"regular"} sx={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -140,7 +140,7 @@ const TopBar: FC = () => {
           </Toolbar>
         </Container>
       </AppBar>
-    </div>
+    </Container>
   )
 }
 

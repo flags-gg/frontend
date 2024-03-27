@@ -21,7 +21,7 @@ const Dashboard: FC = () => {
         p: 3 }}>
         <Toolbar />
         <Container
-          maxWidth="lg"
+          maxWidth={false}
           sx={{
             mt: 4,
             mb: 4

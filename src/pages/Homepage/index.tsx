@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {Box} from "@mui/material";
+import {Box, Container} from "@mui/material";
 
 import Hero from "@HC/Hero";
 import TopBar from "@HC/TopBar";
@@ -10,7 +10,7 @@ import Footer from "@C/Footer";
 
 const Homepage: FC = () => {
   return (
-    <>
+    <Container maxWidth={false}>
       <TopBar />
       <Hero />
       <Box sx={{bgcolor: 'background.default'}}>
@@ -19,7 +19,7 @@ const Homepage: FC = () => {
         <FAQ />
       </Box>
       <Footer />
-    </>
+    </Container>
   )
 }
 
