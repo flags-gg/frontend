@@ -6,6 +6,7 @@ module.exports = function override(config, env) {
     '@C': './src/components',
     '@HC': './src/pages/Homepage/components',
     '@DC': './src/pages/Dashboard/components',
+    '@DL': './src/pages/Dashboard/lib',
   })(config, env);
 
   return config;

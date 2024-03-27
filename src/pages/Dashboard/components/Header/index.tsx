@@ -22,7 +22,7 @@ const Header: FC<HeaderProps> = ({open}) => {
           sx={{
             flexGrow: 1
         }}>
-          Dashboard
+          Flags.gg Dashboard
         </Typography>
         <AccountMenu />
         <Notifications />
