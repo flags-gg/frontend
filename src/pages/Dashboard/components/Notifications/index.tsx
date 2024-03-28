@@ -83,7 +83,7 @@ const Notifications: FC = () => {
         title: "New order",
         description: "You have a new order from Jane Doe",
         read: false,
-        link: "/account"
+        link: "/settings"
       }
     ]
   }

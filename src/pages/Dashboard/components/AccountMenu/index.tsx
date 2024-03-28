@@ -49,7 +49,7 @@ const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
             </ListItemIcon>
             <ListItemText primary={"Settings"} />
           </MenuItem>
-          <MenuItem component={Link} to={"/account"} onClick={onClose}>
+          <MenuItem component={Link} to={"/useraccount"} onClick={onClose}>
             <ListItemIcon>
               <User fontSize={"small"} />
             </ListItemIcon>
