@@ -9,6 +9,7 @@ import {
 import {Dispatch, FC} from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import SettingsIcon from "@mui/icons-material/Settings";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "@C/Logo";
 import {Link} from "react-router-dom";
@@ -58,6 +59,14 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
           <ListItemText sx={{
             marginLeft: '10px',
           }} primary={"Overview"} />
+        </MenuItem>
+        <MenuItem component={Link} to={"/account"} onClick={() => {setOpen(!open)}}>
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText sx={{
+            marginLeft: '10px',
+          }} primary={"Account"} />
         </MenuItem>
         <Divider />
       </MenuList>
