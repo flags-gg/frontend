@@ -18,6 +18,7 @@ const Dashboard: FC = () => {
         bgcolor: 'background.default',
         height: '100vh',
         overflow: 'auto',
+        marginTop: 5,
         p: 3 }}>
         <Container
           maxWidth={false}

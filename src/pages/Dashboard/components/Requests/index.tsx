@@ -1,16 +1,8 @@
-import {SxProps, alpha, useTheme} from "@mui/material/styles";
+import {alpha, useTheme} from "@mui/material/styles";
 import {FC} from "react";
 import {Card, CardContent, styled, Typography} from "@mui/material";
 import ApexChart from "react-apexcharts";
 import {ApexOptions} from "apexcharts";
-
-export interface RequestsProps {
-  chartSeries: {
-    name: string;
-    data: number[];
-  }[]
-  sx?: SxProps;
-}
 
 function useChartOptions(categories: string[]): ApexOptions {
   const theme = useTheme()
@@ -53,7 +45,7 @@ function useChartOptions(categories: string[]): ApexOptions {
     },
     plotOptions: {
       bar: {
-        borderRadius: 8,
+        borderRadius: 5,
         columnWidth: '50%',
       },
     },
@@ -94,12 +86,26 @@ function useChartOptions(categories: string[]): ApexOptions {
   }
 }
 
-const Requests: FC<RequestsProps> = ({chartSeries, sx}) => {
-  const chartOptions = useChartOptions(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
+const Requests: FC = () => {
+  const chartOptions = useChartOptions(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'])
   const Chart = styled(ApexChart)``
+  const chartSeries= [
+    {
+      name: 'Requests',
+      data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+    },
+    {
+      name: 'Errors',
+      data: [10, 20, 15, 25, 20, 30, 25, 35, 30],
+    }
+  ]
 
   return (
-    <Card sx={sx}>
+    <Card sx={{
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
       <CardContent>
         <Typography variant={"h6"}>Requests</Typography>
         <Chart options={chartOptions} series={chartSeries} type={"bar"} height={350}/>
