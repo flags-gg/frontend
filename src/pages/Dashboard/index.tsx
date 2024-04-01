@@ -16,13 +16,14 @@ const Dashboard: FC = () => {
       <Box component="main" sx={{
         flexGrow: 1,
         bgcolor: 'background.default',
-        height: '100vh',
+        minWidth: '96vw',
         overflow: 'auto',
         marginTop: 5,
         p: 3 }}>
         <Container
           maxWidth={false}
           sx={{
+            verticalAlign: "top",
             mt: 5,
             mb: 4
         }}>

@@ -16,8 +16,8 @@ const tiers: Tiers[] = [
     price: 0,
     features: [
       '10 Team Members',
-      '1 Projects',
-      '50,000 Requests a month',
+      '1 Agent',
+      '50,000 Requests per agent a month',
       'Community Support',
     ]
   },
@@ -27,8 +27,8 @@ const tiers: Tiers[] = [
     price: 15,
     features: [
       '20 Team Members',
-      '5 Projects',
-      '1,000,000 Requests a month',
+      '5 Agents',
+      '1,000,000 Requests per agent a month',
       'A/B traffic based testing',
     ]
   },
@@ -37,18 +37,18 @@ const tiers: Tiers[] = [
     price: 50,
     features: [
       '50 Team Members',
-      '10 Projects',
-      '5,000,000 Requests a month',
+      '10 Agents',
+      '5,000,000 Requests per agent a month',
       'Extended support',
     ]
   },
   {
     title: 'Enterprise',
-    price: 100,
+    price: 200,
     features: [
       'Unlimited Team Members',
-      'Unlimited Projects',
-      'Unlimited Requests a month',
+      'Unlimited Agents',
+      '20,000,000 Requests per agent a month',
       'Priority Support',
     ]
   }

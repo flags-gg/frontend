@@ -4,8 +4,9 @@ import {AuthProviderProps} from "react-oidc-context";
 export const oidcConfig = {
   authority: "https://keys.chewedfeed.com/realms/flags-gg",
   client_id: "dashboard",
-  client_secret: process.env.REACT_APP_KEYCLOAK_SECRET,
+  client_secret: import.meta.env.VITE_KEYCLOAK_SECRET,
   redirect_uri: window.location.origin,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onSigninCallback: (_user: User | void) => {
     window.history.replaceState({}, document.title, window.location.pathname)
   },
@@ -13,7 +14,6 @@ export const oidcConfig = {
 } as AuthProviderProps
 
 export const BuildDetails = {
-    Hash: process.env.REACT_APP_COMMIT_HASH,
-    Tag: process.env.REACT_APP_GIT_TAG,
+    Hash: import.meta.env.VITE_COMMIT_HASH,
+    Tag: import.meta.env.VITE_GIT_TAG,
 }
-

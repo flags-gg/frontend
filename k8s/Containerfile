@@ -12,11 +12,14 @@ COPY public ./public
 COPY src ./src
 COPY public ./public
 COPY tsconfig.json ./
-COPY config-overrides.js ./
+COPY vite.config.ts ./
+COPY tsconfig.json ./
+COPY tsconfig.node.json ./
+COPY index.html ./
 
 # Build
 FROM base AS build
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --production
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 ## Set Args
 ARG KEYCLOAK_SECRET
@@ -24,16 +27,16 @@ ARG GIT_BUILD
 ARG GIT_VERSION
 
 ## Set Envs for build
-ENV REACT_APP_KEYCLOAK_SECRET=$KEYCLOAK_SECRET
-ENV REACT_APP_COMMIT_HASH=$GIT_BUILD
-ENV REACT_APP_GIT_TAG=$GIT_VERSION
+ENV VITE_KEYCLOAK_SECRET=$KEYCLOAK_SECRET
+ENV VITE_COMMIT_HASH=$GIT_BUILD
+ENV VITE_GIT_TAG=$GIT_VERSION
 
 RUN pnpm build
 
 # Runner
 FROM containers.chewed-k8s.net/docker_hub_cache/library/node:20-alpine AS runner
 WORKDIR /runner
-COPY --from=build /frontend/build /runner
+COPY --from=build /frontend/dist /runner
 RUN npm install -g serve
 
 CMD ["serve", "-s", "/runner", "-l", "80"]
