@@ -10,7 +10,11 @@ import Footer from "@C/Footer";
 
 const Homepage: FC = () => {
   return (
-    <Container maxWidth={false}>
+    <Container
+      maxWidth={false}
+      sx={{
+        minWidth: '98vw',
+      }}>
       <TopBar />
       <Hero />
       <Box sx={{bgcolor: 'background.default'}}>

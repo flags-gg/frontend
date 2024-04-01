@@ -12,6 +12,7 @@ const NotFound: FC = () => {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
+        minWidth: '98vw',
       }}>
       <Stack
         spacing={3}
