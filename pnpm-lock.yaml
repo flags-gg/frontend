@@ -12,8 +12,8 @@ dependencies:
     specifier: ^11.11.5
     version: 11.11.5(@emotion/react@11.11.4)(@types/react@18.2.73)(react@18.2.0)
   '@flags-gg/react':
-    specifier: ^0.1.2
-    version: 0.1.2
+    specifier: ^0.2.1
+    version: 0.2.1
   '@fontsource/roboto':
     specifier: ^5.0.12
     version: 5.0.12
@@ -671,16 +671,16 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@flags-gg/library@1.0.1:
-    resolution: {integrity: sha512-VHqzhBB/LvNZWHh33jeEZyFMi7W4F9q6lXH3wuWyHwFInFu4PWa/dM5P6ybpv0RUaJdCcYcVg+pb9k0thU8/0Q==}
+  /@flags-gg/library@1.1.0:
+    resolution: {integrity: sha512-qBtjcpOKMEKvNQwyYuXX2bLSgXT/fFY6+9aUuSQBAGAU/+uVmZGevbg/V9zhuL9vZyB330qvTlv2Omt/dFsALg==}
     dependencies:
       typescript: 5.4.3
     dev: false
 
-  /@flags-gg/react@0.1.2:
-    resolution: {integrity: sha512-KLqjEHy7BMegTVlkKDwrPZf7kxgskO3fZTdvlfngXHRowyuIbyalt8hTY7w/3acmLCwlLSGdAcdLnLVPy+gfGg==}
+  /@flags-gg/react@0.2.1:
+    resolution: {integrity: sha512-E3YKFDBcpyCF8Xt/GKi4dLReXM0EheMTcuM097wfLOcHGgChdJZZAEa9AwvPjKbFYeviwaTM0KAPHv6pU03P0w==}
     dependencies:
-      '@flags-gg/library': 1.0.1
+      '@flags-gg/library': 1.1.0
       typescript: 5.4.3
     dev: false
 
