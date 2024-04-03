@@ -20,7 +20,6 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/*": ["./*"],
       "@L/*": ["./pages/*"],
       "@C/*": ["./components/*"],
       "@HC/*": ["./pages/Homepage/components/*"],
