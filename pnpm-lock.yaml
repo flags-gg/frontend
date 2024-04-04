@@ -18,8 +18,8 @@ dependencies:
     specifier: ^5.0.12
     version: 5.0.12
   '@mui/icons-material':
-    specifier: ^5.15.14
-    version: 5.15.14(@mui/material@5.15.15)(@types/react@18.2.74)(react@18.2.0)
+    specifier: ^5.15.15
+    version: 5.15.15(@mui/material@5.15.15)(@types/react@18.2.74)(react@18.2.0)
   '@mui/material':
     specifier: ^5.15.15
     version: 5.15.15(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@types/react@18.2.74)(react-dom@18.2.0)(react@18.2.0)
@@ -54,7 +54,7 @@ devDependencies:
     version: 2.4.0(react@18.2.0)
   '@react-buddy/palette-mui':
     specifier: ^5.0.2
-    version: 5.0.2(@mui/icons-material@5.15.14)(@mui/material@5.15.15)(react@18.2.0)
+    version: 5.0.2(@mui/icons-material@5.15.15)(@mui/material@5.15.15)(react@18.2.0)
   '@types/node':
     specifier: ^20.12.3
     version: 20.12.3
@@ -787,8 +787,8 @@ packages:
   /@mui/core-downloads-tracker@5.15.15:
     resolution: {integrity: sha512-aXnw29OWQ6I5A47iuWEI6qSSUfH6G/aCsW9KmW3LiFqr7uXZBK4Ks+z8G+qeIub8k0T5CMqlT2q0L+ZJTMrqpg==}
 
-  /@mui/icons-material@5.15.14(@mui/material@5.15.15)(@types/react@18.2.74)(react@18.2.0):
-    resolution: {integrity: sha512-vj/51k7MdFmt+XVw94sl30SCvGx6+wJLsNYjZRgxhS6y3UtnWnypMOsm3Kmg8TN+P0dqwsjy4/fX7B1HufJIhw==}
+  /@mui/icons-material@5.15.15(@mui/material@5.15.15)(@types/react@18.2.74)(react@18.2.0):
+    resolution: {integrity: sha512-kkeU/pe+hABcYDH6Uqy8RmIsr2S/y5bP2rp+Gat4CcRjCcVne6KudS1NrZQhUCRysrTDCAhcbcf9gt+/+pGO2g==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@mui/material': ^5.0.0
@@ -974,14 +974,14 @@ packages:
       react: 18.2.0
     dev: true
 
-  /@react-buddy/palette-mui@5.0.2(@mui/icons-material@5.15.14)(@mui/material@5.15.15)(react@18.2.0):
+  /@react-buddy/palette-mui@5.0.2(@mui/icons-material@5.15.15)(@mui/material@5.15.15)(react@18.2.0):
     resolution: {integrity: sha512-X9gdm+fwmvZTiOMWtCtljyJtSEYNH2F6qHtmht7liQUkNW8e61icu2vfLWYtwz9XG1QxFuPbev5RCsh/+Ewldw==}
     peerDependencies:
       '@mui/icons-material': ^5.0.1
       '@mui/material': ^5.0.1
       react: ^17.0.0 || ^18.0.0
     dependencies:
-      '@mui/icons-material': 5.15.14(@mui/material@5.15.15)(@types/react@18.2.74)(react@18.2.0)
+      '@mui/icons-material': 5.15.15(@mui/material@5.15.15)(@types/react@18.2.74)(react@18.2.0)
       '@mui/material': 5.15.15(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@types/react@18.2.74)(react-dom@18.2.0)(react@18.2.0)
       '@react-buddy/ide-toolbox': 2.4.0(react@18.2.0)
       react: 18.2.0
