@@ -31,3 +31,9 @@ export interface ServerResponse {
   secretMenu: string[];
   flags: Flag[];
 }
+
+export interface SecretMenuProps {
+  secretMenu?: string[];
+  flags: { [key: string]: Flag };
+  toggleFlag: (name: string) => void;
+}

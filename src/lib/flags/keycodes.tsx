@@ -1,16 +1,9 @@
-import React, {Dispatch, FC, useEffect, useState} from 'react';
-import { useFlags } from './index';
-import {Flag} from "./types";  // Correct the import if necessary
+import {FC, useEffect, useState} from 'react';
+import {Button} from "@mui/material";
+import {SecretMenuProps} from "./types";  // Correct the import if necessary
 
-interface SecretMenuProps {
-  secretMenu?: string[];
-  flags: Flag[];
-  toggleFlag: Dispatch<Flag>
-}
-
-const SecretMenu: FC<SecretMenuProps> = ({secretMenu}) => {
-  const { flags, toggleFlag } = useFlags();  // Use destructuring to get secretMenu
-  const [isActive, setIsActive] = useState(false);
+const SecretMenu: FC<SecretMenuProps> = ({secretMenu, toggleFlag, flags}) => {
+  const [showMenu, setShowMenu] = useState(false);
   const [keySequence, setKeySequence] = useState<string[]>([]);
   if (typeof secretMenu === 'undefined') {
     secretMenu = [];
@@ -18,7 +11,7 @@ const SecretMenu: FC<SecretMenuProps> = ({secretMenu}) => {
 
   useEffect(() => {
     const keyHandler = (event: KeyboardEvent) => {
-      setKeySequence(seq => [...seq.slice(-(secretMenu.length - 1)), event.key.toUpperCase()]); // Keep last n keys
+      setKeySequence(seq => [...seq.slice(-(secretMenu.length - 1)), event.key]); // Keep last n keys
     };
 
     document.addEventListener('keydown', keyHandler);
@@ -28,19 +21,53 @@ const SecretMenu: FC<SecretMenuProps> = ({secretMenu}) => {
   useEffect(() => {
     // Check if the current keySequence matches the secretMenu
     if (JSON.stringify(keySequence) === JSON.stringify(secretMenu)) {
-      setIsActive(true);
+      setShowMenu(true);
     } else {
-      setIsActive(false);  // Optionally reset if the sequence doesn't match
+      setShowMenu(false);  // Optionally reset if the sequence doesn't match
     }
   }, [keySequence, secretMenu]);  // Depend on keySequence and secretMenu
 
-  return isActive ? (
-    <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1000 }}>
+  return showMenu ? (
+    <div style={{
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      zIndex: 1000,
+      backgroundColor: 'white',
+      color: 'black',
+      border: '1px solid black',
+      borderRadius: '5px',
+      padding: '1rem',
+    }}>
+      <Button
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: -15,
+          color: "black",
+          cursor: "pointer",
+        }}
+        onClick={() => setShowMenu(false)}>X</Button>
       <h1>Secret Menu</h1>
       {Object.entries(flags).map(([key, value]) => (
-        <button key={key} onClick={() => toggleFlag(key)}>
-          {key}: {value.enabled ? 'Enabled' : 'Disabled'}
-        </button>
+        <div key={`sm_item_${key}`} style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '0.5rem',
+          background: 'lightgray',
+          borderRadius: '5px',
+          margin: '0.5rem 0',
+        }}>
+          <span>{key}</span>
+          <button
+            key={`sm_button_${key}`}
+            onClick={() => toggleFlag(value.feature.name)}
+          >
+            {value.enabled ? 'Enabled' : 'Disabled'}
+          </button>
+        </div>
       ))}
     </div>
   ) : null;
