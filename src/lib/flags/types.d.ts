@@ -1,5 +1,14 @@
 import React from 'react';
 
+export interface SecretMenuStyle {
+  name: string;
+  value: string;
+}
+interface SecretMenuResponse {
+  sequence: string[];
+  styles: SecretMenuStyle[];
+}
+
 export interface Flag {
   enabled?: boolean;
   secretMenu: string[];
@@ -28,12 +37,13 @@ export interface FlagsProviderProps {
 
 export interface ServerResponse {
   intervalAllowed: number;
-  secretMenu: string[];
+  secretMenu: SecretMenuResponse;
   flags: Flag[];
 }
 
 export interface SecretMenuProps {
   secretMenu?: string[];
+  secretMenuStyles?: SecretMenuStyle[];
   flags: { [key: string]: Flag };
   toggleFlag: (name: string) => void;
 }

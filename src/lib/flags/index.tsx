@@ -1,7 +1,7 @@
-import React, {createContext, useContext, useEffect, useState, FC, useCallback} from 'react';
+import {createContext, useContext, useEffect, useState, FC, useCallback} from 'react';
 import deepEqual from 'fast-deep-equal';
 
-import {Flags, FlagsProviderProps, ServerResponse} from './types';
+import {Flag, Flags, FlagsProviderProps, SecretMenuStyle, ServerResponse} from './types';
 import SecretMenu from "./keycodes.tsx";
 
 // Creating the context
@@ -23,6 +23,7 @@ export const FlagsProvider: FC<FlagsProviderProps> = ({ options, children }) => 
   const [intervalAllowed, setIntervalAllowed] = useState(60);
   const [secretMenu, setSecretMenu] = useState<string[]>([]);
   const [localOverrides, setLocalOverrides] = useState<Flags>({});
+  const [secretMenuStyles, setSecretMenuStyles] = useState<SecretMenuStyle[]>([]);
 
   const fetchFlags = useCallback(async () => {
     const headers = new Headers();
@@ -40,16 +41,24 @@ export const FlagsProvider: FC<FlagsProviderProps> = ({ options, children }) => 
         headers: headers,
       });
       const data: ServerResponse = await response.json();
+      if (enableLogs) { logIt('Flags fetched:', data); }
       setIntervalAllowed(data.intervalAllowed);
-      setSecretMenu(data.secretMenu);
-      const newFlags = data.flags.reduce((acc: any, flag: { feature: { name: string; }; }) => ({
+      setSecretMenu(data.secretMenu.sequence);
+      setSecretMenuStyles(data.secretMenu.styles);
+      const newFlags = data.flags.reduce((acc: Flags, flag: Flag) => ({
         ...acc,
         [flag.feature.name]: flag
       }), {});
-      if (enableLogs) { logIt('oldFlags:', flags); }
-      if (enableLogs) { logIt('newFlags:', newFlags); }
       if (!deepEqual(flags, newFlags)) {
-        setFlags(newFlags);
+        setFlags(prevFlags => {
+          const updatedFlags = {...newFlags};
+          Object.keys(prevFlags).forEach(flagKey => {
+            if (localOverrides[flagKey] && localOverrides[flagKey].hasOwnProperty!('enabled')) {
+              updatedFlags[flagKey].enabled = localOverrides[flagKey].enabled;
+            }
+          });
+          return updatedFlags;
+        });
       }
     } catch (error) {
       console.error('Error fetching flags:', error);
@@ -57,19 +66,13 @@ export const FlagsProvider: FC<FlagsProviderProps> = ({ options, children }) => 
   }, [flagsURL, intervalAllowed, agentId, companyId]);
 
   useEffect(() => {
-    fetchFlags();
-    const interval = setInterval(() => {
-      fetchFlags();
-    }, intervalAllowed * 1000);
+    fetchFlags().catch(console.error);
+    const interval = setInterval(fetchFlags, intervalAllowed * 1000)
     return () => clearInterval(interval);
   }, [fetchFlags, intervalAllowed]);
 
   const toggleFlag = (flagName: string) => {
-    if (enableLogs) {
-      logIt('Toggling flag:', flagName);
-      logIt('prevFlags:', flags);
-      logIt('prevLocalOverrides:', localOverrides);
-    }
+    if (enableLogs) { logIt('Toggling flag:', flagName); }
 
     setFlags(prevFlags => ({
       ...prevFlags,
@@ -90,7 +93,7 @@ export const FlagsProvider: FC<FlagsProviderProps> = ({ options, children }) => 
   return (
     <FlagsContext.Provider value={flags}>
       {children}
-      {secretMenu && <SecretMenu secretMenu={secretMenu} flags={flags} toggleFlag={toggleFlag} />}
+      {secretMenu && <SecretMenu secretMenu={secretMenu} flags={flags} toggleFlag={toggleFlag} secretMenuStyles={secretMenuStyles} />}
     </FlagsContext.Provider>
   );
 };

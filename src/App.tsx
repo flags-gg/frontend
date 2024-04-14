@@ -11,7 +11,6 @@ function App() {
         flagsURL: "http://localhost:8080",
         companyId: "bob",
         agentId: "bob",
-        enableLogs: true,
       }}>
         <SiteRouter />
       </FlagsProvider>
