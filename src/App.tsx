@@ -2,16 +2,17 @@ import React from 'react';
 import {BrowserRouter} from "react-router-dom";
 
 import SiteRouter from "@C/SiteRouter";
-import {FlagsProvider} from "./lib/flags/react";
+import {FlagsProvider} from "./lib/flags/";
 
 function App() {
   return (
     <BrowserRouter>
-      <FlagsProvider
-        flagsURL={"http://localhost:8080"}
-        companyId={"bob"}
-        apiKey={"bob"}
-        enableSecretMenu={true}>
+      <FlagsProvider options={{
+        flagsURL: "http://localhost:8080",
+        companyId: "bob",
+        agentId: "bob",
+        enableLogs: true,
+      }}>
         <SiteRouter />
       </FlagsProvider>
     </BrowserRouter>
