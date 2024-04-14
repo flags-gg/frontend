@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <FlagsProvider options={{
-        flagsURL: "http://localhost:8080",
+        flagsURL: "http://localhost:8080/flags",
         companyId: "bob",
         agentId: "bob",
       }}>
