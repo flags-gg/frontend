@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Grid} from "@mui/material";
+import {useFlags} from "@flags-gg/react-library";
 import {PerAgent, TotalRequests} from "@DC/Requests";
-import {useFlags} from "../../../../lib/flags";
 
 const Summary: FC = () => {
   const flags = useFlags();

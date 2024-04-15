@@ -11,8 +11,10 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuIcon from "@mui/icons-material/Menu";
-import Logo from "@C/Logo";
 import {Link} from "react-router-dom";
+import {useFlags} from "@flags-gg/react-library";
+
+import Logo from "@C/Logo";
 
 interface SidebarProps {
   open: boolean
@@ -20,8 +22,11 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
+  const {is} = useFlags()
+
   return (
     <Drawer
+      id={"sidebar"}
       variant={"permanent"}
       sx={{
         width: '57px',
@@ -60,14 +65,16 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             marginLeft: '10px',
           }} primary={"Overview"} />
         </MenuItem>
-        <MenuItem component={Link} to={"/account"} onClick={() => {setOpen(!open)}}>
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          <ListItemText sx={{
-            marginLeft: '10px',
-          }} primary={"Account"} />
-        </MenuItem>
+        {is("account").enabled() && (
+          <MenuItem component={Link} to={"/account"} onClick={() => {setOpen(!open)}}>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText sx={{
+              marginLeft: '10px',
+            }} primary={"Account"} />
+          </MenuItem>
+        )}
         <Divider />
       </MenuList>
     </Drawer>
