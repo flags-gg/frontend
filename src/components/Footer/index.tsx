@@ -23,6 +23,7 @@ const Footer: FC = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        borderTop: '3px solid #242424',
         gap: {
           xs: 4,
           sm: 8
@@ -81,12 +82,7 @@ const Footer: FC = () => {
       <Box sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        pt: {
-          xs: 4,
-          sm: 8
-        },
         width: '100%',
-        borderTop: '1px solid',
         borderColor: 'divider',
       }}>
         <div>

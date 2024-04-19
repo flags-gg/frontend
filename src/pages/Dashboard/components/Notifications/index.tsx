@@ -1,8 +1,9 @@
 import {Avatar, Badge, Box, Divider, Popover, Typography} from "@mui/material";
 import {FC, useEffect, useMemo, useState} from "react";
-import {usePopover} from "@DL/popover";
 import {NotificationsOutlined} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
+
+import {usePopover} from "@DL/popover";
 
 interface Notification {
   id: number

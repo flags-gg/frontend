@@ -1,13 +1,18 @@
 import React from 'react';
 import {BrowserRouter} from "react-router-dom";
+import {FlagsProvider} from "@flags-gg/react-library";
 
 import SiteRouter from "@C/SiteRouter";
-import {FlagsProvider} from "@flags-gg/react";
+
 
 function App() {
   return (
     <BrowserRouter>
-      <FlagsProvider>
+      <FlagsProvider options={{
+        flagsURL: "http://localhost:8080/flags",
+        companyId: "bob",
+        agentId: "bob",
+      }}>
         <SiteRouter />
       </FlagsProvider>
     </BrowserRouter>

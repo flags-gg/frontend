@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {Outlet} from "react-router-dom";
 import {Box, Container} from "@mui/material";
 
@@ -8,10 +8,21 @@ import Footer from "@C/Footer";
 
 const Dashboard: FC = () => {
   const [open, setOpen] = useState(false)
+  useEffect(() => {
+    const handleClickNotSidebar = (event: MouseEvent) => {
+      if (open && !document?.getElementById('sidebar')?.contains(event.target as Node)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickNotSidebar)
+    return () => {
+      document.removeEventListener('mousedown', handleClickNotSidebar)
+    }
+  }, [open])
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Header open={open} />
+      <Header />
       <Sidebar open={open} setOpen={setOpen} />
       <Box component="main" sx={{
         flexGrow: 1,

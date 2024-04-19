@@ -1,18 +1,23 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {AppBar, Box, Toolbar, Typography} from "@mui/material";
+import {useFlags} from "@flags-gg/react-library"
+
 import Notifications from "@DC/Notifications";
 import AccountMenu from "@DC/AccountMenu";
 
-interface HeaderProps {
-  open: boolean,
-}
+const Header: FC = () => {
+  const {is} = useFlags();
 
-const Header: FC<HeaderProps> = ({open}) => {
+  useEffect(() => {
+    is("userAccount").initialize()
+    is("notifications").initialize()
+  }, [is])
+
   return (
     <AppBar position={"absolute"}>
       <Toolbar sx={{ pr: '24px' }}>
         <Box width={"72px"} sx={{
-          ...(open && { display: 'flex' }),
+          display: 'flex',
         }} />
         <Typography
           variant={"h6"}
@@ -24,8 +29,8 @@ const Header: FC<HeaderProps> = ({open}) => {
         }}>
           Flags.gg Dashboard
         </Typography>
-        <AccountMenu />
-        <Notifications />
+        {is("notifications").enabled() && <Notifications />}
+        {is("userAccount").enabled() && <AccountMenu />}
       </Toolbar>
     </AppBar>
   )

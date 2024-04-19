@@ -1,106 +1,56 @@
-import {alpha, useTheme} from "@mui/material/styles";
-import {FC} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {Card, CardContent, styled, Typography} from "@mui/material";
 import ApexChart from "react-apexcharts";
-import {ApexOptions} from "apexcharts";
+import useAuthFetch from "@DL/fetcher";
+import {useChartOptions} from "../index.tsx";
 
-function useChartOptions(categories: string[]): ApexOptions {
-  const theme = useTheme()
-
-  return {
-    chart: {
-      background: 'transparent',
-      stacked: false,
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: [
-      theme.palette.primary.main,
-      alpha(theme.palette.primary.main, 0.5)
-    ],
-    dataLabels: {
-      enabled: false,
-    },
-    fill: {
-      opacity: 1,
-      type: 'solid'
-    },
-    grid: {
-      borderColor: theme.palette.divider,
-      strokeDashArray: 4,
-      xaxis: {
-        lines: {
-          show: false,
-        },
-      },
-      yaxis: {
-        lines: {
-          show: true,
-        },
-      },
-    },
-    legend: {
-      show: false,
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: 5,
-        columnWidth: '50%',
-      },
-    },
-    stroke: {
-      colors: ['transparent'],
-      show: true,
-      width: 2,
-    },
-    theme: {
-      mode: theme.palette.mode,
-    },
-    xaxis: {
-      axisBorder: {
-        color: theme.palette.divider,
-        show: true,
-      },
-      axisTicks: {
-        color: theme.palette.divider,
-        show: true,
-      },
-      categories: categories,
-      labels: {
-        offsetY: 5,
-        style: {
-          colors: theme.palette.text.secondary,
-        },
-      },
-    },
-    yaxis: {
-      labels: {
-        formatter: (value) => (value > 0 ? `${value}K` : `${value}`),
-        offsetX: -10,
-        style: {
-          colors: theme.palette.text.secondary,
-        },
-      },
-    },
-  }
-}
 
 export const Requests: FC = () => {
-  const chartOptions = useChartOptions(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'])
+  const authFetch = useAuthFetch();
   const Chart = styled(ApexChart)``
-  const chartSeries = [
-    {
-      name: 'Bob',
-      data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
-    },
-    {
-      name: 'Bill',
-      data: [10, 20, 15, 25, 20, 30, 25, 35, 30],
-    }
-  ]
+  const [chartOptions, setChartOptions] = useState<string[]>([])
+  const [chartSeries, setChartSeries] = useState<{ name: string, data: number[] }[]>([])
+  const [lastData, setLastData] = useState(null); // to store the last fetched data
 
-  const agentName = 'bob'
+  const fetchData = useCallback(() => {
+    authFetch('/stats/agents')
+      .then((response: { json: () => any; }) => response.json())
+      .then((data: { agents: any; }) => {
+        // Check if data is different from lastData before updating state
+        if (JSON.stringify(data) !== lastData) {
+          setLastData(JSON.stringify(data)); // Update lastData with the new data
+          const agents = data.agents;
+          const labels = new Set<string>();
+          agents.forEach((agent: { stats: any[]; }) => {
+            agent.stats.forEach(stat => {
+              labels.add(stat.label);
+            });
+          });
+          setChartOptions(Array.from(labels));
+
+          const series = agents.map((agent: { name: any; stats: any[]; }) => ({
+            name: agent.name,
+            data: agent.stats.map(stat => stat.request),
+          }));
+          setChartSeries(series);
+        }
+      })
+      .catch((error: any) => {
+        console.error("Failed to fetch data:", error);
+      });
+  }, [authFetch, lastData]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchData();
+    }, 60000); // Update every 60 seconds
+    fetchData(); // Also call fetchData initially
+
+    return () => clearInterval(interval); // Clean up interval on component unmount
+  }, [fetchData]);
+
+
+  const processedOptions = useChartOptions(chartOptions)
 
   return (
     <Card sx={{
@@ -110,7 +60,7 @@ export const Requests: FC = () => {
     }}>
       <CardContent>
         <Typography variant={"h6"}>Total Requests</Typography>
-        <Chart options={chartOptions} series={chartSeries} type={"bar"} height={350}/>
+        <Chart options={processedOptions} series={chartSeries} type={"bar"} height={350}/>
       </CardContent>
     </Card>
   )
