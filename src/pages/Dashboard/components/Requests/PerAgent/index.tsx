@@ -1,6 +1,7 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import { Card, CardContent, styled, Typography } from "@mui/material";
 import ApexChart from "react-apexcharts";
+
 import useAuthFetch from "@DL/fetcher";
 import { useChartOptions } from "../index";
 
