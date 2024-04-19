@@ -1,8 +1,9 @@
+import NotFound from "@C/NotFound";
 import Dashboard from "./"
 import Account from "./pages/Account";
 import UserAccount from "./pages/UserAccount";
-import NotFound from "@C/NotFound";
-import Summary from "@/pages/Dashboard/pages/Summary";
+import Summary from "./pages/Summary";
+import Settings from "./pages/Settings";
 
 const dashboardRoutes = [
   {
@@ -16,6 +17,10 @@ const dashboardRoutes = [
       {
         path: "account",
         element: <Account />
+      },
+      {
+        path: "settings",
+        element: <Settings />
       },
       {
         path: "useraccount",

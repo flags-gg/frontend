@@ -22,7 +22,7 @@ const Dashboard: FC = () => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Header open={open} />
+      <Header />
       <Sidebar open={open} setOpen={setOpen} />
       <Box component="main" sx={{
         flexGrow: 1,

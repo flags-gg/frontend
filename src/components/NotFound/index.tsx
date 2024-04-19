@@ -1,9 +1,17 @@
 import {FC} from "react";
 import {Box, Button, Stack, Typography} from "@mui/material";
 import {ArrowLeft} from "@mui/icons-material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "react-oidc-context";
 
 const NotFound: FC = () => {
+  const auth = useAuth()
+  const navigate = useNavigate()
+
+  if (!auth.isAuthenticated) {
+    navigate("/")
+  }
+
   return (
     <Box
       component={"main"}

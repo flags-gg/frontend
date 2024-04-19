@@ -65,7 +65,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             marginLeft: '10px',
           }} primary={"Overview"} />
         </MenuItem>
-        {is("account").enabled() && (
+        {is("userAccount").enabled() && (
           <MenuItem component={Link} to={"/account"} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
               <SettingsIcon />

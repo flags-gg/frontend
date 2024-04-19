@@ -1,138 +1,68 @@
-import {alpha, useTheme} from "@mui/material/styles";
-import {FC} from "react";
-import {Card, CardContent, styled, Typography} from "@mui/material";
+import { FC, useCallback, useEffect, useState } from "react";
+import { Card, CardContent, styled, Typography } from "@mui/material";
 import ApexChart from "react-apexcharts";
-import {ApexOptions} from "apexcharts";
-
-function useChartOptions(categories: string[]): ApexOptions {
-  const theme = useTheme()
-
-  return {
-    chart: {
-      background: 'transparent',
-      stacked: false,
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: [
-      theme.palette.primary.main,
-      alpha(theme.palette.primary.main, 0.5)
-    ],
-    dataLabels: {
-      enabled: false,
-    },
-    fill: {
-      opacity: 1,
-      type: 'solid'
-    },
-    grid: {
-      borderColor: theme.palette.divider,
-      strokeDashArray: 4,
-      xaxis: {
-        lines: {
-          show: false,
-        },
-      },
-      yaxis: {
-        lines: {
-          show: true,
-        },
-      },
-    },
-    legend: {
-      show: false,
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: 5,
-        columnWidth: '50%',
-      },
-    },
-    stroke: {
-      colors: ['transparent'],
-      show: true,
-      width: 2,
-    },
-    theme: {
-      mode: theme.palette.mode,
-    },
-    xaxis: {
-      axisBorder: {
-        color: theme.palette.divider,
-        show: true,
-      },
-      axisTicks: {
-        color: theme.palette.divider,
-        show: true,
-      },
-      categories: categories,
-      labels: {
-        offsetY: 5,
-        style: {
-          colors: theme.palette.text.secondary,
-        },
-      },
-    },
-    yaxis: {
-      labels: {
-        formatter: (value) => (value > 0 ? `${value}K` : `${value}`),
-        offsetX: -10,
-        style: {
-          colors: theme.palette.text.secondary,
-        },
-      },
-    },
-  }
-}
-
-interface Agent {
-  name: string
-  requests: number[]
-  errors: number[]
-}
+import useAuthFetch from "@DL/fetcher";
+import { useChartOptions } from "../index";
 
 export const Requests: FC = () => {
-  const agents: Agent[] = [{
-    name: 'bob',
-    requests: [10, 41, 35, 51, 49, 62, 69, 91, 148],
-    errors: [10, 20, 15, 25, 20, 30, 25, 35, 30],
-  }, {
-    name: 'alice',
-    requests: [1, 401, 53, 51, 49, 62, 69, 91, 148],
-    errors: [10, 20, 15, 25, 20, 30, 25, 35, 30],
-  }]
+  const authFetch = useAuthFetch();
+  const Chart = styled(ApexChart)``;
+  const [agentsData, setAgentsData] = useState(null);
+  const [lastData, setLastData] = useState(null);
+  const initialOptions = useChartOptions([]); // Initialize with empty categories
+  const [chartOptions, setChartOptions] = useState(initialOptions);
 
-  const chartOptions = useChartOptions(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'])
-  const Chart = styled(ApexChart)``
+  const fetchData = useCallback(() => {
+    authFetch('/stats/agents')
+      .then(response => response.json())
+      .then(data => {
+        if (JSON.stringify(data) !== lastData) {
+          setLastData(JSON.stringify(data));
+          setAgentsData(data.agents);
+          const categories = data.agents.flatMap(agent => agent.stats.map(stat => stat.month));
+          const uniqueCategories = Array.from(new Set(categories));
+          setChartOptions(useChartOptions(uniqueCategories)); // Update chart options when data is fetched
+        }
+      })
+      .catch(error => console.error("Failed to fetch data:", error));
+  }, [authFetch, lastData]);
+
+  useEffect(() => {
+    const interval = setInterval(fetchData, 60000); // Fetch data every minute
+    fetchData(); // Also call fetchData initially
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, [fetchData]);
+
+  const chartSeries = agentsData ? agentsData.map(agent => ({
+    name: agent.name,
+    data: agent.stats.map(stat => ({
+      x: stat.month,
+      y: stat.request,
+      error: stat.error
+    }))
+  })) : [];
 
   return (
-    <Card sx={{
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-    }}>
+    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardContent>
-        {agents.map((agent, index) => (
+        {chartSeries.length > 0 && chartSeries.map((series, index) => (
           <div key={index}>
-            <Typography
-              key={`${index}_name`}
-              variant={"h6"}>{agent.name} Requests</Typography>
+            <Typography variant="h6">{series.name} Requests</Typography>
             <Chart
-              key={`${index}_chart`}
               options={chartOptions}
               series={[{
                 name: 'Requests',
-                data: agent.requests,
+                data: series.data.map(data => data.y),
               }, {
                 name: 'Errors',
-                data: agent.errors,
+                data: series.data.map(data => data.error),
               }]}
-              type={"bar"}
-              height={350} />
+              type="bar"
+              height={350}
+            />
           </div>
         ))}
       </CardContent>
     </Card>
-  )
+  );
 }
