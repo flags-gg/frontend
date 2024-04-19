@@ -1,9 +1,7 @@
-import React from 'react';
 import {BrowserRouter} from "react-router-dom";
 import {FlagsProvider} from "@flags-gg/react-library";
 
 import SiteRouter from "@C/SiteRouter";
-
 
 function App() {
   return (

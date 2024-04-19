@@ -6,7 +6,7 @@ import {
   ListItemText,
   IconButton, Box, MenuItem, MenuList
 } from "@mui/material";
-import {Dispatch, FC} from "react";
+import {Dispatch, FC, useEffect} from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -23,6 +23,10 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
   const {is} = useFlags()
+
+  useEffect(() => {
+    is("account").initialize()
+  }, [is])
 
   return (
     <Drawer
@@ -65,7 +69,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             marginLeft: '10px',
           }} primary={"Overview"} />
         </MenuItem>
-        {is("userAccount").enabled() && (
+        {is("account").enabled() && (
           <MenuItem component={Link} to={"/account"} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
               <SettingsIcon />
