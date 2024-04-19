@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {AppBar, Box, Toolbar, Typography} from "@mui/material";
 import {useFlags} from "@flags-gg/react-library"
 
@@ -8,8 +8,10 @@ import AccountMenu from "@DC/AccountMenu";
 const Header: FC = () => {
   const {is} = useFlags();
 
-  is("userAccount").initialize()
-  is("notifications").initialize()
+  useEffect(() => {
+    is("userAccount").initialize()
+    is("notifications").initialize()
+  }, [is])
 
   return (
     <AppBar position={"absolute"}>
