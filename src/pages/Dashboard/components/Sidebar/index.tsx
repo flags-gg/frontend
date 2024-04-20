@@ -10,6 +10,7 @@ import {Dispatch, FC, useEffect} from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import SettingsIcon from "@mui/icons-material/Settings";
+import OutlinedFlagIcon from "@mui/icons-material/OutlinedFlag";
 import MenuIcon from "@mui/icons-material/Menu";
 import {Link} from "react-router-dom";
 import {useFlags} from "@flags-gg/react-library";
@@ -26,6 +27,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
 
   useEffect(() => {
     is("account").initialize()
+    is("flags").initialize()
   }, [is])
 
   return (
@@ -77,6 +79,16 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             <ListItemText sx={{
               marginLeft: '10px',
             }} primary={"Account"} />
+          </MenuItem>
+        )}
+        {is("flags").enabled() && (
+          <MenuItem component={Link} to={"/flags"} onClick={() => {setOpen(!open)}}>
+            <ListItemIcon>
+              <OutlinedFlagIcon />
+            </ListItemIcon>
+            <ListItemText sx={{
+              marginLeft: '10px',
+            }} primary={"Flags"} />
           </MenuItem>
         )}
         <Divider />

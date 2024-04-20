@@ -4,6 +4,7 @@ import Account from "./pages/Account";
 import UserAccount from "./pages/UserAccount";
 import Summary from "./pages/Summary";
 import Settings from "./pages/Settings";
+import {Flags} from "./pages/Flags";
 
 const dashboardRoutes = [
   {
@@ -25,6 +26,10 @@ const dashboardRoutes = [
       {
         path: "useraccount",
         element: <UserAccount />
+      },
+      {
+        path: "flags",
+        element: <Flags />
       },
       {
         path: "*",
