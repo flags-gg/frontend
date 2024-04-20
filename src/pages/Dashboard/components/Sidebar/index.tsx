@@ -6,10 +6,11 @@ import {
   ListItemText,
   IconButton, Box, MenuItem, MenuList
 } from "@mui/material";
-import {Dispatch, FC} from "react";
+import {Dispatch, FC, useEffect} from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import SettingsIcon from "@mui/icons-material/Settings";
+import OutlinedFlagIcon from "@mui/icons-material/OutlinedFlag";
 import MenuIcon from "@mui/icons-material/Menu";
 import {Link} from "react-router-dom";
 import {useFlags} from "@flags-gg/react-library";
@@ -23,6 +24,11 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
   const {is} = useFlags()
+
+  useEffect(() => {
+    is("account").initialize()
+    is("flags").initialize()
+  }, [is])
 
   return (
     <Drawer
@@ -65,7 +71,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             marginLeft: '10px',
           }} primary={"Overview"} />
         </MenuItem>
-        {is("userAccount").enabled() && (
+        {is("account").enabled() && (
           <MenuItem component={Link} to={"/account"} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
               <SettingsIcon />
@@ -73,6 +79,16 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             <ListItemText sx={{
               marginLeft: '10px',
             }} primary={"Account"} />
+          </MenuItem>
+        )}
+        {is("flags").enabled() && (
+          <MenuItem component={Link} to={"/flags"} onClick={() => {setOpen(!open)}}>
+            <ListItemIcon>
+              <OutlinedFlagIcon />
+            </ListItemIcon>
+            <ListItemText sx={{
+              marginLeft: '10px',
+            }} primary={"Flags"} />
           </MenuItem>
         )}
         <Divider />

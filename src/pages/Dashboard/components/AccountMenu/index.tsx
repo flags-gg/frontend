@@ -1,10 +1,12 @@
 import {Avatar, Box, Divider, ListItemIcon, ListItemText, MenuItem, MenuList, Popover, Typography} from "@mui/material";
 import {AccountCircleOutlined} from "@mui/icons-material";
-import {FC} from "react";
-import {usePopover} from "@DL/popover";
+import {FC, useEffect} from "react";
 import {useAuth} from "react-oidc-context";
 import {Link} from "react-router-dom";
 import {User, SignOut, GearSix} from '@phosphor-icons/react'
+
+import {usePopover} from "@DL/popover";
+import {useFlags} from "@flags-gg/react-library";
 
 interface UserPopoverInterface {
   anchorEl: HTMLDivElement | null
@@ -14,6 +16,11 @@ interface UserPopoverInterface {
 const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
   const {user} = useAuth()
   const auth = useAuth()
+  const {is} = useFlags()
+
+  useEffect(() => {
+    is("userSettings").initialize()
+  }, [is])
 
   return (
     <Popover
@@ -43,18 +50,22 @@ const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
               borderRadius: 1
             }
           }}>
-          <MenuItem component={Link} to={"/settings"} onClick={onClose}>
-            <ListItemIcon>
-              <GearSix fontSize={"small"} />
-            </ListItemIcon>
-            <ListItemText primary={"Settings"} />
-          </MenuItem>
-          <MenuItem component={Link} to={"/useraccount"} onClick={onClose}>
-            <ListItemIcon>
-              <User fontSize={"small"} />
-            </ListItemIcon>
-            <ListItemText primary={"Account"} />
-          </MenuItem>
+          {is("userSettings").enabled() && (
+            <MenuItem component={Link} to={"/settings"} onClick={onClose}>
+              <ListItemIcon>
+                <GearSix fontSize={"small"} />
+              </ListItemIcon>
+              <ListItemText primary={"Settings"} />
+            </MenuItem>
+          )}
+          {is("userAccount").enabled() && (
+            <MenuItem component={Link} to={"/useraccount"} onClick={onClose}>
+              <ListItemIcon>
+                <User fontSize={"small"} />
+              </ListItemIcon>
+              <ListItemText primary={"Account"} />
+            </MenuItem>
+          )}
           <MenuItem onClick={() => {
               auth.signoutSilent().catch(console.error)
             }}>

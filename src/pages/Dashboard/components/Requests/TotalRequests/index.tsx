@@ -10,7 +10,7 @@ export const Requests: FC = () => {
   const Chart = styled(ApexChart)``
   const [chartOptions, setChartOptions] = useState<string[]>([])
   const [chartSeries, setChartSeries] = useState<{ name: string, data: number[] }[]>([])
-  const [lastData, setLastData] = useState(null); // to store the last fetched data
+  const [lastData, setLastData] = useState<string>(""); // to store the last fetched data
 
   const fetchData = useCallback(() => {
     authFetch('/stats/agents')
