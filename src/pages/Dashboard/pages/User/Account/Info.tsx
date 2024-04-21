@@ -17,7 +17,7 @@ const user = {
   timezone: "GMT"
 }
 
-export const AccountInfo: FC = () => {
+export const Info: FC = () => {
   return (
     <Card>
       <CardContent>

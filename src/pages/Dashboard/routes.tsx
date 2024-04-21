@@ -1,10 +1,8 @@
 import NotFound from "@C/NotFound";
-import Dashboard from "./"
-import Account from "./pages/Account";
-import UserAccount from "./pages/UserAccount";
-import Summary from "./pages/Summary";
-import Settings from "./pages/Settings";
-import {Flags} from "./pages/Flags";
+import {Dashboard, Summary} from "./";
+import {Company, CompanyAccount, CompanySettings} from "./pages/Company";
+import {Flags, Agent} from "./pages/agent";
+import {UserAccount} from "./pages/User/";
 
 const dashboardRoutes = [
   {
@@ -13,23 +11,46 @@ const dashboardRoutes = [
     children: [
       {
         path: "",
-        element: <Summary />
+        element: <Summary />,
       },
       {
-        path: "account",
-        element: <Account />
+        path: "company",
+        children: [
+          {
+            path: "",
+            element: <Company />,
+          },
+          {
+            path: "account",
+            element: <CompanyAccount />,
+          },
+          {
+            path: "settings",
+            element: <CompanySettings />,
+          }
+        ],
       },
       {
-        path: "settings",
-        element: <Settings />
+        path: "user",
+        children: [
+          {
+            path: "account",
+            element: <UserAccount />,
+          },
+        ],
       },
       {
-        path: "useraccount",
-        element: <UserAccount />
-      },
-      {
-        path: "flags",
-        element: <Flags />
+        path: "agent",
+        children: [
+          {
+            path: "",
+            element: <Agent />
+          },
+          {
+            path: "flags",
+            element: <Flags />
+          },
+        ],
       },
       {
         path: "*",

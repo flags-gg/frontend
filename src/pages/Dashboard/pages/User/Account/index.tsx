@@ -4,10 +4,10 @@ import {
   Typography,
   Grid
 } from "@mui/material";
-import {AccountInfo} from "./AccountInfo";
-import {AccountForm} from "./AccountForm"
+import {Info} from "./Info.tsx";
+import {Form} from "./Form.tsx"
 
-const UserAccount: FC = () => {
+export const Account: FC = () => {
   return (
     <Stack spacing={3}>
       <div>
@@ -15,14 +15,12 @@ const UserAccount: FC = () => {
       </div>
       <Grid container spacing={3}>
         <Grid lg={2} md={6} xs={12} item={true}>
-          <AccountInfo />
+          <Info />
         </Grid>
         <Grid lg={10} md={6} xs={12} item={true}>
-          <AccountForm />
+          <Form />
         </Grid>
       </Grid>
     </Stack>
   )
 }
-
-export default UserAccount;

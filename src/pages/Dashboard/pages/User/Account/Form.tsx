@@ -12,7 +12,7 @@ import {
   Button
 } from "@mui/material";
 
-export const AccountForm: FC = () => {
+export const Form: FC = () => {
   return (
     <form onSubmit={(event) => {
       event.preventDefault()

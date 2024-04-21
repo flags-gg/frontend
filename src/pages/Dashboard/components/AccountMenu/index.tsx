@@ -51,7 +51,7 @@ const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
             }
           }}>
           {is("userSettings").enabled() && (
-            <MenuItem component={Link} to={"/settings"} onClick={onClose}>
+            <MenuItem component={Link} to={"/user/settings"} onClick={onClose}>
               <ListItemIcon>
                 <GearSix fontSize={"small"} />
               </ListItemIcon>
@@ -59,7 +59,7 @@ const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
             </MenuItem>
           )}
           {is("userAccount").enabled() && (
-            <MenuItem component={Link} to={"/useraccount"} onClick={onClose}>
+            <MenuItem component={Link} to={"/user/account"} onClick={onClose}>
               <ListItemIcon>
                 <User fontSize={"small"} />
               </ListItemIcon>

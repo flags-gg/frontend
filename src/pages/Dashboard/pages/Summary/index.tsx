@@ -3,7 +3,7 @@ import {Grid} from "@mui/material";
 import {useFlags} from "@flags-gg/react-library";
 import {PerAgent, TotalRequests} from "@DC/Requests";
 
-const Summary: FC = () => {
+export const Summary: FC = () => {
   const {is} = useFlags();
   return (
     <Grid container spacing={3}>
@@ -20,5 +20,3 @@ const Summary: FC = () => {
     </Grid>
   )
 }
-
-export default Summary;

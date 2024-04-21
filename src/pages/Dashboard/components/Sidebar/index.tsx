@@ -72,7 +72,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
           }} primary={"Overview"} />
         </MenuItem>
         {is("account").enabled() && (
-          <MenuItem component={Link} to={"/account"} onClick={() => {setOpen(!open)}}>
+          <MenuItem component={Link} to={"/company/account"} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
@@ -81,8 +81,20 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             }} primary={"Account"} />
           </MenuItem>
         )}
+        {
+          is("agent").enabled() && (
+            <MenuItem component={Link} to={"/agent"} onClick={() => {setOpen(!open)}}>
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText sx={{
+                marginLeft: '10px',
+              }} primary={"Agent"} />
+            </MenuItem>
+          )
+        }
         {is("flags").enabled() && (
-          <MenuItem component={Link} to={"/flags"} onClick={() => {setOpen(!open)}}>
+          <MenuItem component={Link} to={"/agent/flags"} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
               <OutlinedFlagIcon />
             </ListItemIcon>
