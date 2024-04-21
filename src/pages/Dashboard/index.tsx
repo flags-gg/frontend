@@ -2,11 +2,13 @@ import {FC, useEffect, useState} from "react";
 import {Outlet} from "react-router-dom";
 import {Box, Container} from "@mui/material";
 
+import {Summary} from "./pages/Summary";
+
 import Header from "@DC/Header";
 import Sidebar from "@DC/Sidebar";
 import Footer from "@C/Footer";
 
-const Dashboard: FC = () => {
+export const Dashboard: FC = () => {
   const [open, setOpen] = useState(false)
   useEffect(() => {
     const handleClickNotSidebar = (event: MouseEvent) => {
@@ -46,4 +48,6 @@ const Dashboard: FC = () => {
   )
 }
 
-export default Dashboard
+export {
+  Summary
+}
