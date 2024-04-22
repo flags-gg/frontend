@@ -2,7 +2,7 @@ import {Avatar, Box, Divider, ListItemIcon, ListItemText, MenuItem, MenuList, Po
 import {AccountCircleOutlined} from "@mui/icons-material";
 import {FC, useEffect} from "react";
 import {useAuth} from "react-oidc-context";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {User, SignOut, GearSix} from '@phosphor-icons/react'
 
 import {usePopover} from "@DL/popover";
@@ -16,6 +16,7 @@ interface UserPopoverInterface {
 const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
   const {user} = useAuth()
   const auth = useAuth()
+  const navigate = useNavigate()
   const {is} = useFlags()
 
   useEffect(() => {
@@ -68,6 +69,7 @@ const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
           )}
           <MenuItem onClick={() => {
               auth.signoutSilent().catch(console.error)
+              navigate("/")
             }}>
             <ListItemIcon>
               <SignOut fontSize={"small"} />
