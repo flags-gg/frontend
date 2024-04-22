@@ -10,6 +10,7 @@ function App() {
         flagsURL: "http://localhost:8080/flags",
         companyId: "bob",
         agentId: "bob",
+        environmentId: "bob",
       }}>
         <SiteRouter />
       </FlagsProvider>
