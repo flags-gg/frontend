@@ -5,13 +5,14 @@ import {ApexOptions} from "apexcharts";
 
 export function useChartOptions(categories: string[], legend?: boolean): ApexOptions {
   const theme = useTheme()
+  theme.palette.mode = 'dark'
 
   const options = {
     chart: {
       background: 'transparent',
       stacked: false,
       toolbar: {
-        show: false,
+        show: true,
       },
     },
     colors: [
@@ -53,9 +54,6 @@ export function useChartOptions(categories: string[], legend?: boolean): ApexOpt
       show: true,
       width: 2,
     },
-    theme: {
-      mode: theme.palette.mode,
-    },
     xaxis: {
       axisBorder: {
         color: theme.palette.divider,
@@ -75,7 +73,7 @@ export function useChartOptions(categories: string[], legend?: boolean): ApexOpt
     },
     yaxis: {
       labels: {
-        formatter: (value) => (value > 0 ? `${value}K` : `${value}`),
+        formatter: (value: number) => (value > 0 ? `${value}K` : `${value}`),
         offsetX: -10,
         style: {
           colors: theme.palette.text.secondary,

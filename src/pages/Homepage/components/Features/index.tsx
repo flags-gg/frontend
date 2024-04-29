@@ -22,12 +22,6 @@ const items: Feature[] = [
     icon: <Filter3Outlined />,
     image: 'image2'
   },
-  {
-    title: 'Feature 3',
-    description: 'Description 3',
-    icon: 'icon3',
-    image: 'image3'
-  }
 ]
 
 const Features: FC = () => {

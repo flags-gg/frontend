@@ -7,6 +7,7 @@ import {User, SignOut, GearSix} from '@phosphor-icons/react'
 
 import {usePopover} from "@DL/popover";
 import {useFlags} from "@flags-gg/react-library";
+import useAuthFetch from "@DL/fetcher";
 
 interface UserPopoverInterface {
   anchorEl: HTMLDivElement | null
@@ -18,9 +19,17 @@ const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
   const auth = useAuth()
   const navigate = useNavigate()
   const {is} = useFlags()
+  const authFetch = useAuthFetch()
 
   useEffect(() => {
     is("userSettings").initialize()
+
+    authFetch("/user", {
+      method: "POST",
+      body: JSON.stringify({
+        subject: user?.profile.sub,
+      }),
+    }).catch(console.error)
   }, [is])
 
   return (
