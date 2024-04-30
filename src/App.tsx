@@ -3,14 +3,16 @@ import {FlagsProvider} from "@flags-gg/react-library";
 
 import SiteRouter from "@C/SiteRouter";
 
+console.info("env", import.meta.env);
+
 function App() {
   return (
     <BrowserRouter>
       <FlagsProvider options={{
-        flagsURL: "http://localhost:8080/flags",
-        companyId: "bob",
-        agentId: "bob",
-        environmentId: "bob",
+        flagsURL: import.meta.env.VITE_FLAGS_API_SERVER + "/flags",
+        companyId: import.meta.env.VITE_FLAGS_COMPANY_ID,
+        agentId: import.meta.env.VITE_FLAGS_AGENT_ID,
+        environmentId: import.meta.env.VITE_FLAGS_ENVIRONMENT_ID,
       }}>
         <SiteRouter />
       </FlagsProvider>

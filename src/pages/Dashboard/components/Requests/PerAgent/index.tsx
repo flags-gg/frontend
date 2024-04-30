@@ -70,26 +70,34 @@ export const Requests: FC = () => {
                       categories: env.stats.map(stat => stat.label),
                       labels: {
                         style: {
-                          colors: '#8e8da4'
+                          colors: '#8e8da4',
                         },
                       },
                     },
                     yaxis: {
                       title: {
-                        text: 'Requests'
+                        text: 'Requests',
                       },
                       labels: {
                         style: {
-                          colors: '#8e8da4'
+                          colors: '#8e8da4',
                         },
                       },
                     },
                     chart: {
                       type: 'bar',
-                      height: 350
+                      height: 350,
+                      toolbar: {
+                        show: false,
+                      },
                     },
                     tooltip: {
-                      theme: 'dark'
+                      theme: 'dark',
+                    },
+                    legend: {
+                      labels: {
+                        colors: '#8e8da4',
+                      },
                     },
                   }}
                   series={[

@@ -39,7 +39,7 @@ function useAuthFetch() {
     headers.set('x-user-subject', xUserSubject);
     headers.set('x-user-access-token', xUserAccessToken);
 
-    const url = `${import.meta.env.VITE_API_SERVER}${apiPath}`;
+    const url = `${import.meta.env.VITE_FLAGS_API_SERVER}${apiPath}`;
 
     const response = await fetch(url, {
       ...options,
