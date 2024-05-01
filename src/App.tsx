@@ -3,8 +3,6 @@ import {FlagsProvider} from "@flags-gg/react-library";
 
 import SiteRouter from "@C/SiteRouter";
 
-console.info("env", import.meta.env);
-
 function App() {
   return (
     <BrowserRouter>
