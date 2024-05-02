@@ -35,7 +35,7 @@ export const Requests: FC = () => {
     try {
       const response = await authFetch('/agents');
       const { agents } = await response.json();
-      const statsPromises = agents.map((agent: { id: string; }) => fetchDataForAgent(agent.id));
+      const statsPromises = agents.map((agent: { agent_id: string; }) => fetchDataForAgent(agent.agent_id));
       const results = await Promise.all(statsPromises);
       setAgentsData(results.filter(result => result !== null));
     } catch (error) {
