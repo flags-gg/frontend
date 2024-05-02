@@ -1,6 +1,6 @@
 import {FC, ReactElement, useState} from "react";
 import {Box, Button, Card, Chip, Container, Grid, Stack, Typography} from "@mui/material";
-import CreditCardIcon from '@mui/icons-material/CreditCard';
+import {CreditCard, Filter3Outlined} from "@mui/icons-material";
 
 interface Feature {
   title: string;
@@ -13,21 +13,15 @@ const items: Feature[] = [
   {
     title: 'No Credit Card Needed to start',
     description: 'You are automaticlly added to the free place when you sign up, only upgrade to paid if you need it',
-    icon: <CreditCardIcon />,
-    image: 'image1'
+    icon: <CreditCard />,
+    image: '/images/no-credit-card.jpg'
   },
   {
-    title: 'Feature 2',
-    description: 'Description 2',
-    icon: 'icon2',
+    title: 'Agent Environments',
+    description: 'Each agent can have upto 3 environments, allowing you to test different configurations',
+    icon: <Filter3Outlined />,
     image: 'image2'
   },
-  {
-    title: 'Feature 3',
-    description: 'Description 3',
-    icon: 'icon3',
-    image: 'image3'
-  }
 ]
 
 const Features: FC = () => {
@@ -180,15 +174,7 @@ const Features: FC = () => {
               pointerEvents: 'none',
             }}
           >
-            <Box
-              sx={{
-                m: 'auto',
-                width: 420,
-                height: 500,
-                backgroundSize: 'contain',
-                backgroundImage: items[selectedItemIndex].image,
-              }}
-            />
+            <img src={selectedFeature.image} alt={selectedFeature.title} width={"100%"} height={"500px"} />
           </Card>
         </Grid>
       </Grid>

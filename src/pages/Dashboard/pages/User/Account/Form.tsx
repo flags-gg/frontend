@@ -16,6 +16,8 @@ export const Form: FC = () => {
   return (
     <form onSubmit={(event) => {
       event.preventDefault()
+
+      console.info("event", event)
     }}>
       <Card>
         <CardHeader subheader={"The information can be edited"} title={"Profile"}/>
@@ -24,20 +26,14 @@ export const Form: FC = () => {
           <Grid container spacing={3}>
             <Grid md={6} xs={12}>
               <FormControl fullWidth required>
-                <InputLabel>First Name</InputLabel>
-                <OutlinedInput label={"Bob"} margin={"dense"} required/>
-              </FormControl>
-            </Grid>
-            <Grid md={6} xs={12}>
-              <FormControl fullWidth>
-                <InputLabel>Last Name</InputLabel>
-                <OutlinedInput label={"Bobbington"} margin={"dense"} required/>
+                <InputLabel htmlFor={"knownAs"}>Known As</InputLabel>
+                <OutlinedInput label={"Bob"} margin={"dense"} required id={"knownAs"} />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
               <FormControl fullWidth required>
-                <InputLabel>Email</InputLabel>
-                <OutlinedInput label={"Email"} margin={"dense"} required/>
+                <InputLabel htmlFor={"emailAddress"}>Email</InputLabel>
+                <OutlinedInput label={"Email"} margin={"dense"} required id={"emailAddress"}/>
               </FormControl>
             </Grid>
           </Grid>

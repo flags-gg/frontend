@@ -6,14 +6,21 @@ interface Statistic {
   label: string;
 }
 
-// Define the structure for an agent with an ID, name, and a list of monthly statistics
-interface Agent {
+interface Environment {
   id: string;
   name: string;
   stats: Statistic[];
 }
 
+// Define the structure for an agent with an ID, name, and a list of monthly statistics
+export interface Agent {
+  id: string;
+  name: string;
+  stats: Statistic[];
+  environments: Environment[];
+}
+
 // Define the top-level structure of the response containing a list of agents
-interface ServerResponse {
+export interface ServerResponse {
   agents: Agent[];
 }
