@@ -16,6 +16,7 @@ import {Link} from "react-router-dom";
 import {useFlags} from "@flags-gg/react-library";
 
 import Logo from "@C/Logo";
+import {AndroidOutlined} from "@mui/icons-material";
 
 interface SidebarProps {
   open: boolean
@@ -27,7 +28,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
 
   useEffect(() => {
     is("account").initialize()
-    is("flags").initialize()
+    is("agent").initialize()
   }, [is])
 
   return (
@@ -85,7 +86,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
           is("agent").enabled() && (
             <MenuItem component={Link} to={"/agent"} onClick={() => {setOpen(!open)}}>
               <ListItemIcon>
-                <SettingsIcon />
+                <AndroidOutlined />
               </ListItemIcon>
               <ListItemText sx={{
                 marginLeft: '10px',
