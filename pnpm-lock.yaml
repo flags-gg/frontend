@@ -4,93 +4,95 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@emotion/react':
-    specifier: ^11.11.4
-    version: 11.11.4(@types/react@18.3.1)(react@18.3.1)
-  '@emotion/styled':
-    specifier: ^11.11.5
-    version: 11.11.5(@emotion/react@11.11.4)(@types/react@18.3.1)(react@18.3.1)
-  '@flags-gg/react-library':
-    specifier: ^1.2.7
-    version: 1.2.7
-  '@fontsource/roboto':
-    specifier: ^5.0.13
-    version: 5.0.13
-  '@mui/icons-material':
-    specifier: ^5.15.17
-    version: 5.15.17(@mui/material@5.15.17)(@types/react@18.3.1)(react@18.3.1)
-  '@mui/material':
-    specifier: ^5.15.17
-    version: 5.15.17(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1)
-  '@phosphor-icons/react':
-    specifier: ^2.1.5
-    version: 2.1.5(react-dom@18.3.1)(react@18.3.1)
-  apexcharts:
-    specifier: ^3.49.0
-    version: 3.49.0
-  oidc-client-ts:
-    specifier: ^3.0.1
-    version: 3.0.1
-  react:
-    specifier: ^18.3.1
-    version: 18.3.1
-  react-apexcharts:
-    specifier: ^1.4.1
-    version: 1.4.1(apexcharts@3.49.0)(react@18.3.1)
-  react-dom:
-    specifier: ^18.3.1
-    version: 18.3.1(react@18.3.1)
-  react-oidc-context:
-    specifier: ^3.1.0
-    version: 3.1.0(oidc-client-ts@3.0.1)(react@18.3.1)
-  react-router-dom:
-    specifier: ^6.23.1
-    version: 6.23.1(react-dom@18.3.1)(react@18.3.1)
+importers:
 
-devDependencies:
-  '@react-buddy/ide-toolbox':
-    specifier: ^2.4.0
-    version: 2.4.0(react@18.3.1)
-  '@react-buddy/palette-mui':
-    specifier: ^5.0.2
-    version: 5.0.2(@mui/icons-material@5.15.17)(@mui/material@5.15.17)(react@18.3.1)
-  '@types/node':
-    specifier: ^20.12.11
-    version: 20.12.11
-  '@types/react':
-    specifier: ^18.3.1
-    version: 18.3.1
-  '@types/react-dom':
-    specifier: ^18.3.0
-    version: 18.3.0
-  '@typescript-eslint/eslint-plugin':
-    specifier: ^7.8.0
-    version: 7.8.0(@typescript-eslint/parser@7.8.0)(eslint@8.57.0)(typescript@5.4.5)
-  '@typescript-eslint/parser':
-    specifier: ^7.8.0
-    version: 7.8.0(eslint@8.57.0)(typescript@5.4.5)
-  '@vitejs/plugin-react':
-    specifier: ^4.2.1
-    version: 4.2.1(vite@5.2.11)
-  eslint:
-    specifier: ^8.57.0
-    version: 8.57.0
-  eslint-import-resolver-alias:
-    specifier: ^1.1.2
-    version: 1.1.2(eslint-plugin-import@2.29.1)
-  eslint-plugin-react-hooks:
-    specifier: ^4.6.2
-    version: 4.6.2(eslint@8.57.0)
-  eslint-plugin-react-refresh:
-    specifier: ^0.4.7
-    version: 0.4.7(eslint@8.57.0)
-  typescript:
-    specifier: ^5.4.5
-    version: 5.4.5
-  vite:
-    specifier: ^5.2.11
-    version: 5.2.11(@types/node@20.12.11)
+  .:
+    dependencies:
+      '@emotion/react':
+        specifier: ^11.11.4
+        version: 11.11.4(@types/react@18.3.1)(react@18.3.1)
+      '@emotion/styled':
+        specifier: ^11.11.5
+        version: 11.11.5(@emotion/react@11.11.4(@types/react@18.3.1)(react@18.3.1))(@types/react@18.3.1)(react@18.3.1)
+      '@flags-gg/react-library':
+        specifier: ^1.2.7
+        version: 1.2.7
+      '@fontsource/roboto':
+        specifier: ^5.0.13
+        version: 5.0.13
+      '@mui/icons-material':
+        specifier: ^5.15.17
+        version: 5.15.17(@mui/material@5.15.17(@emotion/react@11.11.4(@types/react@18.3.1)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.1)(react@18.3.1))(@types/react@18.3.1)(react@18.3.1))(@types/react@18.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.1)(react@18.3.1)
+      '@mui/material':
+        specifier: ^5.15.17
+        version: 5.15.17(@emotion/react@11.11.4(@types/react@18.3.1)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.1)(react@18.3.1))(@types/react@18.3.1)(react@18.3.1))(@types/react@18.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@phosphor-icons/react':
+        specifier: ^2.1.5
+        version: 2.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      apexcharts:
+        specifier: ^3.49.0
+        version: 3.49.0
+      oidc-client-ts:
+        specifier: ^3.0.1
+        version: 3.0.1
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-apexcharts:
+        specifier: ^1.4.1
+        version: 1.4.1(apexcharts@3.49.0)(react@18.3.1)
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      react-oidc-context:
+        specifier: ^3.1.0
+        version: 3.1.0(oidc-client-ts@3.0.1)(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.23.1
+        version: 6.23.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    devDependencies:
+      '@react-buddy/ide-toolbox':
+        specifier: ^2.4.0
+        version: 2.4.0(react@18.3.1)
+      '@react-buddy/palette-mui':
+        specifier: ^5.0.2
+        version: 5.0.2(@mui/icons-material@5.15.17(@mui/material@5.15.17(@emotion/react@11.11.4(@types/react@18.3.1)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.1)(react@18.3.1))(@types/react@18.3.1)(react@18.3.1))(@types/react@18.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.1)(react@18.3.1))(@mui/material@5.15.17(@emotion/react@11.11.4(@types/react@18.3.1)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.1)(react@18.3.1))(@types/react@18.3.1)(react@18.3.1))(@types/react@18.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+      '@types/node':
+        specifier: ^20.12.11
+        version: 20.12.11
+      '@types/react':
+        specifier: ^18.3.1
+        version: 18.3.1
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.0
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.8.0
+        version: 7.8.0(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser':
+        specifier: ^7.8.0
+        version: 7.8.0(eslint@8.57.0)(typescript@5.4.5)
+      '@vitejs/plugin-react':
+        specifier: ^4.2.1
+        version: 4.2.1(vite@5.2.11(@types/node@20.12.11))
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-import-resolver-alias:
+        specifier: ^1.1.2
+        version: 1.1.2(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0))
+      eslint-plugin-react-hooks:
+        specifier: ^4.6.2
+        version: 4.6.2(eslint@8.57.0)
+      eslint-plugin-react-refresh:
+        specifier: ^0.4.7
+        version: 0.4.7(eslint@8.57.0)
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vite:
+        specifier: ^5.2.11
+        version: 5.2.11(@types/node@20.12.11)
 
 packages:
 
@@ -419,13 +421,8 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  /@flags-gg/react-library@1.2.7:
+  '@flags-gg/react-library@1.2.7':
     resolution: {integrity: sha512-2Ee77JFToTphTTaaQ/VIO/e/LghRg1aL8bND167nvUUSTV1N7k6Wwp6It7IdoE4lHgnDYhjBiWkAe17HdcS3zA==}
-    dependencies:
-      fast-equals: 5.0.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    dev: false
 
   '@floating-ui/core@1.6.0':
     resolution: {integrity: sha512-PcF++MykgmTj3CIyOQbKA/hDzOAiqI3mhuoN44WRCopIs1sgoDoU4oty4Jtqaj/y3oDU6fnVSm4QG0a3t5i0+g==}
@@ -607,8 +604,8 @@ packages:
       '@mui/material': ^5.0.1
       react: ^17.0.0 || ^18.0.0
 
-  '@remix-run/router@1.16.0':
-    resolution: {integrity: sha512-Quz1KOffeEf/zwkCBM3kBtH4ZoZ+pT3xIXBG4PPW/XFtDP7EGhtTiC2+gpL9GnR7+Qdet5Oa6cYSvwKYg6kN9Q==}
+  '@remix-run/router@1.16.1':
+    resolution: {integrity: sha512-es2g3dq6Nb07iFxGk5GuHN20RwBZOsuDQN7izWIisUcv9r+d2C5jQxqmgkdebXgReWfiyUabcki6Fg77mSNrig==}
     engines: {node: '>=14.0.0'}
 
   '@rollup/rollup-android-arm-eabi@4.13.2':
@@ -1090,8 +1087,8 @@ packages:
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
 
-  eslint-plugin-react-refresh@0.4.6:
-    resolution: {integrity: sha512-NjGXdm7zgcKRkKMua34qVO9doI7VOxZ6ancSvBELJSSoX97jyndXcSoa8XBh69JoB31dNz3EEzlMcizZl7LaMA==}
+  eslint-plugin-react-refresh@0.4.7:
+    resolution: {integrity: sha512-yrj+KInFmwuQS2UQcg1SF83ha1tuHC1jMQbRNyuWtlEzzKRDgAl7L4Yp4NlDUZTZNlWvHEzOtJhMi40R7JxcSw==}
     peerDependencies:
       eslint: '>=7'
 
@@ -1600,15 +1597,15 @@ packages:
     resolution: {integrity: sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==}
     engines: {node: '>=0.10.0'}
 
-  react-router-dom@6.23.0:
-    resolution: {integrity: sha512-Q9YaSYvubwgbal2c9DJKfx6hTNoBp3iJDsl+Duva/DwxoJH+OTXkxGpql4iUK2sla/8z4RpjAm6EWx1qUDuopQ==}
+  react-router-dom@6.23.1:
+    resolution: {integrity: sha512-utP+K+aSTtEdbWpC+4gxhdlPFwuEfDKq8ZrPFU65bbRJY+l706qjR7yaidBpo3MSeA/fzwbXWbKBI6ftOnP3OQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
       react-dom: '>=16.8'
 
-  react-router@6.23.0:
-    resolution: {integrity: sha512-wPMZ8S2TuPadH0sF5irFGjkNLIcRvOSaEe7v+JER8508dyJumm6XZB1u5kztlX0RVq6AzRVndzqcUh6sFIauzA==}
+  react-router@6.23.1:
+    resolution: {integrity: sha512-fzcOaRF69uvqbbM7OhvQyBTFDVrrGlsFdS3AL+1KfIBtGETibHzi3FkoTRyiDJnWNc2VxrfvR+657ROHjaNjqQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
@@ -2216,7 +2213,7 @@ snapshots:
 
   '@eslint/js@8.57.0': {}
 
-  '@flags-gg/react-library@1.2.6':
+  '@flags-gg/react-library@1.2.7':
     dependencies:
       fast-equals: 5.0.1
       react: 18.3.1
@@ -2395,10 +2392,7 @@ snapshots:
       '@react-buddy/ide-toolbox': 2.4.0(react@18.3.1)
       react: 18.3.1
 
-  /@remix-run/router@1.16.1:
-    resolution: {integrity: sha512-es2g3dq6Nb07iFxGk5GuHN20RwBZOsuDQN7izWIisUcv9r+d2C5jQxqmgkdebXgReWfiyUabcki6Fg77mSNrig==}
-    engines: {node: '>=14.0.0'}
-    dev: false
+  '@remix-run/router@1.16.1': {}
 
   '@rollup/rollup-android-arm-eabi@4.13.2':
     optional: true
@@ -2995,10 +2989,7 @@ snapshots:
     dependencies:
       eslint: 8.57.0
 
-  /eslint-plugin-react-refresh@0.4.7(eslint@8.57.0):
-    resolution: {integrity: sha512-yrj+KInFmwuQS2UQcg1SF83ha1tuHC1jMQbRNyuWtlEzzKRDgAl7L4Yp4NlDUZTZNlWvHEzOtJhMi40R7JxcSw==}
-    peerDependencies:
-      eslint: '>=7'
+  eslint-plugin-react-refresh@0.4.7(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
 
@@ -3070,14 +3061,7 @@ snapshots:
 
   esutils@2.0.3: {}
 
-  /fast-deep-equal@3.1.3:
-    resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
-    dev: true
-
-  /fast-equals@5.0.1:
-    resolution: {integrity: sha512-WF1Wi8PwwSY7/6Kx0vKXtw8RwuSGoM1bvDaJbu7MxDlR1vovZjIAKrnzyrThgAjm6JDTu0fVgWXDlMGspodfoQ==}
-    engines: {node: '>=6.0.0'}
-    dev: false
+  fast-deep-equal@3.1.3: {}
 
   fast-equals@5.0.1: {}
 
@@ -3524,24 +3508,14 @@ snapshots:
 
   react-refresh@0.14.0: {}
 
-  /react-router-dom@6.23.1(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-utP+K+aSTtEdbWpC+4gxhdlPFwuEfDKq8ZrPFU65bbRJY+l706qjR7yaidBpo3MSeA/fzwbXWbKBI6ftOnP3OQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      react: '>=16.8'
-      react-dom: '>=16.8'
+  react-router-dom@6.23.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@remix-run/router': 1.16.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-router: 6.23.1(react@18.3.1)
-    dev: false
 
-  /react-router@6.23.1(react@18.3.1):
-    resolution: {integrity: sha512-fzcOaRF69uvqbbM7OhvQyBTFDVrrGlsFdS3AL+1KfIBtGETibHzi3FkoTRyiDJnWNc2VxrfvR+657ROHjaNjqQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      react: '>=16.8'
+  react-router@6.23.1(react@18.3.1):
     dependencies:
       '@remix-run/router': 1.16.1
       react: 18.3.1
