@@ -5,7 +5,7 @@ interface LogoProps {
   size?: number
 }
 const Logo: FC<LogoProps> = ({size}) => {
-  let dimension = size || 80
+  const dimension = size || 80
 
   return (
       <Link to={"/"} style={{textDecoration: 'none'}}>
