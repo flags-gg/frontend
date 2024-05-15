@@ -4,8 +4,6 @@ import {FlagsProvider} from "@flags-gg/react-library";
 import SiteRouter from "@C/SiteRouter";
 
 function App() {
-  console.info("meta", import.meta.env)
-
   return (
     <BrowserRouter>
       <FlagsProvider options={{
