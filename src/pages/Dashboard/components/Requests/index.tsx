@@ -3,6 +3,7 @@ import {Requests as TotalRequests} from './TotalRequests'
 import {alpha, useTheme} from "@mui/material/styles";
 import {ApexOptions} from "apexcharts";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useChartOptions(categories: string[], legend?: boolean): ApexOptions {
   const theme = useTheme()
   theme.palette.mode = 'dark'

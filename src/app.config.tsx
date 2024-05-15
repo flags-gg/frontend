@@ -6,7 +6,6 @@ export const oidcConfig = {
   client_id: "dashboard",
   client_secret: import.meta.env.VITE_KEYCLOAK_SECRET,
   redirect_uri: window.location.origin,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onSigninCallback: (_user: User | void) => {
     window.history.replaceState({}, document.title, window.location.pathname)
   },
