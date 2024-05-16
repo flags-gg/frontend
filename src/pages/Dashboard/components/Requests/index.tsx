@@ -84,11 +84,6 @@ export function useChartOptions(categories: string[], legend?: boolean): ApexOpt
   if (legend) {
     options.legend = {
       show: true,
-      position: 'top',
-      horizontalAlign: 'right',
-      floating: true,
-      offsetY: -32,
-      offsetX: -8,
     }
   }
 
