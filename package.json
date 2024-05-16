@@ -16,7 +16,7 @@
     "@flags-gg/react-library": "^1.2.9",
     "@fontsource/roboto": "^5.0.13",
     "@mui/icons-material": "^5.15.17",
-    "@mui/material": "^5.15.17",
+    "@mui/material": "^5.15.18",
     "@phosphor-icons/react": "^2.1.5",
     "apexcharts": "^3.49.1",
     "oidc-client-ts": "^3.0.1",
