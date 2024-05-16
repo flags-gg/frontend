@@ -15,7 +15,7 @@
     "@emotion/styled": "^11.11.5",
     "@flags-gg/react-library": "^1.2.9",
     "@fontsource/roboto": "^5.0.13",
-    "@mui/icons-material": "^5.15.17",
+    "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.17",
     "@phosphor-icons/react": "^2.1.5",
     "apexcharts": "^3.49.1",
