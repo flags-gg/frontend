@@ -6,7 +6,6 @@ import {ApexOptions} from "apexcharts";
 // eslint-disable-next-line react-refresh/only-export-components
 export function useChartOptions(categories: string[], legend?: boolean): ApexOptions {
   const theme = useTheme()
-  theme.palette.mode = 'dark'
 
   const options = {
     chart: {
@@ -85,11 +84,6 @@ export function useChartOptions(categories: string[], legend?: boolean): ApexOpt
   if (legend) {
     options.legend = {
       show: true,
-      position: 'top',
-      horizontalAlign: 'right',
-      floating: true,
-      offsetY: -32,
-      offsetX: -8,
     }
   }
 
