@@ -11,6 +11,7 @@ const Header: FC = () => {
   useEffect(() => {
     is("userAccount").initialize()
     is("notifications").initialize()
+    is("projects").initialize()
   }, [is])
 
   return (
