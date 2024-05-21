@@ -3,6 +3,7 @@ import {Dashboard, Summary} from "./";
 import {Company, CompanyAccount, CompanySettings} from "./pages/Company";
 import {Flags, Agent} from "./pages/Agent";
 import {UserAccount} from "./pages/User/";
+import {Project, Projects} from "./pages/Project";
 
 const dashboardRoutes = [
   {
@@ -36,6 +37,19 @@ const dashboardRoutes = [
           {
             path: "account",
             element: <UserAccount />,
+          },
+        ],
+      },
+      {
+        path: "project",
+        children: [
+          {
+            path: "",
+            element: <Projects />
+          },
+          {
+            path: ":projectId",
+            element: <Project />
           },
         ],
       },

@@ -4,6 +4,7 @@ import {useFlags} from "@flags-gg/react-library"
 
 import Notifications from "@DC/Notifications";
 import AccountMenu from "@DC/AccountMenu";
+import {ProjectSelector} from "@DC/ProjectSelector";
 
 const Header: FC = () => {
   const {is} = useFlags();
@@ -11,7 +12,7 @@ const Header: FC = () => {
   useEffect(() => {
     is("userAccount").initialize()
     is("notifications").initialize()
-    is("projects").initialize()
+    is("projects").initialize(true)
   }, [is])
 
   return (
@@ -30,6 +31,7 @@ const Header: FC = () => {
         }}>
           Flags.gg Dashboard
         </Typography>
+        {is("projects").enabled() && <ProjectSelector />}
         {is("notifications").enabled() && <Notifications />}
         {is("userAccount").enabled() && <AccountMenu />}
       </Toolbar>

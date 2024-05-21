@@ -24,6 +24,9 @@ const Footer: FC = () => {
         flexDirection: 'column',
         alignItems: 'center',
         borderTop: '3px solid #242424',
+        backgroundColor: 'background.paper',
+        position: 'fixed',
+        bottom: 0,
         gap: {
           xs: 4,
           sm: 8
@@ -43,7 +46,7 @@ const Footer: FC = () => {
           xs: 'column',
           sm: 'row'
         },
-        width: '100%',
+        width: '95%',
         justifyContent: 'space-between',
       }}>
         <Box sx={{
@@ -52,13 +55,13 @@ const Footer: FC = () => {
           gap: 4,
           minWidth: {
             xs: '100%',
-            sm: '60%'
+            sm: '80%'
           },
         }}>
           <Box sx={{
             width: {
               xs: '100%',
-              sm: '60%'
+              sm: '80%'
             }
           }}>
             <Box sx={{ml: '-15px'}}>

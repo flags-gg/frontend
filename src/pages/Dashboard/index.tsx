@@ -32,13 +32,16 @@ export const Dashboard: FC = () => {
         minWidth: '96vw',
         overflow: 'auto',
         marginTop: 5,
-        p: 3 }}>
+        p: 3,
+        height: '95vh'
+      }}>
         <Container
           maxWidth={false}
           sx={{
             verticalAlign: "top",
-            mt: 5,
-            mb: 4
+            horizontalAlign: "top",
+            mt: 0,
+            mb: 0
         }}>
           <Outlet />
         </Container>

@@ -7,16 +7,13 @@ import {
   IconButton, Box, MenuItem, MenuList
 } from "@mui/material";
 import {Dispatch, FC, useEffect} from "react";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import SettingsIcon from "@mui/icons-material/Settings";
-import OutlinedFlagIcon from "@mui/icons-material/OutlinedFlag";
-import MenuIcon from "@mui/icons-material/Menu";
+import {Dashboard, Store, ChevronLeft, Settings, OutlinedFlag, Menu, AndroidOutlined} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {useFlags} from "@flags-gg/react-library";
+import {useAtom} from "jotai";
 
 import Logo from "@C/Logo";
-import {AndroidOutlined} from "@mui/icons-material";
+import {agentIdAtom, projectAtom} from "@DL/statemanager";
 
 interface SidebarProps {
   open: boolean
@@ -25,11 +22,13 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
   const {is} = useFlags()
+  const [agentId] = useAtom(agentIdAtom)
+  const [selectedProject] = useAtom(projectAtom)
+  const projectId = selectedProject?.id
 
   useEffect(() => {
     is("account").initialize()
     is("agent").initialize()
-    is("projects").initialize()
   }, [is])
 
   return (
@@ -60,14 +59,14 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
         <IconButton
           onClick={() => setOpen(!open)}
           color={"inherit"}>
-          {open ? <ChevronLeftIcon /> : <MenuIcon />}
+          {open ? <ChevronLeft /> : <Menu />}
         </IconButton>
       </Toolbar>
       <Divider />
       <MenuList>
         <MenuItem component={Link} to={"/"} onClick={() => {setOpen(!open)}}>
           <ListItemIcon>
-            <DashboardIcon />
+            <Dashboard />
           </ListItemIcon>
           <ListItemText sx={{
             marginLeft: '10px',
@@ -76,15 +75,24 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
         {is("account").enabled() && (
           <MenuItem component={Link} to={"/company/account"} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
-              <SettingsIcon />
+              <Store />
             </ListItemIcon>
             <ListItemText sx={{
               marginLeft: '10px',
             }} primary={"Account"} />
           </MenuItem>
         )}
-        {
-          is("agent").enabled() && (
+        {is("projects").enabled() && (
+          <MenuItem component={Link} to={"/project"} onClick={() => {setOpen(!open)}}>
+            <ListItemIcon>
+              <Settings />
+            </ListItemIcon>
+            <ListItemText sx={{
+              marginLeft: '10px',
+            }} primary={"Projects"} />
+          </MenuItem>
+        )}
+        {projectId && is("agent").enabled() && (
             <MenuItem component={Link} to={"/agent"} onClick={() => {setOpen(!open)}}>
               <ListItemIcon>
                 <AndroidOutlined />
@@ -95,10 +103,10 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             </MenuItem>
           )
         }
-        {is("flags").enabled() && (
-          <MenuItem component={Link} to={"/agent/flags"} onClick={() => {setOpen(!open)}}>
+        {agentId && is("flags").enabled() && (
+          <MenuItem component={Link} to={`/agent/${agentId}/flags`} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
-              <OutlinedFlagIcon />
+              <OutlinedFlag />
             </ListItemIcon>
             <ListItemText sx={{
               marginLeft: '10px',
