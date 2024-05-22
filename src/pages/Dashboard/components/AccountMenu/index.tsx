@@ -68,14 +68,12 @@ const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
               <ListItemText primary={"Settings"} />
             </MenuItem>
           )}
-          {is("userAccount").enabled() && (
-            <MenuItem component={Link} to={"/user/account"} onClick={onClose}>
-              <ListItemIcon>
-                <User fontSize={"small"} />
-              </ListItemIcon>
-              <ListItemText primary={"Account"} />
-            </MenuItem>
-          )}
+          <MenuItem component={Link} to={"/user/account"} onClick={onClose}>
+            <ListItemIcon>
+              <User fontSize={"small"} />
+            </ListItemIcon>
+            <ListItemText primary={"Profile"} />
+          </MenuItem>
           <MenuItem onClick={() => {
               auth.signoutSilent().catch(console.error)
               navigate("/")
