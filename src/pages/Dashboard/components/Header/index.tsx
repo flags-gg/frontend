@@ -10,7 +10,6 @@ const Header: FC = () => {
   const {is} = useFlags();
 
   useEffect(() => {
-    is("userAccount").initialize()
     is("notifications").initialize()
     is("projects").initialize(true)
   }, [is])
@@ -33,7 +32,7 @@ const Header: FC = () => {
         </Typography>
         {is("projects").enabled() && <ProjectSelector />}
         {is("notifications").enabled() && <Notifications />}
-        {is("userAccount").enabled() && <AccountMenu />}
+        <AccountMenu />
       </Toolbar>
     </AppBar>
   )

@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {Box, Button, Stack, Typography} from "@mui/material";
 import {ArrowLeft} from "@mui/icons-material";
 import {Link, useNavigate} from "react-router-dom";
@@ -8,9 +8,11 @@ const NotFound: FC = () => {
   const auth = useAuth()
   const navigate = useNavigate()
 
-  if (!auth.isAuthenticated) {
-    navigate("/")
-  }
+  useEffect(() => {
+    if (!auth.isAuthenticated) {
+      navigate("/")
+    }
+  }, [auth, navigate])
 
   return (
     <Box
