@@ -65,7 +65,7 @@ export const Projects: FC = () => {
       </Card>
     );
   }
-
+  
   return (
     <Card>
       <CardHeader title={"Projects"} />
