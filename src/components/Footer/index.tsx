@@ -27,6 +27,8 @@ const Footer: FC = () => {
         backgroundColor: 'background.paper',
         position: 'fixed',
         bottom: 0,
+        padding: '1%',
+        paddingRight: '5%',
         gap: {
           xs: 4,
           sm: 8
@@ -46,6 +48,9 @@ const Footer: FC = () => {
           xs: 'column',
           sm: 'row'
         },
+        padding: '0%',
+        paddingRight: '5%',
+        paddingTop: '1%',
         width: '95%',
         justifyContent: 'space-between',
       }}>
