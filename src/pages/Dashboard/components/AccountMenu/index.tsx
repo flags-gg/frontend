@@ -61,20 +61,20 @@ const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
             }
           }}>
           {is("userSettings").enabled() && (
-            <MenuItem component={Link} to={"/user/settings"} onClick={onClose}>
+            <MenuItem component={Link} to={"/user/settings"} onMouseDown={onClose}>
               <ListItemIcon>
                 <GearSix fontSize={"small"} />
               </ListItemIcon>
               <ListItemText primary={"Settings"} />
             </MenuItem>
           )}
-          <MenuItem component={Link} to={"/user/account"} onClick={onClose}>
+          <MenuItem component={Link} to={"/user/account"} onMouseDown={onClose}>
             <ListItemIcon>
               <User fontSize={"small"} />
             </ListItemIcon>
             <ListItemText primary={"Profile"} />
           </MenuItem>
-          <MenuItem onClick={() => {
+          <MenuItem onMouseDown={() => {
               auth.signoutSilent().catch(console.error)
               navigate("/")
             }}>

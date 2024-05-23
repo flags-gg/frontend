@@ -57,7 +57,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
           <Logo size={open ? 80 : 1} />
         </Box>
         <IconButton
-          onClick={() => setOpen(!open)}
+          onMouseDown={() => setOpen(!open)}
           color={"inherit"}>
           {open ? <ChevronLeft /> : <Menu />}
         </IconButton>

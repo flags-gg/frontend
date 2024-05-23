@@ -81,7 +81,7 @@ const TopBar: FC = () => {
               <Logo />
               <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                 {links.map(({id, name}, index) => (
-                  <MenuItem key={index} onClick={() => scrollToSection(id)} sx={{
+                  <MenuItem key={index} onMouseDown={() => scrollToSection(id)} sx={{
                     py: '0.6rem',
                     px: '1.2rem'
                   }}>
@@ -99,7 +99,7 @@ const TopBar: FC = () => {
               },
               gap: 0.5,
               alignItems: 'center'}}>
-              <Button color={"primary"} variant={"contained"} sx={{ml: 2}} onClick={() => auth.signinRedirect().catch((error) => console.error("failed login", error))}>
+              <Button color={"primary"} variant={"contained"} sx={{ml: 2}} onMouseDown={() => auth.signinRedirect().catch((error) => console.error("failed login", error))}>
                 Sign In
               </Button>
             </Box>
@@ -108,7 +108,7 @@ const TopBar: FC = () => {
               gap: 0.5,
               alignItems: 'center',
             }}>
-              <Button variant={"text"} color={"primary"} onClick={toggleDrawer(true)} sx={{
+              <Button variant={"text"} color={"primary"} onMouseDown={toggleDrawer(true)} sx={{
                 minWidth: '30px',
                 p: '4px'
               }}>
@@ -122,7 +122,7 @@ const TopBar: FC = () => {
                   flexGrow: 1,
                 }}>
                   {links.map(({id, name}, index) => (
-                    <MenuItem key={index} onClick={() => scrollToSection(id)}>
+                    <MenuItem key={index} onMouseDown={() => scrollToSection(id)}>
                       <Typography variant={"body2"} color={"text.primary"}>
                         {name}
                       </Typography>
@@ -130,7 +130,7 @@ const TopBar: FC = () => {
                   ))}
                   <Divider />
                   <MenuItem>
-                    <Button color={"primary"} variant={"contained"} onClick={() => auth.signinRedirect().catch((error) => console.error("failed login", error))}>
+                    <Button color={"primary"} variant={"contained"} onMouseDown={() => auth.signinRedirect().catch((error) => console.error("failed login", error))}>
                       Sign In
                     </Button>
                   </MenuItem>
