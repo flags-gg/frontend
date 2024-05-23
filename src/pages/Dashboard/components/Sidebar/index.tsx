@@ -57,13 +57,13 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
           <Logo size={open ? 80 : 1} />
         </Box>
         <IconButton
-          onClick={() => setOpen(!open)}
+          onMouseDown={() => setOpen(!open)}
           color={"inherit"}>
           {open ? <ChevronLeft /> : <Menu />}
         </IconButton>
       </Toolbar>
       <Divider />
-      <MenuList>
+      <MenuList variant={"menu"}>
         <MenuItem component={Link} to={"/"} onClick={() => {setOpen(!open)}}>
           <ListItemIcon>
             <Dashboard />
@@ -83,7 +83,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
           </MenuItem>
         )}
         {is("projects").enabled() && (
-          <MenuItem component={Link} to={"/project"} onClick={() => {setOpen(!open)}}>
+          <MenuItem component={Link} to={"/projects"} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
               <Settings />
             </ListItemIcon>

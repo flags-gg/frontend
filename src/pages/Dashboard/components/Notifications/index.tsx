@@ -45,7 +45,7 @@ const NotificationsPopover: FC<NotificationsPopoverInterface> = ({anchorEl, onCl
         {notifications.map(notification => (
           <Box
             key={notification.id}
-            onClick={() => {
+            onMouseDown={() => {
               setNotifications(notifications.map(n => n.id === notification.id ? {...n, read: true} : n))
               if (notification.link) {
                 navigate(notification.link)
@@ -105,7 +105,7 @@ const Notifications: FC = () => {
           borderRadius: 0,
           cursor: "pointer",
         }}
-        onClick={notificationsPopover.handleOpen}
+        onMouseDown={notificationsPopover.handleOpen}
         ref={notificationsPopover.anchorRef}
         children={<Badge
           badgeContent={unreadNotifications}

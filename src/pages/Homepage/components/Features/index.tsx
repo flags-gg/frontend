@@ -59,7 +59,7 @@ const Features: FC = () => {
               xs: 'auto',
               sm: 'none' }}}>
             {items.map(({ title }, index) => (
-              <Chip key={index} label={title} onClick={() => handleItemClick(index)} sx={{
+              <Chip key={index} label={title} onMouseDown={() => handleItemClick(index)} sx={{
                   borderColor: selectedItemIndex === index ? 'primary.light' : '',
                   background: selectedItemIndex === index ? 'none' : '',
                   backgroundColor: selectedItemIndex === index ? 'primary.main' : '',
@@ -111,7 +111,7 @@ const Features: FC = () => {
                 key={index}
                 variant="outlined"
                 component={Button}
-                onClick={() => handleItemClick(index)}
+                onMouseDown={() => handleItemClick(index)}
                 sx={{
                   p: 3,
                   height: 'fit-content',

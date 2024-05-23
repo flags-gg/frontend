@@ -42,7 +42,7 @@ export const ProjectSelector: FC = () => {
   }
 
   let inputLabel = "Select a project";
-  if (selectedProject.id !== "") {
+  if (selectedProject.name !== "") {
     inputLabel = selectedProject.name;
   }
 
@@ -51,16 +51,16 @@ export const ProjectSelector: FC = () => {
       <FormControl fullWidth>
         <InputLabel id="project-selector-label">{inputLabel}</InputLabel>
         <Select
-          value={selectedProject.id}
+          value={selectedProject.name}
           onChange={(event) => {
-            const selectedProject = projects.find(project => project.id === event.target.value);
+            const selectedProject = projects.find(project => project.name === event.target.value);
             if (selectedProject) {
               setSelectedProject(selectedProject);
             }
           }}
         >
           {projects.map(project => (
-            <MenuItem key={project.id} value={project.id}>{project.name}</MenuItem>
+            <MenuItem key={project.id} value={project.name}>{project.name}</MenuItem>
           ))}
         </Select>
       </FormControl>
