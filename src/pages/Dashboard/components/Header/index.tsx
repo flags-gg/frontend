@@ -30,7 +30,7 @@ const Header: FC = () => {
         }}>
           Flags.gg Dashboard
         </Typography>
-        {is("projects").enabled() && <ProjectSelector />}
+        <ProjectSelector />
         {is("notifications").enabled() && <Notifications />}
         <AccountMenu />
       </Toolbar>

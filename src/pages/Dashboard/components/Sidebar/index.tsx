@@ -4,16 +4,34 @@ import {
   ListItemIcon,
   Toolbar,
   ListItemText,
-  IconButton, Box, MenuItem, MenuList
+  IconButton,
+  Box,
+  MenuItem,
+  MenuList
 } from "@mui/material";
-import {Dispatch, FC, useEffect} from "react";
-import {Dashboard, Store, ChevronLeft, Settings, OutlinedFlag, Menu, AndroidOutlined} from "@mui/icons-material";
+import {
+  Dispatch,
+  FC,
+  useEffect
+} from "react";
+import {
+  Dashboard,
+  Store,
+  ChevronLeft,
+  Settings,
+  OutlinedFlag,
+  Menu,
+  AndroidOutlined
+} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {useFlags} from "@flags-gg/react-library";
 import {useAtom} from "jotai";
 
 import Logo from "@C/Logo";
-import {agentIdAtom, projectAtom} from "@DL/statemanager";
+import {
+  agentIdAtom,
+  projectAtom
+} from "@DL/statemanager";
 
 interface SidebarProps {
   open: boolean
@@ -56,9 +74,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
         }}>
           <Logo size={open ? 80 : 1} />
         </Box>
-        <IconButton
-          onMouseDown={() => setOpen(!open)}
-          color={"inherit"}>
+        <IconButton onClick={() => setOpen(!open)} color={"inherit"}>
           {open ? <ChevronLeft /> : <Menu />}
         </IconButton>
       </Toolbar>

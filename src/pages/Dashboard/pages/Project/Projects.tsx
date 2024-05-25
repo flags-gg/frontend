@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from "react";
 import {
   Box,
-  Card, CardHeader, Divider, Table, TableBody, TableCell, TableHead, TableRow
+  Card, CardHeader, Chip, Divider, Table, TableBody, TableCell, TableHead, TableRow
 } from "@mui/material";
 
 import {Project} from "@DC/ProjectSelector/types";
@@ -65,7 +65,7 @@ export const Projects: FC = () => {
       </Card>
     );
   }
-  
+
   return (
     <Card>
       <CardHeader title={"Projects"} />
@@ -80,18 +80,28 @@ export const Projects: FC = () => {
             <TableRow>
               <TableCell>ID</TableCell>
               <TableCell>Name</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {projects?.map((project) => (
               <TableRow key={project.id}>
-                <TableCell><Link to={`/projects/${project.project_id}`}>{project.project_id}</Link></TableCell>
                 <TableCell><Link to={`/projects/${project.project_id}`}>{project.name}</Link></TableCell>
+                <TableCell><Link to={`/projects/${project.project_id}`}>{project.project_id}</Link></TableCell>
+                <TableCell>
+                  <Chip key={project.id} label={"Edit"} component={Link} to={`/projects/${project.project_id}`} clickable />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </Box>
+      {showForm && (
+        <>
+          <Divider />
+
+        </>
+      )}
     </Card>
   );
 }

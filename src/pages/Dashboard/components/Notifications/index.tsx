@@ -4,6 +4,7 @@ import {NotificationsOutlined} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
 
 import {usePopover} from "@DL/popover";
+import useAuthFetch from "@DL/fetcher";
 
 interface Notification {
   id: number
@@ -69,6 +70,7 @@ const NotificationsPopover: FC<NotificationsPopoverInterface> = ({anchorEl, onCl
 }
 
 const Notifications: FC = () => {
+  const useAuth = useAuthFetch()
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const notificationsPopover = usePopover<HTMLDivElement>()
   const fetchNotifications = async () => {

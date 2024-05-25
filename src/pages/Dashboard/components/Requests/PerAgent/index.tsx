@@ -51,7 +51,12 @@ export const Requests: FC = () => {
 
   if (agentsData.length === 0) {
     return (
-      <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>No Agent data yet...</Card>
+      <Card sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        p: 2,
+      }}>No Agent data yet...</Card>
     );
   }
 
