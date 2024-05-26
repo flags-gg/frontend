@@ -59,7 +59,7 @@ jobs:
             GIT_BUILD=${{ github.sha }}
             SERVICE_NAME=frontend
             KEYCLOAK_SECRET=${{ secrets.KEYCLOAK_SECRET }}
-            FLAGS_COMPANY_ID=85ccae4e-7bb3-4ec5-bfc7-b08a80e59328
+            FLAGS_PROJECT_ID=b0c5020e-760e-4156-a88b-344fb725a9b7
             FLAGS_AGENT_ID=c778cf4b-83f1-4c53-951e-604102c84898
             FLAGS_ENVIRONMENT_ID=81aca98e-3b01-4c3c-a4cf-c7eee26185c5
             FLAGS_SERVER=https://api.flags.gg/v1

@@ -47,6 +47,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
   useEffect(() => {
     is("account").initialize()
     is("agent").initialize()
+    is("projects").initialize(true)
   }, [is])
 
   return (
