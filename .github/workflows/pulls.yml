@@ -1,9 +1,6 @@
 name: Pull Requests
 on:
   workflow_dispatch:
-  push:
-    branches-ignore:
-      - main
   pull_request:
     types:
       - opened
