@@ -10,11 +10,9 @@ import {
   Button, TextField
 } from "@mui/material";
 import useAuthFetch from "@DL/fetcher";
-import {useAuth} from "react-oidc-context";
 
 export const Form: FC = () => {
   const authFetch = useAuthFetch();
-  const auth = useAuth();
   const [userDetails, setUserDetails] = useState({
     knownAs: "",
     emailAddress: ""
@@ -22,9 +20,7 @@ export const Form: FC = () => {
 
   const fetchUserDetails = async () => {
     try {
-      const xUserSubject = auth.user?.profile?.sub || "";
-
-      const response = await authFetch(`/user/${xUserSubject}`);
+      const response = await authFetch(`/user`);
       const data = await response.json();
       setUserDetails(data);
     } catch (error) {
@@ -37,8 +33,7 @@ export const Form: FC = () => {
 
   const updateDetails = async (details: any) => {
     try {
-      const xUserSubject = auth.user?.profile?.sub || "";
-      const response = await authFetch(`/user/${xUserSubject}`, {
+      const response = await authFetch(`/user`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"

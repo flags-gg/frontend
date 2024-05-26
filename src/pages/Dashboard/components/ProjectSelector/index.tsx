@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {MenuItem, Select, FormControl, InputLabel, Box} from "@mui/material";
 import { useAtom } from "jotai";
 
@@ -33,7 +33,11 @@ export const ProjectSelector: FC = () => {
     }
   };
 
-  fetchProjects().catch(error => console.error("Failed to fetch projects:", error));
+  useEffect(() => {
+    fetchProjects().catch(error =>
+      console.error("Failed to fetch projects:", error)
+    );
+  }, []);
 
   if (projects.length === 0) {
     return (

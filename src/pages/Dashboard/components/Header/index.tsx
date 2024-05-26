@@ -1,19 +1,11 @@
-import {FC, useEffect} from "react";
+import {FC} from "react";
 import {AppBar, Box, Toolbar, Typography} from "@mui/material";
-import {useFlags} from "@flags-gg/react-library"
 
 import Notifications from "@DC/Notifications";
 import AccountMenu from "@DC/AccountMenu";
 import {ProjectSelector} from "@DC/ProjectSelector";
 
 const Header: FC = () => {
-  const {is} = useFlags();
-
-  useEffect(() => {
-    is("notifications").initialize()
-    is("projects").initialize(true)
-  }, [is])
-
   return (
     <AppBar position={"absolute"}>
       <Toolbar sx={{ pr: '24px' }}>
@@ -30,8 +22,8 @@ const Header: FC = () => {
         }}>
           Flags.gg Dashboard
         </Typography>
-        {is("projects").enabled() && <ProjectSelector />}
-        {is("notifications").enabled() && <Notifications />}
+        <ProjectSelector />
+        <Notifications />
         <AccountMenu />
       </Toolbar>
     </AppBar>

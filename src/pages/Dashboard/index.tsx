@@ -6,7 +6,6 @@ import {Summary} from "./pages/Summary";
 
 import Header from "@DC/Header";
 import Sidebar from "@DC/Sidebar";
-import Footer from "@C/Footer";
 
 export const Dashboard: FC = () => {
   const [open, setOpen] = useState(false)
@@ -24,17 +23,18 @@ export const Dashboard: FC = () => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Header />
       <Sidebar open={open} setOpen={setOpen} />
       <Box component="main" sx={{
         flexGrow: 1,
         bgcolor: 'background.default',
-        minWidth: '96vw',
+        minWidth: '98vw',
         overflow: 'auto',
         marginTop: 5,
-        p: 3,
+        p: 1,
+        paddingTop: '38px',
         height: '95vh'
       }}>
+        <Header />
         <Container
           maxWidth={false}
           sx={{
@@ -45,7 +45,6 @@ export const Dashboard: FC = () => {
         }}>
           <Outlet />
         </Container>
-        <Footer />
       </Box>
     </Box>
   )
