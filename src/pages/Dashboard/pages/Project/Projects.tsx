@@ -1,7 +1,20 @@
 import {FC, useEffect, useState} from "react";
 import {
   Box,
-  Card, CardHeader, Chip, Divider, Table, TableBody, TableCell, TableHead, TableRow
+  Button,
+  Card, CardActions,
+  CardContent,
+  CardHeader,
+  Chip,
+  Divider,
+  FormControl,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TextField
 } from "@mui/material";
 
 import {Project} from "@DC/ProjectSelector/types";
@@ -78,8 +91,8 @@ export const Projects: FC = () => {
         }}>
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
               <TableCell>Name</TableCell>
+              <TableCell>ID</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -99,7 +112,32 @@ export const Projects: FC = () => {
       {showForm && (
         <>
           <Divider />
-
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%'
+          }}>
+            <form onSubmit={(event) => {
+              event.preventDefault();
+              const formData = new FormData(event.target as HTMLFormElement);
+              console.info("formData", formData.get("projectName"));
+            }}>
+              <Card>
+                <CardHeader title={"Create Project"} />
+                <CardContent>
+                  <Grid container spacing={1}>
+                    <FormControl required>
+                      <TextField variant={"outlined"} label={"Project Name"} margin={"dense"} required id={"projectName"} name={"projectName"} />
+                    </FormControl>
+                  </Grid>
+                </CardContent>
+                <CardActions>
+                  <Button color={"primary"} variant={"contained"} type={"submit"}>Create Project</Button>
+                </CardActions>
+              </Card>
+            </form>
+          </Box>
         </>
       )}
     </Card>
