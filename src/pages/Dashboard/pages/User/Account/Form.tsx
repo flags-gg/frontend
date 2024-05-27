@@ -53,8 +53,7 @@ export const Form: FC = () => {
 
   return (
     <form onSubmit={(event) => {
-      const formTarget = event.target as HTMLFormElement
-      const formData = new FormData(formTarget)
+      const formData = new FormData(event.target as HTMLFormElement)
       event.preventDefault()
 
       updateDetails({
