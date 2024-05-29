@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect, useState, FormEvent} from "react";
 import {
   Box,
   Button,
@@ -26,6 +26,7 @@ export const Projects: FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [allowedProjects, setAllowedProjects] = useState<number>(1);
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const fetchLimits = async () => {
     try {
@@ -61,6 +62,36 @@ export const Projects: FC = () => {
       setShowForm(true);
     }
   }, [allowedProjects, projects.length]);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget
+    const formData = new FormData(event.target as HTMLFormElement);
+    const projectName = formData.get("projectName") as string;
+    setIsSubmitting(true);
+
+    try {
+      authFetch("/project", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: projectName
+        })
+      })
+      fetchProjects().then((projects) => {
+        setProjects(Array.isArray(projects) ? projects : []);
+      }).catch((error) => {
+        console.error("failed to fetch projects", error);
+      })
+    } catch (error) {
+      console.error("failed to create project", error);
+    } finally {
+      form.reset();
+      setIsSubmitting(false);
+    }
+  }
 
   if (!projects || projects.length === 0) {
     return (
@@ -118,11 +149,7 @@ export const Projects: FC = () => {
             alignItems: 'center',
             height: '100%'
           }}>
-            <form onSubmit={(event) => {
-              event.preventDefault();
-              const formData = new FormData(event.target as HTMLFormElement);
-              console.info("formData", formData.get("projectName"));
-            }}>
+            <form onSubmit={handleSubmit}>
               <Card>
                 <CardHeader title={"Create Project"} />
                 <CardContent>
@@ -133,7 +160,7 @@ export const Projects: FC = () => {
                   </Grid>
                 </CardContent>
                 <CardActions>
-                  <Button color={"primary"} variant={"contained"} type={"submit"}>Create Project</Button>
+                  <Button color={"primary"} variant={"contained"} type={"submit"} disabled={isSubmitting}>Create Project</Button>
                 </CardActions>
               </Card>
             </form>

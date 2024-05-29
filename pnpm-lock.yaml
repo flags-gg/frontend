@@ -13,7 +13,7 @@ dependencies:
     version: 11.11.5(@emotion/react@11.11.4)(@types/react@18.3.3)(react@18.3.1)
   '@flags-gg/react-library':
     specifier: ^1.3.8
-    version: 1.3.8
+    version: link:../react-library
   '@fontsource/roboto':
     specifier: ^5.0.13
     version: 5.0.13
@@ -1978,14 +1978,6 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
-
-  /@flags-gg/react-library@1.3.8:
-    resolution: {integrity: sha512-YGpdtyytY4TsQt1uZpf72FsaHWbj7hBBK6VV7gAZwb/uchVlT90AOaumF4w0hvYV7W0TRS0O72nl1d2R5tFrSw==}
-    dependencies:
-      fast-equals: 5.0.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    dev: false
 
   /@floating-ui/core@1.6.1:
     resolution: {integrity: sha512-42UH54oPZHPdRHdw6BgoBD6cg/eVTmVrFcgeRDM3jbO7uxSoipVcmcIGFcA5jmOHO5apcyvBhkSKES3fQJnu7A==}
@@ -4072,11 +4064,6 @@ packages:
   /fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
     dev: true
-
-  /fast-equals@5.0.1:
-    resolution: {integrity: sha512-WF1Wi8PwwSY7/6Kx0vKXtw8RwuSGoM1bvDaJbu7MxDlR1vovZjIAKrnzyrThgAjm6JDTu0fVgWXDlMGspodfoQ==}
-    engines: {node: '>=6.0.0'}
-    dev: false
 
   /fast-glob@3.3.2:
     resolution: {integrity: sha512-oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==}

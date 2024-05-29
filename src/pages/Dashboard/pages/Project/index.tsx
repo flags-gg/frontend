@@ -14,7 +14,7 @@ export const Project: FC = () => {
     try {
       const response = await authFetch(`/project/${projectId}`);
       const data = await response.json();
-      setSelectedProject({id: data.project_id, name: data.name});
+      setSelectedProject({id: data.project_id, name: data.name, project_id: data.project_id});
     } catch (error) {
       console.error("Failed to fetch project:", error);
     }

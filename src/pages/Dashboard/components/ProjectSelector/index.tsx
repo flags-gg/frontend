@@ -1,6 +1,7 @@
 import {FC, useEffect, useState} from "react";
 import {MenuItem, Select, FormControl, InputLabel, Box} from "@mui/material";
 import { useAtom } from "jotai";
+import {useNavigate} from "react-router-dom";
 
 import useAuthFetch from "@DL/fetcher";
 import { Project } from "./types";
@@ -10,6 +11,7 @@ export const ProjectSelector: FC = () => {
   const [selectedProject, setSelectedProject] = useAtom(projectAtom);
   const authFetch = useAuthFetch();
   const [projects, setProjects] = useState<Project[]>([]);
+  const navigate = useNavigate();
 
   const fetchProjects = async () => {
     try {
@@ -33,10 +35,32 @@ export const ProjectSelector: FC = () => {
     }
   };
 
+  const changeProject = (event: { target: { value: string; }; }) => {
+    const sp = projects.find(project => project.name === event.target.value);
+    if (sp) {
+      setSelectedProject(sp);
+
+      if (location.pathname.includes("project")) {
+        if (location.pathname.includes(sp.project_id)) {
+          return;
+        }
+        navigate(`/projects/${sp.project_id}`);
+      }
+      if (location.pathname.includes("agents")) {
+        if (location.pathname.includes(sp.project_id)) {
+          return;
+        }
+        navigate(`/agents/${sp.project_id}`);
+      }
+    }
+  }
+
   useEffect(() => {
     fetchProjects().catch(error =>
       console.error("Failed to fetch projects:", error)
     );
+    const interval = setInterval(fetchProjects, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   if (projects.length === 0) {
@@ -54,15 +78,7 @@ export const ProjectSelector: FC = () => {
     <Box sx={{ minWidth: 160 }}>
       <FormControl fullWidth>
         <InputLabel id="project-selector-label">{inputLabel}</InputLabel>
-        <Select
-          value={selectedProject.name}
-          onChange={(event) => {
-            const selectedProject = projects.find(project => project.name === event.target.value);
-            if (selectedProject) {
-              setSelectedProject(selectedProject);
-            }
-          }}
-        >
+        <Select value={selectedProject.name} onChange={changeProject}>
           {projects.map(project => (
             <MenuItem key={project.id} value={project.name}>{project.name}</MenuItem>
           ))}

@@ -31,16 +31,7 @@ function useAuthFetch() {
       return new Response(cacheEntry.data);
     }
 
-    const xUserSubject = auth.user?.profile?.sub || "";
-    const xUserAccessToken = auth.user?.access_token || "";
-
-    // Set up headers
-    const headers = new Headers(options.headers);
-    headers.set('x-user-subject', xUserSubject);
-    headers.set('x-user-access-token', xUserAccessToken);
-
     const url = `${import.meta.env.VITE_FLAGS_API_SERVER}${apiPath}`;
-
     const response = await fetch(url, {
       ...options,
       headers: setupHeaders(auth, options.headers),

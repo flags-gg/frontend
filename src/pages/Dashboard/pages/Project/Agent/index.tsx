@@ -12,18 +12,27 @@ import {
   Table,
   TableBody
 } from "@mui/material";
+import {useAtom} from "jotai";
 
 import {Agents} from "./Agents"
 import useAuthFetch from "@DL/fetcher";
+import {projectAtom} from "@DL/statemanager";
 
 export const Agent: FC = () => {
   const authFetch = useAuthFetch();
   const [agentData, setAgentData] = useState<any>(null);
+  const [selectedProject] = useAtom(projectAtom);
 
   const fetchAgentData = async () => {
-    const response = await authFetch('/agents');
-    const data = await response.json();
-    setAgentData(data?.agents);
+    if (selectedProject.id !== "") {
+      const response = await authFetch(`/agents/${selectedProject.project_id}`);
+      const data = await response.json();
+      setAgentData(data?.agents);
+    } else {
+      const response = await authFetch('/agents');
+      const data = await response.json();
+      setAgentData(data?.agents);
+    }
   }
   useEffect(() => {
     fetchAgentData().catch(error => console.error("failed to fetch agent data:", error));

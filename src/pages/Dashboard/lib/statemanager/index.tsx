@@ -2,7 +2,8 @@ import {atom} from 'jotai'
 
 const projectAtom = atom({
   id: '',
-  name: ''
+  name: '',
+  project_id: '',
 })
 
 const agentIdAtom = atom('')

@@ -21,7 +21,8 @@ import {
   Settings,
   OutlinedFlag,
   Menu,
-  AndroidOutlined
+  AndroidOutlined,
+  Apps
 } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {useFlags} from "@flags-gg/react-library";
@@ -42,11 +43,11 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
   const {is} = useFlags()
   const [agentId] = useAtom(agentIdAtom)
   const [selectedProject] = useAtom(projectAtom)
-  const projectId = selectedProject?.id
+  const projectId = selectedProject?.project_id
 
   useEffect(() => {
     is("account").initialize()
-    is("agent").initialize()
+    is("agent").initialize(true)
     is("projects").initialize(true)
   }, [is])
 
@@ -109,19 +110,28 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             }} primary={"Projects"} />
           </MenuItem>
         )}
+        {projectId && is("projects").enabled() && (
+          <MenuItem component={Link} to={`/projects/${projectId}`} onClick={() => {setOpen(!open)}}>
+            <ListItemIcon>
+              <Apps />
+            </ListItemIcon>
+            <ListItemText sx={{
+              marginLeft: '10px',
+            }} primary={"Project Info"} />
+          </MenuItem>
+        )}
         {projectId && is("agent").enabled() && (
-            <MenuItem component={Link} to={"/agent"} onClick={() => {setOpen(!open)}}>
-              <ListItemIcon>
-                <AndroidOutlined />
-              </ListItemIcon>
-              <ListItemText sx={{
-                marginLeft: '10px',
-              }} primary={"Agent"} />
-            </MenuItem>
-          )
-        }
+          <MenuItem component={Link} to={`/agents/${projectId}`} onClick={() => {setOpen(!open)}}>
+            <ListItemIcon>
+              <AndroidOutlined />
+            </ListItemIcon>
+            <ListItemText sx={{
+              marginLeft: '10px',
+            }} primary={"Agent"} />
+          </MenuItem>
+        )}
         {agentId && is("flags").enabled() && (
-          <MenuItem component={Link} to={`/agent/${agentId}/flags`} onClick={() => {setOpen(!open)}}>
+          <MenuItem component={Link} to={`/agents/${agentId}/flags`} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
               <OutlinedFlag />
             </ListItemIcon>

@@ -1,7 +1,7 @@
 import NotFound from "@C/NotFound";
 import {Dashboard, Summary} from "./";
 import {Company, CompanyAccount, CompanySettings} from "./pages/Company";
-import {Agent} from "./pages/Project/Agent";
+import {Agents} from "./pages/Project/Agent";
 import {Flags} from "./pages/Project/Agent/Environment/Flags";
 import {UserAccount} from "./pages/User/";
 import {Project, Projects} from "./pages/Project";
@@ -55,11 +55,11 @@ const dashboardRoutes = [
         ],
       },
       {
-        path: "agent",
+        path: "agents",
         children: [
           {
-            path: "",
-            element: <Agent />
+            path: ":projectId",
+            element: <Agents />
           },
           {
             path: ":agentId",
