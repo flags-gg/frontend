@@ -11,7 +11,6 @@ export const ProjectSelector: FC = () => {
   const [selectedProject, setSelectedProject] = useAtom(projectAtom);
   const authFetch = useAuthFetch();
   const [projects, setProjects] = useState<Project[]>([]);
-  const navigate = useNavigate();
 
   const fetchProjects = async () => {
     try {
@@ -40,18 +39,20 @@ export const ProjectSelector: FC = () => {
     if (sp) {
       setSelectedProject(sp);
 
-      if (location.pathname.includes("project")) {
-        if (location.pathname.includes(sp.project_id)) {
-          return;
-        }
-        navigate(`/projects/${sp.project_id}`);
-      }
-      if (location.pathname.includes("agents")) {
-        if (location.pathname.includes(sp.project_id)) {
-          return;
-        }
-        navigate(`/agents/${sp.project_id}`);
-      }
+      // if (location.pathname.includes("project")) {
+      //   if (location.pathname.includes(sp.project_id)) {
+      //     return;
+      //   }
+      //   navigate(`/projects/${sp.project_id}`);
+      //   window.location.reload();
+      // }
+      // if (location.pathname.includes("agents")) {
+      //   if (location.pathname.includes(sp.project_id)) {
+      //     return;
+      //   }
+      //   navigate(`/agents/${sp.project_id}`);
+      //   window.location.reload();
+      // }
     }
   }
 
