@@ -1,4 +1,5 @@
 import {FC} from "react";
+import {Environments} from "./Environments";
 
 export const Environment: FC = () => {
   return (
@@ -6,4 +7,8 @@ export const Environment: FC = () => {
       <h1>Environment</h1>
     </div>
   );
+}
+
+export {
+  Environments
 }

@@ -1,10 +1,11 @@
 import NotFound from "@C/NotFound";
 import {Dashboard, Summary} from "./";
 import {Company, CompanyAccount, CompanySettings} from "./pages/Company";
-import {Agents} from "./pages/Project/Agent";
+import {Agent, Agents} from "./pages/Project/Agent";
 import {Flags} from "./pages/Project/Agent/Environment/Flags";
 import {UserAccount} from "./pages/User/";
 import {Project, Projects} from "./pages/Project";
+import {Environment} from "@/pages/Dashboard/pages/Project/Agent/Environment";
 
 const dashboardRoutes = [
   {
@@ -50,24 +51,33 @@ const dashboardRoutes = [
           },
           {
             path: ":projectId",
-            element: <Project />
-          },
-        ],
-      },
-      {
-        path: "agents",
-        children: [
-          {
-            path: ":projectId",
-            element: <Agents />
-          },
-          {
-            path: ":agentId",
             children: [
               {
-                path: ":environmentId/flags",
-                element: <Flags />
-              }
+                path: "",
+                element: <Project/>
+              },
+              {
+                path: ":agentId",
+                children: [
+                  {
+                    path: "",
+                    element: <Agent/>
+                  },
+                  {
+                    path: ":environmentId",
+                    children: [
+                      {
+                        path: "",
+                        element: <Environment/>
+                      },
+                      {
+                        path: "flags",
+                        element: <Flags/>
+                      }
+                    ]
+                  },
+                ],
+              },
             ],
           },
         ],

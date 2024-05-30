@@ -7,15 +7,15 @@ import useAuthFetch from "@DL/fetcher";
 import {
   Card,
   CardContent,
-  CardHeader,
-  Divider,
-  FormControl,
+  TableBody,
+  TableCell,
+  TableRow,
   Grid,
-  TextField,
   Stack,
   Typography,
-  Avatar
+  Avatar, Table, Divider, CardHeader
 } from "@mui/material";
+import {Agents} from "@/pages/Dashboard/pages/Project/Agent";
 
 interface Project {
   id: string;
@@ -49,27 +49,40 @@ export const Project: FC = () => {
   return (
     <Stack spacing={3}>
       <div>
-        <Typography variant={"h4"}>Project</Typography>
+        <Typography variant={"h4"}>Project Details</Typography>
       </div>
-      <Grid container spacing={3}>
-        <Card>
-          <CardContent>
-            <Stack spacing={2} sx={{alignItems: "center"}}>
-              <Avatar src={projectData?.logo} sx={{
-                height: '80px',
-                width: '80px'
-              }} />
-              <Stack spacing={1} sx={{ textAlign: "center" }}>
-                <Typography variant={"body2"} color={"text.secondary"}>
-                  ID: {projectData?.project_id}
-                </Typography>
-                <Typography variant={"body2"} color={"text.secondary"}>
-                  Agent Limit: {projectData?.agent_limit}
-                </Typography>
+      <Grid container spacing={4}>
+        <Grid item={true} lg={4} md={6} xs={12}>
+          <Card>
+            <CardContent>
+              <Stack spacing={2} sx={{alignItems: "center"}}>
+                <Avatar src={projectData?.logo} sx={{
+                  height: '80px',
+                  width: '80px'
+                }} />
+                <Table>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>{projectData?.name}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Project ID</TableCell>
+                      <TableCell>{projectData?.project_id}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Agent Limit</TableCell>
+                      <TableCell>{projectData?.agent_limit}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
               </Stack>
-            </Stack>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item={true} lg={7} md={6} xs={12}>
+          <Agents />
+        </Grid>
       </Grid>
     </Stack>
   );

@@ -120,26 +120,6 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             }} primary={"Project Info"} />
           </MenuItem>
         )}
-        {projectId && is("agent").enabled() && (
-          <MenuItem component={Link} to={`/agents/${projectId}`} onClick={() => {setOpen(!open)}}>
-            <ListItemIcon>
-              <AndroidOutlined />
-            </ListItemIcon>
-            <ListItemText sx={{
-              marginLeft: '10px',
-            }} primary={"Agent"} />
-          </MenuItem>
-        )}
-        {agentId && is("flags").enabled() && (
-          <MenuItem component={Link} to={`/agents/${agentId}/flags`} onClick={() => {setOpen(!open)}}>
-            <ListItemIcon>
-              <OutlinedFlag />
-            </ListItemIcon>
-            <ListItemText sx={{
-              marginLeft: '10px',
-            }} primary={"Flags"} />
-          </MenuItem>
-        )}
         <Divider />
       </MenuList>
     </Drawer>

@@ -10,15 +10,17 @@ import {
   Divider,
   Box,
   Table,
-  TableBody
+  TableBody, CardContent, Grid, FormControl, TextField, CardActions, Button
 } from "@mui/material";
+import {Link, useParams} from "react-router-dom";
 
 import useAuthFetch from "@DL/fetcher";
-import {useParams} from "react-router-dom";
 
 export const Agents: FC = () => {
   const authFetch = useAuthFetch();
   const [agentData, setAgentData] = useState<any>(null);
+  const [showForm, setShowForm] = useState<boolean>(true);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const {projectId} = useParams();
 
   const fetchAgentData = async () => {
@@ -73,8 +75,8 @@ export const Agents: FC = () => {
           <TableBody>
             {agentData?.map((agent: any) => (
               <TableRow key={agent.id}>
-                <TableCell>{agent.name}</TableCell>
-                <TableCell>{agent.agent_id}</TableCell>
+                <TableCell><Link to={`/projects/${projectId}/${agent.agent_id}`}>{agent.name}</Link></TableCell>
+                <TableCell><Link to={`/projects/${projectId}/${agent.agent_id}`}>{agent.agent_id}</Link></TableCell>
                 <TableCell>
                   {agent.environments.map((env: any) => (
                     <Chip key={env.environment_id} label={env.name} component="a" href={`/agent/${agent.agent_id}/${env.environment_id}/flags`} clickable />
@@ -85,6 +87,33 @@ export const Agents: FC = () => {
           </TableBody>
         </Table>
       </Box>
+      {showForm && (
+        <>
+          <Divider />
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%'
+          }}>
+            <form>
+              <Card>
+                <CardHeader title={"Create Agent"} />
+                <CardContent>
+                  <Grid container spacing={1}>
+                    <FormControl required>
+                      <TextField variant={"outlined"} label={"Agent Name"} margin={"dense"} required id={"agentName"} name={"agentName"} />
+                    </FormControl>
+                  </Grid>
+                </CardContent>
+                <CardActions>
+                  <Button color={"primary"} variant={"contained"} type={"submit"} disabled={isSubmitting}>Create Agent</Button>
+                </CardActions>
+              </Card>
+            </form>
+          </Box>
+        </>
+      )}
     </Card>
   );
 }

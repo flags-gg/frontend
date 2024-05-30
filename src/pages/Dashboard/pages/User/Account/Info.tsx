@@ -9,11 +9,10 @@ import {
 } from "@mui/material";
 
 const user = {
-  name: "Keloran",
+  knownAs: "Keloran",
   avatar: "https://avatars.githubusercontent.com/u/200350?v=4",
   jobTitle: "Software Engineer",
-  country: "UK",
-  city: "Manchester",
+  location: "UK, Manchester",
   timezone: "GMT"
 }
 
@@ -29,9 +28,9 @@ export const Info: FC = () => {
             }} />
           </div>
           <Stack spacing={1} sx={{ textAlign: "center" }}>
-            <Typography variant={"h5"}>{user.name}</Typography>
+            <Typography variant={"h5"}>{user.knownAs}</Typography>
             <Typography variant={"body2"} color={"text.secondary"}>
-              {user.city} {user.country}
+              {user.location}
             </Typography>
             <Typography variant={"body2"} color={"text.secondary"}>
               {user.timezone}
