@@ -13,7 +13,8 @@ import {
   Grid,
   Stack,
   Typography,
-  Avatar, Table, Divider, CardHeader
+  Avatar,
+  Table,
 } from "@mui/material";
 import {Agents} from "@/pages/Dashboard/pages/Project/Agent";
 
@@ -81,7 +82,7 @@ export const Project: FC = () => {
           </Card>
         </Grid>
         <Grid item={true} lg={7} md={6} xs={12}>
-          <Agents />
+          <Agents agentLimit={projectData?.agent_limit} />
         </Grid>
       </Grid>
     </Stack>

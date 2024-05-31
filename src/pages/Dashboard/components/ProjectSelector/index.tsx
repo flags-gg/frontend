@@ -1,7 +1,6 @@
 import {FC, useEffect, useState} from "react";
 import {MenuItem, Select, FormControl, InputLabel, Box} from "@mui/material";
 import { useAtom } from "jotai";
-import {useNavigate} from "react-router-dom";
 
 import useAuthFetch from "@DL/fetcher";
 import { Project } from "./types";
@@ -38,21 +37,6 @@ export const ProjectSelector: FC = () => {
     const sp = projects.find(project => project.name === event.target.value);
     if (sp) {
       setSelectedProject(sp);
-
-      // if (location.pathname.includes("project")) {
-      //   if (location.pathname.includes(sp.project_id)) {
-      //     return;
-      //   }
-      //   navigate(`/projects/${sp.project_id}`);
-      //   window.location.reload();
-      // }
-      // if (location.pathname.includes("agents")) {
-      //   if (location.pathname.includes(sp.project_id)) {
-      //     return;
-      //   }
-      //   navigate(`/agents/${sp.project_id}`);
-      //   window.location.reload();
-      // }
     }
   }
 

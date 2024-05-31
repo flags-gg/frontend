@@ -18,11 +18,8 @@ import {
   Dashboard,
   Store,
   ChevronLeft,
-  Settings,
-  OutlinedFlag,
   Menu,
-  AndroidOutlined,
-  Apps
+  Apps, BubbleChart
 } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {useFlags} from "@flags-gg/react-library";
@@ -30,7 +27,6 @@ import {useAtom} from "jotai";
 
 import Logo from "@C/Logo";
 import {
-  agentIdAtom,
   projectAtom
 } from "@DL/statemanager";
 
@@ -41,7 +37,6 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
   const {is} = useFlags()
-  const [agentId] = useAtom(agentIdAtom)
   const [selectedProject] = useAtom(projectAtom)
   const projectId = selectedProject?.project_id
 
@@ -103,7 +98,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
         {is("projects").enabled() && (
           <MenuItem component={Link} to={"/projects"} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
-              <Settings />
+              <Apps />
             </ListItemIcon>
             <ListItemText sx={{
               marginLeft: '10px',
@@ -113,7 +108,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
         {projectId && is("projects").enabled() && (
           <MenuItem component={Link} to={`/projects/${projectId}`} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
-              <Apps />
+              <BubbleChart />
             </ListItemIcon>
             <ListItemText sx={{
               marginLeft: '10px',

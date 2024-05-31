@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, FormEvent, useEffect, useState} from "react";
 
 import {
   Chip,
@@ -15,11 +15,16 @@ import {
 import {Link, useParams} from "react-router-dom";
 
 import useAuthFetch from "@DL/fetcher";
+interface AgentProps {
+  agentLimit?: number,
+}
 
-export const Agents: FC = () => {
+export const Agents: FC<AgentProps> = ({
+  agentLimit = 0
+}) => {
   const authFetch = useAuthFetch();
   const [agentData, setAgentData] = useState<any>(null);
-  const [showForm, setShowForm] = useState<boolean>(true);
+  const [showForm, setShowForm] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const {projectId} = useParams();
 
@@ -27,10 +32,16 @@ export const Agents: FC = () => {
     if (projectId !== "") {
       const response = await authFetch(`/agents/${projectId}`);
       const data = await response.json();
+      if (agentLimit > data?.agents?.length) {
+        setShowForm(true);
+      }
       setAgentData(data?.agents);
     } else {
       const response = await authFetch('/agents');
       const data = await response.json();
+      if (agentLimit > data?.agents?.length) {
+        setShowForm(true);
+      }
       setAgentData(data?.agents);
     }
   }
@@ -53,6 +64,32 @@ export const Agents: FC = () => {
         </Box>
       </Card>
     );
+  }
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    const form = event.currentTarget
+    const formData = new FormData(event.target as HTMLFormElement);
+    const agentName = formData.get("agentName") as string;
+
+    try {
+      authFetch('/agent', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: agentName
+        })
+      }).then(() => {
+        fetchAgentData().catch(error => console.error("failed to fetch agent data:", error));
+        setShowForm(false);
+      });
+    } catch (error) {
+      console.error("failed to create agent:", error)
+    } finally {
+      form.reset();
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -96,7 +133,7 @@ export const Agents: FC = () => {
             alignItems: 'center',
             height: '100%'
           }}>
-            <form>
+            <form onSubmit={handleSubmit}>
               <Card>
                 <CardHeader title={"Create Agent"} />
                 <CardContent>

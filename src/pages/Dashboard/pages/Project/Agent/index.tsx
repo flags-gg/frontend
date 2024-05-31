@@ -63,7 +63,7 @@ export const Agent: FC = () => {
           </Card>
         </Grid>
         <Grid item={true} lg={7} md={6} xs={12}>
-          <Environments />
+          <Environments envLimit={agentData?.environment_limit} />
         </Grid>
       </Grid>
     </Stack>
