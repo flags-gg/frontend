@@ -24,8 +24,8 @@ dependencies:
     specifier: ^5.15.19
     version: 5.15.19(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
   '@mui/x-charts':
-    specifier: ^7.6.0
-    version: 7.6.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@5.15.19)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
+    specifier: ^7.6.1
+    version: 7.6.1(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@5.15.19)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
   '@phosphor-icons/react':
     specifier: ^2.1.5
     version: 2.1.5(react-dom@18.3.1)(react@18.3.1)
@@ -68,8 +68,8 @@ devDependencies:
     specifier: ^5.0.2
     version: 5.0.2(@mui/icons-material@5.15.19)(@mui/material@5.15.19)(react@18.3.1)
   '@types/node':
-    specifier: ^20.12.13
-    version: 20.12.13
+    specifier: ^20.13.0
+    version: 20.13.0
   '@types/react':
     specifier: ^18.3.3
     version: 18.3.3
@@ -105,7 +105,7 @@ devDependencies:
     version: 5.4.5
   vite:
     specifier: ^5.2.12
-    version: 5.2.12(@types/node@20.12.13)
+    version: 5.2.12(@types/node@20.13.0)
   vite-plugin-eslint:
     specifier: ^1.8.1
     version: 1.8.1(eslint@8.57.0)(vite@5.2.12)
@@ -1658,7 +1658,7 @@ packages:
     resolution: {integrity: sha512-m4HEDZleaaCH+XgDDsPF15Ht6wTLsgDTeR3WYj9Q/k76JtWhrJjcP4+/XlG8LGT/Rol9qUfOIztXeA84ATpqPQ==}
     dependencies:
       '@babel/helper-module-imports': 7.24.3
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.6
       '@emotion/hash': 0.9.1
       '@emotion/memoize': 0.8.1
       '@emotion/serialize': 1.1.4
@@ -2256,8 +2256,8 @@ packages:
       react: 18.3.1
       react-is: 18.3.1
 
-  /@mui/x-charts@7.6.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@5.15.19)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-zEHs3Yp2yETVuU1lGYC+szAZkXRnAEADlVEpiHyirTyBuu4qqJ/p0ayqepMYKjQP05bBFauUwSho/Vqe8eiFEg==}
+  /@mui/x-charts@7.6.1(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@5.15.19)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-LuAVQX4lzhmsqk2NRdWCP+aQZ8kRwG7KOy8ulf8hR5NI5J1VsiOtH41J+qgV3uAC6hDMWL7fTgffrRDFTMci/g==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
@@ -2600,8 +2600,8 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
-  /@types/node@20.12.13:
-    resolution: {integrity: sha512-gBGeanV41c1L171rR7wjbMiEpEI/l5XFQdLLfhr/REwpgDy/4U8y89+i8kRiLzDyZdOkXh+cRaTetUnCYutoXA==}
+  /@types/node@20.13.0:
+    resolution: {integrity: sha512-FM6AOb3khNkNIXPnHFDYaHerSv8uN22C91z098AnGccVu+Pcdhi+pNUFDi0iLmPIsVE0JBD0KVS7mzUYt4nRzQ==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -2973,7 +2973,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.24.1(@babel/core@7.24.5)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.2.12(@types/node@20.12.13)
+      vite: 5.2.12(@types/node@20.13.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3173,7 +3173,7 @@ packages:
     resolution: {integrity: sha512-Cg7TFGpIr01vOQNODXOOaGz2NpCU5gl8x1qJFbb6hbZxR7XrcE2vtbAsTAbJ7/xwJtUuJEw8K8Zr/AE0LHlesg==}
     engines: {node: '>=10', npm: '>=6'}
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.6
       cosmiconfig: 7.1.0
       resolve: 1.22.8
 
@@ -3234,7 +3234,7 @@ packages:
       '@babel/preset-env': 7.24.5(@babel/core@7.24.5)
       '@babel/preset-react': 7.24.1(@babel/core@7.24.5)
       '@babel/preset-typescript': 7.24.1(@babel/core@7.24.5)
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.6
       babel-plugin-macros: 3.1.0
       babel-plugin-transform-react-remove-prop-types: 0.4.24
     transitivePeerDependencies:
@@ -3561,7 +3561,7 @@ packages:
   /dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.6
       csstype: 3.1.3
 
   /effect@3.2.7:
@@ -3964,7 +3964,7 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.6
       aria-query: 5.3.0
       array-includes: 3.1.8
       array.prototype.flatmap: 1.3.2
@@ -5101,7 +5101,7 @@ packages:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.6
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -5144,7 +5144,7 @@ packages:
   /regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.6
     dev: true
 
   /regexp.prototype.flags@1.5.2:
@@ -5702,10 +5702,10 @@ packages:
       '@types/eslint': 8.56.10
       eslint: 8.57.0
       rollup: 2.79.1
-      vite: 5.2.12(@types/node@20.12.13)
+      vite: 5.2.12(@types/node@20.13.0)
     dev: true
 
-  /vite@5.2.12(@types/node@20.12.13):
+  /vite@5.2.12(@types/node@20.13.0):
     resolution: {integrity: sha512-/gC8GxzxMK5ntBwb48pR32GGhENnjtY30G4A0jemunsBkiEZFw60s8InGpN8gkhHEkjnRK1aSAxeQgwvFhUHAA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -5733,7 +5733,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.17.2
