@@ -6,6 +6,12 @@ import {Flags} from "./pages/Project/Agent/Environment/Flags";
 import {UserAccount} from "./pages/User/";
 import {Project, Projects} from "./pages/Project";
 import {Environment} from "@/pages/Dashboard/pages/Project/Agent/Environment";
+import {flagsFileRouter} from "@DL/filerouter";
+import {createRouteHandler} from "uploadthing/next";
+
+export const {GET, POST} = createRouteHandler({
+  router: flagsFileRouter
+})
 
 const dashboardRoutes = [
   {
@@ -81,6 +87,10 @@ const dashboardRoutes = [
             ],
           },
         ],
+      },
+      {
+        path: "/upload",
+        element: createRouteHandler
       },
       {
         path: "*",

@@ -14,7 +14,7 @@ import {
   Stack,
   Typography,
   Avatar,
-  Table,
+  Table, Button,
 } from "@mui/material";
 import {Agents} from "@/pages/Dashboard/pages/Project/Agent";
 
@@ -42,6 +42,12 @@ export const Project: FC = () => {
       console.error("Failed to fetch project:", error);
     }
   }
+  const handleChangeImage = () => {
+    console.log("Change image");
+  }
+  const handleChangeName = () => {
+    console.log("Change name");
+  }
 
   useEffect(() => {
     fetchProject().catch(error => console.error("Failed to fetch project:", error));
@@ -59,13 +65,16 @@ export const Project: FC = () => {
               <Stack spacing={2} sx={{alignItems: "center"}}>
                 <Avatar src={projectData?.logo} sx={{
                   height: '80px',
-                  width: '80px'
-                }} />
+                  width: '80px',
+                  cursor: 'pointer'
+                }} onClick={handleChangeImage} />
                 <Table>
                   <TableBody>
                     <TableRow>
                       <TableCell>Name</TableCell>
-                      <TableCell>{projectData?.name}</TableCell>
+                      <TableCell onClick={handleChangeName} sx={{
+                        cursor: 'pointer'
+                      }}>{projectData?.name}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Project ID</TableCell>
@@ -74,6 +83,11 @@ export const Project: FC = () => {
                     <TableRow>
                       <TableCell>Agent Limit</TableCell>
                       <TableCell>{projectData?.agent_limit}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={2}>
+                        <Button variant={"contained"} color={"error"} fullWidth>Delete Project</Button>
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>

@@ -1,3 +1,5 @@
+"use client"
+
 import {FC} from "react";
 import {
   Card,
@@ -7,6 +9,7 @@ import {
   Typography,
   Divider
 } from "@mui/material";
+import {UploadButton} from "@DC/uploader/index.tsx";
 
 const user = {
   knownAs: "Keloran",
@@ -24,7 +27,13 @@ export const Info: FC = () => {
           <div>
             <Avatar src={user.avatar} sx={{
               height: '80px',
-              width: '80px'
+              width: '80px',
+            }} />
+            <br />
+            <UploadButton endpoint="imageUploader" onClientUploadComplete={(res) => {
+              console.log("upload complete", res)
+            }} onUploadError={(error: Error) => {
+              console.error("upload error", error)
             }} />
           </div>
           <Stack spacing={1} sx={{ textAlign: "center" }}>
@@ -37,7 +46,7 @@ export const Info: FC = () => {
             </Typography>
           </Stack>
         </Stack>
-      </CardContent>
+        </CardContent>
       <Divider />
     </Card>
   )

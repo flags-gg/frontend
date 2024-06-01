@@ -1,6 +1,7 @@
 import {FC, useEffect, useState} from "react";
 import {Outlet} from "react-router-dom";
 import {Box, Container} from "@mui/material";
+import "@uploadthing/react/styles.css"
 
 import {Summary} from "./pages/Summary";
 
