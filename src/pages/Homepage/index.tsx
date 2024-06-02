@@ -10,7 +10,6 @@ import FAQ from "@HC/FAQ";
 import Footer from "@C/Footer";
 import {flagsFrontendConfig} from "@/app.config.tsx";
 
-
 const Homepage: FC = () => {
   return (
     <FlagsProvider options={{

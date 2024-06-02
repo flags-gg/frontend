@@ -1,6 +1,7 @@
 import {Box, Container, IconButton, Link, Stack, Typography} from "@mui/material";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import {FC} from "react";
+import {useFlags} from "@flags-gg/react-library";
 
 import {BuildDetails} from "@/app.config";
 import Logo from "@C/Logo";
@@ -16,6 +17,12 @@ function Copyright() {
 }
 
 const Footer: FC = () => {
+  const {is} = useFlags();
+
+  if (!is("showFooter").enabled()) {
+    return null
+  }
+
   return (
     <Container
       maxWidth={false}
