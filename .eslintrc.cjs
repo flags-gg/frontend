@@ -28,6 +28,7 @@ module.exports = {
           ['@HC/*', './src/pages/Homepage/components/*'],
           ['@DC/*', './src/pages/Dashboard/components/*'],
           ['@DL/*', './src/pages/Dashboard/lib/*'],
+          ['@DP/*', './src/pages/Dashboard/pages/*'],
         ],
         extensions: [
           '.ts',

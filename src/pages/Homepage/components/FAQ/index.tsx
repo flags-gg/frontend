@@ -11,6 +11,10 @@ const questions: Question[] = [
   {
     question: 'What does request mean?',
     answer: 'When a user visits your site, and you are using Flags.gg, a request is made to our servers to determine which features to show the user. This is called a request.',
+  },
+  {
+    question: 'Is there a way to experiment with the flags on the fly',
+    answer: 'Yes, you can use the Flags.gg dashboard to change the flags in real-time and see the changes on your site, you can also use the "secret menu", press B on the keyboard 5 times to access it.',
   }
 ]
 

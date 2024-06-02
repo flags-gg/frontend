@@ -1,10 +1,12 @@
 import {FC, useEffect, useState} from "react";
+import {Card, Grid, Stack, Table, Typography, CardContent, TableBody, TableRow, TableCell} from "@mui/material";
+import {useParams} from "react-router-dom";
+import {useAtom} from "jotai";
 
 import {Agents} from "./Agents"
-import {Card, Grid, Stack, Table, Typography, CardContent, TableBody, TableRow, TableCell} from "@mui/material";
-import {Environments} from "@/pages/Dashboard/pages/Project/Agent/Environment";
+import {agentAtom} from "@DL/statemanager";
+import {Environments} from "@DP/Project/Agent/Environment";
 import useAuthFetch from "@DL/fetcher";
-import {useParams} from "react-router-dom";
 
 interface FlagAgent {
   id: string;
@@ -17,14 +19,16 @@ export const Agent: FC = () => {
   const {agentId} = useParams()
   const authFetch = useAuthFetch();
   const [agentData, setAgentData] = useState<FlagAgent | null>(null);
+  const [_, setSelectedAgent] = useAtom(agentAtom);
 
   const fetchAgent = async () => {
     try {
       const response = await authFetch(`/agent/${agentId}`);
       const data = await response.json();
       setAgentData(data);
+      setSelectedAgent(data)
     } catch (error) {
-      console.error("Failed to fetch project:", error);
+      console.error("Failed to fetch agent:", error);
     }
   }
 

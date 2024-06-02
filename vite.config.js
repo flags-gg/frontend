@@ -13,6 +13,7 @@ export default defineConfig({
             '@HC': path.resolve(__dirname, '/src/pages/Homepage/components'),
             '@DC': path.resolve(__dirname, '/src/pages/Dashboard/components'),
             '@DL': path.resolve(__dirname, '/src/pages/Dashboard/lib'),
+            '@DP': path.resolve(__dirname, '/src/pages/Dashboard/pages'),
         },
     },
     plugins: [

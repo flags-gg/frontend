@@ -1,6 +1,6 @@
 import {FC, ReactElement, useState} from "react";
 import {Box, Button, Card, Chip, Container, Grid, Stack, Typography} from "@mui/material";
-import {CreditCard, Filter3Outlined} from "@mui/icons-material";
+import {CreditCard, Filter2Outlined, SummarizeOutlined} from "@mui/icons-material";
 
 interface Feature {
   title: string;
@@ -18,9 +18,15 @@ const items: Feature[] = [
   },
   {
     title: 'Agent Environments',
-    description: 'Each agent can have upto 3 environments, allowing you to test different configurations',
-    icon: <Filter3Outlined />,
+    description: 'Each agent can have upto 2 environments, allowing you to test different configurations',
+    icon: <Filter2Outlined />,
     image: 'image2'
+  },
+  {
+    title: 'Secret Menu',
+    description: 'You can enable a secret menu per environment so that you can test flags on the fly',
+    icon: <SummarizeOutlined />,
+    image: '/images/secretMenu.png'
   },
 ]
 

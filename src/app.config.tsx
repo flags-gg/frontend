@@ -20,13 +20,13 @@ export const BuildDetails = {
 export const flagsDashboardConfig = {
   flagsURL: import.meta.env.VITE_FLAGS_API_SERVER + "/flags",
   projectId: import.meta.env.VITE_FLAGS_PROJECT_ID,
-  agentId: import.meta.env.VITE_FLAGS_AGENT_ID,
-  environmentId: import.meta.env.VITE_FLAGS_DASHBOARD_ID,
+  agentId: import.meta.env.VITE_FLAGS_DASHBOARD_ID,
+  environmentId: import.meta.env.VITE_FLAGS_DASHBOARD_ENVIRONMENT_ID,
 }
 
 export const flagsFrontendConfig = {
   flagsURL: import.meta.env.VITE_FLAGS_API_SERVER + "/flags",
   projectId: import.meta.env.VITE_FLAGS_PROJECT_ID,
-  agentId: import.meta.env.VITE_FLAGS_AGENT_ID,
-  environmentId: import.meta.env.VITE_FLAGS_FRONTEND_ID,
+  agentId: import.meta.env.VITE_FLAGS_FRONTEND_ID,
+  environmentId: import.meta.env.VITE_FLAGS_FRONTEND_ENVIRONMENT_ID,
 }
