@@ -32,6 +32,8 @@ export const Agents: FC<AgentProps> = ({
     if (projectId !== "") {
       const response = await authFetch(`/agents/${projectId}`);
       const data = await response.json();
+      console.info("data", data, "agentLimit", agentLimit)
+
       if (agentLimit > data?.agents?.length) {
         setShowForm(true);
       }
@@ -47,7 +49,7 @@ export const Agents: FC<AgentProps> = ({
   }
   useEffect(() => {
     fetchAgentData().catch(error => console.error("failed to fetch agent data:", error));
-  }, []);
+  }, [agentLimit]);
 
   if (!agentData) {
     return (

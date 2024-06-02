@@ -36,22 +36,17 @@ export const Project: FC = () => {
     try {
       const response = await authFetch(`/project/${projectId}`);
       const data = await response.json();
-      setSelectedProject({id: data.project_id, name: data.name, project_id: data.project_id});
+      setSelectedProject(data);
       setProjectData(data);
     } catch (error) {
       console.error("Failed to fetch project:", error);
     }
   }
-  const handleChangeImage = () => {
-    console.log("Change image");
-  }
-  const handleChangeName = () => {
-    console.log("Change name");
-  }
 
   useEffect(() => {
     fetchProject().catch(error => console.error("Failed to fetch project:", error));
   }, []);
+
 
   return (
     <Stack spacing={3}>
@@ -67,12 +62,12 @@ export const Project: FC = () => {
                   height: '80px',
                   width: '80px',
                   cursor: 'pointer'
-                }} onClick={handleChangeImage} />
+                }} />
                 <Table>
                   <TableBody>
                     <TableRow>
                       <TableCell>Name</TableCell>
-                      <TableCell onClick={handleChangeName} sx={{
+                      <TableCell sx={{
                         cursor: 'pointer'
                       }}>{projectData?.name}</TableCell>
                     </TableRow>

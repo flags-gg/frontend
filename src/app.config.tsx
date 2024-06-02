@@ -16,3 +16,17 @@ export const BuildDetails = {
     Hash: import.meta.env.VITE_COMMIT_HASH,
     Tag: import.meta.env.VITE_GIT_TAG,
 }
+
+export const flagsDashboardConfig = {
+  flagsURL: import.meta.env.VITE_FLAGS_API_SERVER + "/flags",
+  projectId: import.meta.env.VITE_FLAGS_PROJECT_ID,
+  agentId: import.meta.env.VITE_FLAGS_AGENT_ID,
+  environmentId: import.meta.env.VITE_FLAGS_DASHBOARD_ID,
+}
+
+export const flagsFrontendConfig = {
+  flagsURL: import.meta.env.VITE_FLAGS_API_SERVER + "/flags",
+  projectId: import.meta.env.VITE_FLAGS_PROJECT_ID,
+  agentId: import.meta.env.VITE_FLAGS_AGENT_ID,
+  environmentId: import.meta.env.VITE_FLAGS_FRONTEND_ID,
+}
