@@ -61,7 +61,7 @@ export const Agent: FC = () => {
                       <TableCell>{agentData?.agent_id}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Envrionment Limit</TableCell>
+                      <TableCell>Environment Limit</TableCell>
                       <TableCell>{agentData?.environment_limit}</TableCell>
                     </TableRow>
                     <TableRow>
