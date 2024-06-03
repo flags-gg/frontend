@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from "react";
 import {Card, Grid, Stack, Table, Typography, CardContent, TableBody, TableRow, TableCell} from "@mui/material";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useAtom} from "jotai";
 
 import {Agents} from "./Agents"
@@ -13,6 +13,10 @@ interface FlagAgent {
   name: string;
   agent_id: string;
   environment_limit: number;
+  project_info: {
+    project_id: string;
+    name: string;
+  }
 }
 
 export const Agent: FC = () => {
@@ -59,6 +63,10 @@ export const Agent: FC = () => {
                     <TableRow>
                       <TableCell>Envrionment Limit</TableCell>
                       <TableCell>{agentData?.environment_limit}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Owner Project</TableCell>
+                      <TableCell><Link to={`/projects/${agentData?.project_info.project_id}`}>{agentData?.project_info.name}</Link></TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
