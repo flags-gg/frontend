@@ -1,11 +1,11 @@
 import NotFound from "@C/NotFound";
 import {Dashboard, Summary} from "./";
-import {Company, CompanyAccount, CompanySettings} from "./pages/Company";
-import {Agent} from "./pages/Project/Agent";
-import {Flags} from "./pages/Project/Agent/Environment/Flags";
-import {UserAccount} from "./pages/User/";
-import {Project, Projects} from "./pages/Project";
-import {Environment} from "@/pages/Dashboard/pages/Project/Agent/Environment";
+import {Company, CompanyAccount, CompanySettings} from "@DP/Company";
+import {Agent} from "@DP/Project/Agent";
+import {Flags} from "@DP/Project/Agent/Environment/Flags";
+import {UserAccount} from "@DP/User/";
+import {Project, Projects} from "@DP/Project";
+import {Environment} from "@DP/Project/Agent/Environment";
 import {uploadRouter} from "@DL/uploadthing";
 import {createRouteHandler} from "uploadthing/next";
 

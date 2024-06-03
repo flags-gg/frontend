@@ -71,7 +71,7 @@ export const Projects: FC = () => {
     setIsSubmitting(true);
 
     try {
-      authFetch("/project", {
+      await authFetch("/project", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

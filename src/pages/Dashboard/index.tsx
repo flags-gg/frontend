@@ -3,7 +3,7 @@ import {Outlet} from "react-router-dom";
 import {Box, Container} from "@mui/material";
 import {FlagsProvider} from "@flags-gg/react-library";
 
-import {Summary} from "./pages/Summary";
+import {Summary} from "@DP/Summary";
 import Header from "@DC/Header";
 import Sidebar from "@DC/Sidebar";
 import {flagsDashboardConfig} from "@/app.config";
