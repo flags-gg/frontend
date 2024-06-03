@@ -35,7 +35,7 @@ const Footer: FC = () => {
         alignItems: 'center',
         borderTop: '3px solid #242424',
         backgroundColor: 'background.paper',
-        position: 'fixed',
+        // position: 'fixed',
         bottom: 0,
         padding: '1%',
         paddingRight: '5%',

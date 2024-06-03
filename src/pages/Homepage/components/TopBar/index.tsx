@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC} from "react";
 import {
   AppBar,
   Box,
@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {useAuth} from "react-oidc-context";
+import {useFlags} from "@flags-gg/react-library";
 
 import Logo from "@C/Logo";
 
@@ -36,11 +37,7 @@ const links: MenuLinks[] = [
 
 const TopBar: FC = () => {
   const auth = useAuth()
-  const [open, setOpen] = useState(false)
-
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen)
-  }
+  const {is} = useFlags()
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -49,7 +46,6 @@ const TopBar: FC = () => {
       const targetScroll = element.offsetTop - offset
       element.scrollIntoView({behavior: 'smooth'})
       window.scrollTo({top: targetScroll, behavior: 'smooth'})
-      setOpen(false)
     }
   }
 
@@ -80,16 +76,38 @@ const TopBar: FC = () => {
             }}>
               <Logo />
               <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                {links.map(({id, name}, index) => (
-                  <MenuItem key={index} onMouseDown={() => scrollToSection(id)} sx={{
+                {is("hero").enabled() && (
+                  <MenuItem onMouseDown={() => scrollToSection("hero")} sx={{
                     py: '0.6rem',
                     px: '1.2rem'
                   }}>
-                    <Typography variant={"body2"} color={"text.primary"}>
-                      {name}
-                    </Typography>
+                    <Typography variant={"body2"} color={"text.primary"}>Hero</Typography>
                   </MenuItem>
-                ))}
+                )}
+                {is("showFeatures").enabled() && (
+                  <MenuItem onMouseDown={() => scrollToSection("features")} sx={{
+                    py: '0.6rem',
+                    px: '1.2rem'
+                  }}>
+                    <Typography variant={"body2"} color={"text.primary"}>Features</Typography>
+                  </MenuItem>
+                )}
+                {is("pricing").enabled() && (
+                  <MenuItem onMouseDown={() => scrollToSection("pricing")} sx={{
+                    py: '0.6rem',
+                    px: '1.2rem'
+                  }}>
+                    <Typography variant={"body2"} color={"text.primary"}>Pricing</Typography>
+                  </MenuItem>
+                )}
+                {is("faq").enabled() && (
+                  <MenuItem onMouseDown={() => scrollToSection("faq")} sx={{
+                    py: '0.6rem',
+                    px: '1.2rem'
+                  }}>
+                    <Typography variant={"body2"} color={"text.primary"}>FAQ</Typography>
+                  </MenuItem>
+                )}
               </Box>
             </Box>
             <Box sx={{
@@ -108,13 +126,13 @@ const TopBar: FC = () => {
               gap: 0.5,
               alignItems: 'center',
             }}>
-              <Button variant={"text"} color={"primary"} onMouseDown={toggleDrawer(true)} sx={{
+              <Button variant={"text"} color={"primary"} sx={{
                 minWidth: '30px',
                 p: '4px'
               }}>
                 <MenuIcon />
               </Button>
-              <Drawer anchor={"right"} open={open} onClose={toggleDrawer(false)}>
+              <Drawer anchor={"right"}>
                 <Box sx={{
                   minWidth: '60dvw',
                   p: 2,

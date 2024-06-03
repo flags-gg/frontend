@@ -1,6 +1,7 @@
-import {FC, SyntheticEvent, useState} from "react";
+import {FC, SyntheticEvent, useEffect, useState} from "react";
 import {Accordion, AccordionDetails, AccordionSummary, Box, Container, Typography} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {useFlags} from "@flags-gg/react-library";
 
 interface Question {
   question: string;
@@ -20,11 +21,18 @@ const questions: Question[] = [
 
 const FAQ: FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
+  const {is} = useFlags();
 
-  const handleChange =
-    (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
+  const handleChange = (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+  useEffect(() => {
+    is("faq").initialize(true)
+  }, [])
+
+  if (!is("faq").enabled()) {
+    return null
+  }
 
   return (
     <Container

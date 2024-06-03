@@ -1,7 +1,8 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {Box, Card, CardContent, Chip, Container, Divider, Grid, Typography} from "@mui/material";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import {useFlags} from "@flags-gg/react-library";
 
 interface Tiers {
   title: string;
@@ -63,6 +64,15 @@ const tiers: Tiers[] = [
 ]
 
 const Pricing: FC = () => {
+  const {is} = useFlags();
+  useEffect(() => {
+    is('pricing').initialize(true)
+  }, []);
+
+  if (!is('pricing').enabled()) {
+    return null;
+  }
+
   return (
     <Container
       id="pricing"
