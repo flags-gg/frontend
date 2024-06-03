@@ -1,4 +1,4 @@
-import {FC} from "react";
+import { FC, useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,29 +9,28 @@ import {
 } from "@mui/material";
 
 const user = {
-  name: "Keloran",
+  knownAs: "Keloran",
   avatar: "https://avatars.githubusercontent.com/u/200350?v=4",
   jobTitle: "Software Engineer",
-  country: "UK",
-  city: "Manchester",
+  location: "UK, Manchester",
   timezone: "GMT"
-}
+};
 
 export const Info: FC = () => {
+  const [avatarURL, setAvatarURL] = useState<string>(user.avatar);
+
   return (
     <Card>
       <CardContent>
-        <Stack spacing={2} sx={{alignItems: "center"}}>
-          <div>
-            <Avatar src={user.avatar} sx={{
-              height: '80px',
-              width: '80px'
-            }} />
-          </div>
+        <Stack spacing={2} sx={{ alignItems: "center" }}>
+          <Avatar
+            src={avatarURL}
+            sx={{ height: '80px', width: '80px', cursor: 'pointer' }}
+          />
           <Stack spacing={1} sx={{ textAlign: "center" }}>
-            <Typography variant={"h5"}>{user.name}</Typography>
+            <Typography variant={"h5"}>{user.knownAs}</Typography>
             <Typography variant={"body2"} color={"text.secondary"}>
-              {user.city} {user.country}
+              {user.location}
             </Typography>
             <Typography variant={"body2"} color={"text.secondary"}>
               {user.timezone}
@@ -41,5 +40,5 @@ export const Info: FC = () => {
       </CardContent>
       <Divider />
     </Card>
-  )
-}
+  );
+};

@@ -18,20 +18,15 @@ import {
   Dashboard,
   Store,
   ChevronLeft,
-  Settings,
-  OutlinedFlag,
   Menu,
-  AndroidOutlined
+  Apps, BubbleChart, ScatterPlot, Schema
 } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {useFlags} from "@flags-gg/react-library";
 import {useAtom} from "jotai";
 
 import Logo from "@C/Logo";
-import {
-  agentIdAtom,
-  projectAtom
-} from "@DL/statemanager";
+import {projectAtom, agentAtom, environmentAtom} from "@DL/statemanager";
 
 interface SidebarProps {
   open: boolean
@@ -40,14 +35,15 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
   const {is} = useFlags()
-  const [agentId] = useAtom(agentIdAtom)
   const [selectedProject] = useAtom(projectAtom)
-  const projectId = selectedProject?.id
+  const [selectedAgent] = useAtom(agentAtom)
+  const [selectedEnvironment] = useAtom(environmentAtom)
 
   useEffect(() => {
     is("account").initialize()
-    is("agent").initialize()
+    is("agent").initialize(true)
     is("projects").initialize(true)
+    is("environment").initialize(true)
   }, [is])
 
   return (
@@ -102,35 +98,43 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
         {is("projects").enabled() && (
           <MenuItem component={Link} to={"/projects"} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
-              <Settings />
+              <Apps />
             </ListItemIcon>
             <ListItemText sx={{
               marginLeft: '10px',
             }} primary={"Projects"} />
           </MenuItem>
         )}
-        {projectId && is("agent").enabled() && (
-            <MenuItem component={Link} to={"/agent"} onClick={() => {setOpen(!open)}}>
-              <ListItemIcon>
-                <AndroidOutlined />
-              </ListItemIcon>
-              <ListItemText sx={{
-                marginLeft: '10px',
-              }} primary={"Agent"} />
-            </MenuItem>
-          )
-        }
-        {agentId && is("flags").enabled() && (
-          <MenuItem component={Link} to={`/agent/${agentId}/flags`} onClick={() => {setOpen(!open)}}>
+        {selectedProject?.project_id && is("projects").enabled() && (
+          <MenuItem component={Link} to={`/projects/${selectedProject?.project_id}`} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
-              <OutlinedFlag />
+              <BubbleChart />
             </ListItemIcon>
             <ListItemText sx={{
               marginLeft: '10px',
-            }} primary={"Flags"} />
+            }} primary={"Project Info"} />
           </MenuItem>
         )}
-        <Divider />
+        {selectedAgent?.agent_id && is("agent").enabled() && (
+          <MenuItem component={Link} to={`/projects/${selectedProject?.project_id}/${selectedAgent?.agent_id}`} onClick={() => {setOpen(!open)}}>
+            <ListItemIcon>
+              <ScatterPlot />
+            </ListItemIcon>
+            <ListItemText sx={{
+              marginLeft: '10px',
+            }} primary={"Agent Info"} />
+          </MenuItem>
+        )}
+        {selectedEnvironment?.environment_id && is("environment").enabled() && (
+          <MenuItem component={Link} to={`/projects/${selectedProject?.project_id}/${selectedAgent?.agent_id}/${selectedEnvironment?.environment_id}`} onClick={() => {setOpen(!open)}}>
+            <ListItemIcon>
+              <Schema />
+            </ListItemIcon>
+            <ListItemText sx={{
+              marginLeft: '10px',
+            }} primary={"Environment Info"} />
+          </MenuItem>
+        )}
       </MenuList>
     </Drawer>
   )

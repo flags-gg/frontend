@@ -33,10 +33,19 @@ export const ProjectSelector: FC = () => {
     }
   };
 
+  const changeProject = (event: { target: { value: string; }; }) => {
+    const sp = projects.find(project => project.name === event.target.value);
+    if (sp) {
+      setSelectedProject(sp);
+    }
+  }
+
   useEffect(() => {
     fetchProjects().catch(error =>
       console.error("Failed to fetch projects:", error)
     );
+    const interval = setInterval(fetchProjects, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   if (projects.length === 0) {
@@ -54,15 +63,7 @@ export const ProjectSelector: FC = () => {
     <Box sx={{ minWidth: 160 }}>
       <FormControl fullWidth>
         <InputLabel id="project-selector-label">{inputLabel}</InputLabel>
-        <Select
-          value={selectedProject.name}
-          onChange={(event) => {
-            const selectedProject = projects.find(project => project.name === event.target.value);
-            if (selectedProject) {
-              setSelectedProject(selectedProject);
-            }
-          }}
-        >
+        <Select value={selectedProject.name} onChange={changeProject}>
           {projects.map(project => (
             <MenuItem key={project.id} value={project.name}>{project.name}</MenuItem>
           ))}

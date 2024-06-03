@@ -12,7 +12,7 @@ export const Requests: FC = () => {
 
   const fetchDataForAgent = async (agentId: string) => {
     try {
-      const response = await authFetch(`/stats/agent/environment/${agentId}`);
+      const response = await authFetch(`/stats/agent/${agentId}`);
       const data = await response.json();
       if (data.stats) {
         data.stats.sort((a: any, b: any) => a.label.localeCompare(b.label));
@@ -43,11 +43,11 @@ export const Requests: FC = () => {
     }
   };
 
-  useEffect(() => {
-    fetchAllAgentsData().catch(error => console.error("Failed to fetch agents:", error));
-    const interval = setInterval(fetchAllAgentsData, 1200000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   fetchAllAgentsData().catch(error => console.error("Failed to fetch agents:", error));
+  //   const interval = setInterval(fetchAllAgentsData, 1200000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   if (agentsData.length === 0) {
     return (

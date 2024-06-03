@@ -1,6 +1,7 @@
-import {FC, SyntheticEvent, useState} from "react";
+import {FC, SyntheticEvent, useEffect, useState} from "react";
 import {Accordion, AccordionDetails, AccordionSummary, Box, Container, Typography} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {useFlags} from "@flags-gg/react-library";
 
 interface Question {
   question: string;
@@ -11,16 +12,27 @@ const questions: Question[] = [
   {
     question: 'What does request mean?',
     answer: 'When a user visits your site, and you are using Flags.gg, a request is made to our servers to determine which features to show the user. This is called a request.',
+  },
+  {
+    question: 'Is there a way to experiment with the flags on the fly',
+    answer: 'Yes, you can use the Flags.gg dashboard to change the flags in real-time and see the changes on your site, you can also use the "secret menu", press B on the keyboard 5 times to access it.',
   }
 ]
 
 const FAQ: FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
+  const {is} = useFlags();
 
-  const handleChange =
-    (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
+  const handleChange = (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+  useEffect(() => {
+    is("faq").initialize(true)
+  }, [])
+
+  if (!is("faq").enabled()) {
+    return null
+  }
 
   return (
     <Container

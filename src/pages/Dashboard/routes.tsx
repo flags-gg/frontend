@@ -1,10 +1,17 @@
 import NotFound from "@C/NotFound";
 import {Dashboard, Summary} from "./";
-import {Company, CompanyAccount, CompanySettings} from "./pages/Company";
-import {Agent} from "./pages/Project/Agent";
-import {Flags} from "./pages/Project/Agent/Environment/Flags";
-import {UserAccount} from "./pages/User/";
-import {Project, Projects} from "./pages/Project";
+import {Company, CompanyAccount, CompanySettings} from "@DP/Company";
+import {Agent} from "@DP/Project/Agent";
+import {Flags} from "@DP/Project/Agent/Environment/Flags";
+import {UserAccount} from "@DP/User/";
+import {Project, Projects} from "@DP/Project";
+import {Environment} from "@DP/Project/Agent/Environment";
+import {uploadRouter} from "@DL/uploadthing";
+import {createRouteHandler} from "uploadthing/next";
+
+export const {GET, POST} = createRouteHandler({
+  router: uploadRouter
+})
 
 const dashboardRoutes = [
   {
@@ -50,25 +57,43 @@ const dashboardRoutes = [
           },
           {
             path: ":projectId",
-            element: <Project />
+            children: [
+              {
+                path: "",
+                element: <Project/>
+              },
+              {
+                path: ":agentId",
+                children: [
+                  {
+                    path: "",
+                    element: <Agent/>
+                  },
+                  {
+                    path: ":environmentId",
+                    children: [
+                      {
+                        path: "",
+                        element: <Environment/>
+                      },
+                      {
+                        path: "flags",
+                        element: <Flags/>
+                      }
+                    ]
+                  },
+                ],
+              },
+            ],
           },
         ],
       },
       {
-        path: "agent",
+        path: "api",
         children: [
           {
-            path: "",
-            element: <Agent />
-          },
-          {
-            path: ":agentId",
-            children: [
-              {
-                path: ":environmentId/flags",
-                element: <Flags />
-              }
-            ],
+            path: "uploadthing",
+            handle: createRouteHandler
           },
         ],
       },

@@ -1,6 +1,7 @@
 import {Box, Container, IconButton, Link, Stack, Typography} from "@mui/material";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import {FC} from "react";
+import {FC, useEffect} from "react";
+import {useFlags} from "@flags-gg/react-library";
 
 import {BuildDetails} from "@/app.config";
 import Logo from "@C/Logo";
@@ -16,6 +17,15 @@ function Copyright() {
 }
 
 const Footer: FC = () => {
+  const {is} = useFlags();
+  useEffect(() => {
+    is("showFooter").initialize(true)
+  }, []);
+
+  if (!is("showFooter").enabled()) {
+    return null
+  }
+
   return (
     <Container
       maxWidth={false}
@@ -25,7 +35,7 @@ const Footer: FC = () => {
         alignItems: 'center',
         borderTop: '3px solid #242424',
         backgroundColor: 'background.paper',
-        position: 'fixed',
+        // position: 'fixed',
         bottom: 0,
         padding: '1%',
         paddingRight: '5%',

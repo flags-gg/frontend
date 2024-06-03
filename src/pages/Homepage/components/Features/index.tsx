@@ -1,6 +1,7 @@
-import {FC, ReactElement, useState} from "react";
+import {FC, Fragment, ReactElement, useEffect, useState} from "react";
 import {Box, Button, Card, Chip, Container, Grid, Stack, Typography} from "@mui/material";
-import {CreditCard, Filter3Outlined} from "@mui/icons-material";
+import {CreditCard, Filter2Outlined, SummarizeOutlined} from "@mui/icons-material";
+import {useFlags} from "@flags-gg/react-library";
 
 interface Feature {
   title: string;
@@ -12,15 +13,21 @@ interface Feature {
 const items: Feature[] = [
   {
     title: 'No Credit Card Needed to start',
-    description: 'You are automaticlly added to the free place when you sign up, only upgrade to paid if you need it',
+    description: 'You are automaticlly added to the free plan when you sign up.\nOnly upgrade to paid if you need it',
     icon: <CreditCard />,
     image: '/images/no-credit-card.jpg'
   },
   {
     title: 'Agent Environments',
-    description: 'Each agent can have upto 3 environments, allowing you to test different configurations',
-    icon: <Filter3Outlined />,
+    description: 'Each agent can have upto 2 environments.\nAllowing you to test different configurations',
+    icon: <Filter2Outlined />,
     image: 'image2'
+  },
+  {
+    title: 'Secret Menu',
+    description: "You can enable a secret menu per environment so that you can test flags on the fly.\nYou decide on the key-combo to open it",
+    icon: <SummarizeOutlined />,
+    image: '/images/secretMenu.png'
   },
 ]
 
@@ -30,6 +37,14 @@ const Features: FC = () => {
     setSelectedItemIndex(index)
   }
   const selectedFeature = items[selectedItemIndex]
+  const {is} = useFlags()
+  useEffect(() => {
+    is('showFeatures').initialize(true)
+  }, [])
+
+  if (!is('showFeatures').enabled()) {
+    return null
+  }
 
   return (
     <Container
@@ -89,7 +104,12 @@ const Features: FC = () => {
                 {selectedFeature.title}
               </Typography>
               <Typography color="text.secondary" variant="body2" sx={{ my: 0.5 }}>
-                {selectedFeature.description}
+                {selectedFeature.description.split('\n').map((line, index) => (
+                  <Fragment key={index}>
+                    {line}
+                    <br />
+                  </Fragment>
+                ))}
               </Typography>
             </Box>
           </Box>
@@ -148,7 +168,12 @@ const Features: FC = () => {
                       {title}
                     </Typography>
                     <Typography color="text.secondary" variant="body2" sx={{ my: 0.5 }}>
-                      {description}
+                      {description.split('\n').map((line, index) => (
+                        <Fragment key={index}>
+                          {line}
+                          <br />
+                        </Fragment>
+                      ))}
                     </Typography>
                   </Box>
                 </Box>

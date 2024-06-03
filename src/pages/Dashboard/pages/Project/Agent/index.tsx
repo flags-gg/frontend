@@ -1,84 +1,84 @@
 import {FC, useEffect, useState} from "react";
-
-import {
-  Chip,
-  TableCell,
-  TableRow,
-  TableHead,
-  Card,
-  CardHeader,
-  Divider,
-  Box,
-  Table,
-  TableBody
-} from "@mui/material";
+import {Card, Grid, Stack, Table, Typography, CardContent, TableBody, TableRow, TableCell} from "@mui/material";
+import {Link, useParams} from "react-router-dom";
+import {useAtom} from "jotai";
 
 import {Agents} from "./Agents"
+import {agentAtom} from "@DL/statemanager";
+import {Environments} from "@DP/Project/Agent/Environment";
 import useAuthFetch from "@DL/fetcher";
 
-export const Agent: FC = () => {
-  const authFetch = useAuthFetch();
-  const [agentData, setAgentData] = useState<any>(null);
-
-  const fetchAgentData = async () => {
-    const response = await authFetch('/agents');
-    const data = await response.json();
-    setAgentData(data?.agents);
+interface FlagAgent {
+  id: string;
+  name: string;
+  agent_id: string;
+  environment_limit: number;
+  project_info: {
+    project_id: string;
+    name: string;
   }
+}
+
+export const Agent: FC = () => {
+  const {agentId} = useParams()
+  const authFetch = useAuthFetch();
+  const [agentData, setAgentData] = useState<FlagAgent | null>(null);
+  const [_, setSelectedAgent] = useAtom(agentAtom);
+
+  const fetchAgent = async () => {
+    try {
+      const response = await authFetch(`/agent/${agentId}`);
+      const data = await response.json();
+      setAgentData(data);
+      setSelectedAgent(data)
+    } catch (error) {
+      console.error("Failed to fetch agent:", error);
+    }
+  }
+
   useEffect(() => {
-    fetchAgentData().catch(error => console.error("failed to fetch agent data:", error));
+    fetchAgent().catch(error => console.error("Failed to fetch agent:", error));
   }, []);
 
-  if (!agentData) {
-    return (
-      <Card>
-        <CardHeader title={"Agents"} />
-        <Divider />
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%'
-        }}>
-          <p>No agents found</p>
-        </Box>
-      </Card>
-    );
-  }
-
   return (
-    <Card>
-      <CardHeader title={"Agents"} />
-      <Divider />
-      <Box sx={{
-        overflowX: 'auto',
-      }}>
-        <Table sx={{
-          minWidth: 800
-        }}>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Environments</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {agentData?.map((agent: any) => (
-              <TableRow key={agent.id}>
-                <TableCell>{agent.agent_id}</TableCell>
-                <TableCell>{agent.name}</TableCell>
-                <TableCell>
-                  {agent.environments.map((env: any) => (
-                    <Chip key={env.environment_id} label={env.name} component="a" href={`/agent/${agent.agent_id}/${env.environment_id}/flags`} clickable />
-                  ))}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </Card>
+    <Stack spacing={3}>
+      <div>
+        <Typography variant={"h4"}>Agent Details</Typography>
+      </div>
+      <Grid container spacing={4}>
+        <Grid item={true} lg={4} md={6} xs={12}>
+          <Card>
+            <CardContent>
+              <Stack spacing={2} sx={{alignItems: "center"}}>
+                <Table>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>{agentData?.name}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Agent ID</TableCell>
+                      <TableCell>{agentData?.agent_id}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Environment Limit</TableCell>
+                      <TableCell>{agentData?.environment_limit}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Owner Project</TableCell>
+                      <TableCell><Link to={`/projects/${agentData?.project_info.project_id}`}>{agentData?.project_info.name}</Link></TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item={true} lg={7} md={6} xs={12}>
+          <Environments envLimit={agentData?.environment_limit} />
+        </Grid>
+      </Grid>
+    </Stack>
   );
 }
 
