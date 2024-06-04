@@ -117,7 +117,7 @@ export const Agents: FC<AgentProps> = ({
                 <TableCell><Link to={`/projects/${projectId}/${agent.agent_id}`}>{agent.agent_id}</Link></TableCell>
                 <TableCell>
                   {agent.environments.map((env: any) => (
-                    <Chip key={env.environment_id} label={env.name} component="a" href={`/agent/${agent.agent_id}/${env.environment_id}/flags`} clickable />
+                    <Chip key={env.environment_id} label={env.name} component={Link} to={`/projects/${projectId}/${agent.agent_id}/${env.environment_id}`} clickable />
                   ))}
                 </TableCell>
               </TableRow>
