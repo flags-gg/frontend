@@ -6,12 +6,6 @@ import {Flags} from "@DP/Project/Agent/Environment/Flags";
 import {UserAccount} from "@DP/User/";
 import {Project, Projects} from "@DP/Project";
 import {Environment} from "@DP/Project/Agent/Environment";
-import {uploadRouter} from "@DL/uploadthing";
-import {createRouteHandler} from "uploadthing/next";
-
-export const {GET, POST} = createRouteHandler({
-  router: uploadRouter
-})
 
 const dashboardRoutes = [
   {
@@ -85,15 +79,6 @@ const dashboardRoutes = [
                 ],
               },
             ],
-          },
-        ],
-      },
-      {
-        path: "api",
-        children: [
-          {
-            path: "uploadthing",
-            handle: createRouteHandler
           },
         ],
       },

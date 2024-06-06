@@ -1,4 +1,4 @@
-import {FC, Fragment, ReactElement, useEffect, useState} from "react";
+import {FC, Fragment, ReactElement, useState} from "react";
 import {Box, Button, Card, Chip, Container, Grid, Stack, Typography} from "@mui/material";
 import {CreditCard, Filter2Outlined, SummarizeOutlined} from "@mui/icons-material";
 import {useFlags} from "@flags-gg/react-library";
@@ -38,10 +38,6 @@ const Features: FC = () => {
   }
   const selectedFeature = items[selectedItemIndex]
   const {is} = useFlags()
-  useEffect(() => {
-    is('showFeatures').initialize(true)
-  }, [])
-
   if (!is('showFeatures').enabled()) {
     return null
   }

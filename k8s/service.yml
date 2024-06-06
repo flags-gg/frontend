@@ -30,24 +30,6 @@ spec:
           ports:
             - containerPort: 80
               protocol: TCP
-          env:
-            - name: VITE_KEYCLOAK_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: frontend-secrets
-                  key: keycloak-client-secret
-            - name: VITE_FLAGS_API_SERVER
-              value: "https://api.flags.gg/v1"
-            - name: VITE_FLAGS_COMPANY_ID
-              value: "85ccae4e-7bb3-4ec5-bfc7-b08a80e59328"
-            - name: VITE_FLAGS_DASHBOARD_ID
-              value: "c778cf4b-83f1-4c53-951e-604102c84898"
-            - name: VITE_FLAGS_DASHBOARD_ENVIRONMENT_ID
-              value: "81aca98e-3b01-4c3c-a4cf-c7eee26185c5"
-            - name: VITE_FLAGS_FRONTEND_ID
-              value: "a7978e82-bee0-4357-808d-53ee33d3bc55"
-            - name: VITE_FLAGS_FRONTEND_ENVIRONMENT_ID
-              value: "f8f84114-0706-40b7-a929-995d675f1f6d"
 ---
 apiVersion: v1
 kind: Service
