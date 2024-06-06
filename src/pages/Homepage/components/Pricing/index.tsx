@@ -65,10 +65,6 @@ const tiers: Tiers[] = [
 
 const Pricing: FC = () => {
   const {is} = useFlags();
-  useEffect(() => {
-    is('pricing').initialize(true)
-  }, []);
-
   if (!is('pricing').enabled()) {
     return null;
   }

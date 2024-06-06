@@ -18,10 +18,6 @@ function Copyright() {
 
 const Footer: FC = () => {
   const {is} = useFlags();
-  useEffect(() => {
-    is("showFooter").initialize(true)
-  }, []);
-
   if (!is("showFooter").enabled()) {
     return null
   }

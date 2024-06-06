@@ -4,10 +4,6 @@ import {useFlags} from "@flags-gg/react-library";
 
 const Hero: FC = () => {
   const {is} = useFlags();
-  useEffect(() => {
-    is("hero").initialize();
-  }, []);
-
   if (!is("hero").enabled()) {
     return null;
   }

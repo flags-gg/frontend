@@ -26,9 +26,6 @@ const FAQ: FC = () => {
   const handleChange = (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
-  useEffect(() => {
-    is("faq").initialize(true)
-  }, [])
 
   if (!is("faq").enabled()) {
     return null

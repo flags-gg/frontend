@@ -6,6 +6,7 @@ import {Card, CardContent, Grid, Stack, Table, TableBody, TableCell, TableRow, T
 import {Environments} from "./Environments";
 import {agentAtom, environmentAtom} from "@DL/statemanager";
 import useAuthFetch from "@DL/fetcher";
+import {Flags} from "@DP/Project/Agent/Environment/Flags/Flags";
 
 interface Environment {
   id: string;
@@ -86,6 +87,9 @@ export const Environment: FC = () => {
               </Stack>
             </CardContent>
           </Card>
+        </Grid>
+        <Grid item={true} lg={7} md={6} xs={12}>
+          <Flags />
         </Grid>
       </Grid>
     </Stack>

@@ -22,8 +22,6 @@ const UserPopover: FC<UserPopoverInterface> = ({anchorEl, onClose, open}) => {
   const authFetch = useAuthFetch()
 
   useEffect(() => {
-    is("userSettings").initialize()
-
     authFetch("/user", {
       method: "POST",
       body: JSON.stringify({

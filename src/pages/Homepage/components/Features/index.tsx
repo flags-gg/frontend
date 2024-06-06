@@ -38,10 +38,6 @@ const Features: FC = () => {
   }
   const selectedFeature = items[selectedItemIndex]
   const {is} = useFlags()
-  useEffect(() => {
-    is('showFeatures').initialize(true)
-  }, [])
-
   if (!is('showFeatures').enabled()) {
     return null
   }

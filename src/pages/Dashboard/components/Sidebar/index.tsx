@@ -12,7 +12,6 @@ import {
 import {
   Dispatch,
   FC,
-  useEffect
 } from "react";
 import {
   Dashboard,
@@ -38,13 +37,6 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
   const [selectedProject] = useAtom(projectAtom)
   const [selectedAgent] = useAtom(agentAtom)
   const [selectedEnvironment] = useAtom(environmentAtom)
-
-  useEffect(() => {
-    is("account").initialize()
-    is("agent").initialize(true)
-    is("projects").initialize(true)
-    is("environment").initialize(true)
-  }, [is])
 
   return (
     <Drawer
