@@ -1,4 +1,4 @@
-import {FC, SyntheticEvent, useEffect, useState} from "react";
+import {FC, SyntheticEvent, useState} from "react";
 import {Accordion, AccordionDetails, AccordionSummary, Box, Container, Typography} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {useFlags} from "@flags-gg/react-library";
