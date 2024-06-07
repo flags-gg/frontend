@@ -1,16 +1,12 @@
-import {FC, useCallback, useEffect, useState} from "react";
-import {Card, CardContent, styled, Typography} from "@mui/material";
-import ApexChart from "react-apexcharts";
-import useAuthFetch from "@DL/fetcher";
-import {useChartOptions} from "../index.tsx";
+import {FC} from "react";
 
 
 export const Requests: FC = () => {
-  const authFetch = useAuthFetch();
-  const Chart = styled(ApexChart)``
-  const [chartOptions, setChartOptions] = useState<string[]>([])
-  const [chartSeries, setChartSeries] = useState<{ name: string, data: number[] }[]>([])
-  const [lastData, setLastData] = useState<string>("");
+  // const authFetch = useAuthFetch();
+  // const Chart = styled(ApexChart)``
+  // const [chartOptions, setChartOptions] = useState<string[]>([])
+  // const [chartSeries, setChartSeries] = useState<{ name: string, data: number[] }[]>([])
+  // const [lastData, setLastData] = useState<string>("");
 
   // const fetchData = useCallback(() => {
   //   authFetch('/stats/agents')
@@ -49,18 +45,20 @@ export const Requests: FC = () => {
   // }, [fetchData]);
 
 
-  const processedOptions = useChartOptions(chartOptions)
+  // const processedOptions = useChartOptions(chartOptions)
+  //
+  // return (
+  //   <Card sx={{
+  //     height: '100%',
+  //     display: 'flex',
+  //     flexDirection: 'column',
+  //   }}>
+  //     <CardContent>
+  //       <Typography variant={"h6"}>Total Requests</Typography>
+  //       <Chart options={processedOptions} series={chartSeries} type={"bar"} height={350}/>
+  //     </CardContent>
+  //   </Card>
+  // )
 
-  return (
-    <Card sx={{
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-    }}>
-      <CardContent>
-        <Typography variant={"h6"}>Total Requests</Typography>
-        <Chart options={processedOptions} series={chartSeries} type={"bar"} height={350}/>
-      </CardContent>
-    </Card>
-  )
+  return null
 }

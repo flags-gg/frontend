@@ -16,7 +16,7 @@ import {
   Avatar,
   Table, Button,
 } from "@mui/material";
-import {Agents} from "@/pages/Dashboard/pages/Project/Agent";
+import {Agents} from "../Agent";
 
 interface Project {
   id: string;
@@ -46,7 +46,6 @@ export const Project: FC = () => {
   useEffect(() => {
     fetchProject().catch(error => console.error("Failed to fetch project:", error));
   }, []);
-
 
   return (
     <Stack spacing={3}>
@@ -81,7 +80,7 @@ export const Project: FC = () => {
                     </TableRow>
                     <TableRow>
                       <TableCell colSpan={2}>
-                        <Button variant={"contained"} color={"error"} fullWidth>Delete Project</Button>
+                        <Button variant={"contained"} color={"primary"} fullWidth>Edit</Button>
                       </TableCell>
                     </TableRow>
                   </TableBody>

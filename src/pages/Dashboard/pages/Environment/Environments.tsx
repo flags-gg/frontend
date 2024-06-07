@@ -27,7 +27,7 @@ export const Environments: FC<EnvironmentProps> = ({
   const [envData, setEnvData] = useState<any>(null);
   const [showForm, setShowForm] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const {projectId, agentId} = useParams();
+  const {agentId} = useParams();
 
   const fetchEnvData = async () => {
     const response = await authFetch(`/agent/${agentId}/environments`);
@@ -105,9 +105,9 @@ export const Environments: FC<EnvironmentProps> = ({
           <TableBody>
             {envData?.map((env: any) => (
               <TableRow key={env.id}>
-                <TableCell><Link to={`/projects/${projectId}/${agentId}/${env.environment_id}`}>{env.name}</Link></TableCell>
-                <TableCell><Link to={`/projects/${projectId}/${agentId}/${env.environment_id}`}>{env.environment_id}</Link></TableCell>
-                <TableCell><Link to={`/projects/${projectId}/${agentId}/${env.environment_id}`}>{env.enabled}</Link></TableCell>
+                <TableCell><Link to={`/environments/${env.environment_id}`}>{env.name}</Link></TableCell>
+                <TableCell><Link to={`/environments/${env.environment_id}`}>{env.environment_id}</Link></TableCell>
+                <TableCell><Link to={`/environments/${env.environment_id}`}>{env.enabled ? "Enabled" : "Disabled"}</Link></TableCell>
               </TableRow>
             ))}
           </TableBody>

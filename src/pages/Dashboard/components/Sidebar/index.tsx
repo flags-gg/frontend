@@ -108,7 +108,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
           </MenuItem>
         )}
         {selectedAgent?.agent_id && is("agent").enabled() && (
-          <MenuItem component={Link} to={`/projects/${selectedProject?.project_id}/${selectedAgent?.agent_id}`} onClick={() => {setOpen(!open)}}>
+          <MenuItem component={Link} to={`/agents/${selectedAgent?.agent_id}`} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
               <ScatterPlot />
             </ListItemIcon>
@@ -118,7 +118,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
           </MenuItem>
         )}
         {selectedEnvironment?.environment_id && is("environment").enabled() && (
-          <MenuItem component={Link} to={`/projects/${selectedProject?.project_id}/${selectedAgent?.agent_id}/${selectedEnvironment?.environment_id}`} onClick={() => {setOpen(!open)}}>
+          <MenuItem component={Link} to={`/environments/${selectedEnvironment?.environment_id}`} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
               <Schema />
             </ListItemIcon>

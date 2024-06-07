@@ -1,11 +1,11 @@
 import {FC, useEffect, useState} from "react";
-import {Card, Grid, Stack, Table, Typography, CardContent, TableBody, TableRow, TableCell} from "@mui/material";
+import {Card, Grid, Stack, Table, Typography, CardContent, TableBody, TableRow, TableCell, Button} from "@mui/material";
 import {Link, useParams} from "react-router-dom";
 import {useAtom} from "jotai";
 
-import {Agents} from "./Agents"
+import {Agents} from "./Agents.tsx"
 import {agentAtom} from "@DL/statemanager";
-import {Environments} from "@DP/Project/Agent/Environment";
+import {Environments} from "../Environment";
 import useAuthFetch from "@DL/fetcher";
 
 interface FlagAgent {
@@ -67,6 +67,11 @@ export const Agent: FC = () => {
                     <TableRow>
                       <TableCell>Owner Project</TableCell>
                       <TableCell><Link to={`/projects/${agentData?.project_info.project_id}`}>{agentData?.project_info.name}</Link></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={2}>
+                        <Button variant={"contained"} color={"primary"} fullWidth>Edit</Button>
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
