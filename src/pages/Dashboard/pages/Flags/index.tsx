@@ -13,23 +13,27 @@ import {
   Switch,
   IconButton, Dialog, DialogTitle, DialogContentText, DialogActions, Button
 } from "@mui/material";
-
-import useAuthFetch from "@DL/fetcher";
 import {Flag} from "@flags-gg/react-library/types";
 import {Create, Delete} from "@mui/icons-material";
+import {useAtom} from "jotai";
+
+import useAuthFetch from "@DL/fetcher";
+import {projectAtom, agentAtom} from "@DL/statemanager";
 
 export const Flags: FC = () => {
   const authFetch = useAuthFetch()
   const [flags, setFlags] = useState<Flag[]>([])
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
-  const {projectId, agentId, environmentId} = useParams()
+  const {environmentId} = useParams()
   const [openDelete, setOpenDelete] = useState<boolean>(false)
   const [selectedFlag, setSelectedFlag] = useState<Flag | null>(null)
+  const [selectedProject] = useAtom(projectAtom)
+  const [selectedAgent] = useAtom(agentAtom)
 
 
   const fetchFlags = async () => {
     try {
-      const response = await authFetch(`/flags/${projectId}/${agentId}/${environmentId}`)
+      const response = await authFetch(`/flags/${selectedProject.project_id}/${selectedAgent.agent_id}/${environmentId}`)
       const data = await response.json()
       setFlags(data)
     } catch (error) {
@@ -160,13 +164,16 @@ export const Flags: FC = () => {
               method: 'POST',
               body: JSON.stringify({
                 name: name,
-                agentId: agentId,
+                agentId: selectedAgent.agent_id,
                 environmentId: environmentId,
               })
             }).then(() => {
               fetchFlags().catch(error => console.error("Failed to fetch flags", error))
             }).catch(error => console.error("Failed to create flag", error))
-              .finally(() => setIsSubmitting(false))
+              .finally(() => {
+                setIsSubmitting(false)
+                e.currentTarget.reset()
+              })
           }
         }}>
           <Card>

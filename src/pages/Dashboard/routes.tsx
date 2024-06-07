@@ -1,11 +1,11 @@
 import NotFound from "@C/NotFound";
 import {Dashboard, Summary} from "./";
 import {Company, CompanyAccount, CompanySettings} from "@DP/Company";
-import {Agent} from "@DP/Project/Agent";
-import {Flags} from "@DP/Project/Agent/Environment/Flags";
+import {Agent} from "@DP/Agent";
+import {Flags} from "@DP/Flags";
 import {UserAccount} from "@DP/User/";
 import {Project, Projects} from "@DP/Project";
-import {Environment} from "@DP/Project/Agent/Environment";
+import {Environment} from "@DP/Environment";
 
 const dashboardRoutes = [
   {
@@ -43,6 +43,33 @@ const dashboardRoutes = [
         ],
       },
       {
+        path: "agents",
+        children: [
+          {
+            path: ":agentId",
+            element: <Agent />
+          }
+        ]
+      },
+      {
+        path: "environments",
+        children: [
+          {
+            path: ":environmentId",
+            children: [
+              {
+                path: "",
+                element: <Environment/>
+              },
+              {
+                path: "flags",
+                element: <Flags/>
+              }
+            ]
+          }
+        ]
+      },
+      {
         path: "projects",
         children: [
           {
@@ -55,28 +82,6 @@ const dashboardRoutes = [
               {
                 path: "",
                 element: <Project/>
-              },
-              {
-                path: ":agentId",
-                children: [
-                  {
-                    path: "",
-                    element: <Agent/>
-                  },
-                  {
-                    path: ":environmentId",
-                    children: [
-                      {
-                        path: "",
-                        element: <Environment/>
-                      },
-                      {
-                        path: "flags",
-                        element: <Flags/>
-                      }
-                    ]
-                  },
-                ],
               },
             ],
           },

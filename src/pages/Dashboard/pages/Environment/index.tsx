@@ -1,12 +1,12 @@
 import {FC, useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useAtom} from "jotai";
-import {Card, CardContent, Grid, Stack, Table, TableBody, TableCell, TableRow, Typography} from "@mui/material";
+import {Button, Card, CardContent, Grid, Stack, Table, TableBody, TableCell, TableRow, Typography} from "@mui/material";
 
-import {Environments} from "./Environments";
+import {Environments} from "./Environments.tsx";
 import {agentAtom, environmentAtom} from "@DL/statemanager";
 import useAuthFetch from "@DL/fetcher";
-import {Flags} from "@DP/Project/Agent/Environment/Flags/Flags";
+import {Flags} from "../Flags";
 
 interface Environment {
   id: string;
@@ -19,16 +19,16 @@ interface Environment {
 }
 
 export const Environment: FC = () => {
-  const {projectId, agentId, environmentId} = useParams()
+  const {environmentId} = useParams()
   const authFetch = useAuthFetch()
   const [environmentData, setEnvironmentData] = useState<Environment | null>(null)
   const [agentData, setAgentData] = useState<any>(null)
   const [, setSelectedEnvironment] = useAtom(environmentAtom)
-  const [, setSelectedAgent] = useAtom(agentAtom)
+  const [selectedAgent] = useAtom(agentAtom)
 
   const fetchEnvironment = async () => {
     try {
-      const response = await authFetch(`/agent/${agentId}/environment/${environmentId}`)
+      const response = await authFetch(`/agent/${selectedAgent.agent_id}/environment/${environmentId}`)
       const data = await response.json()
       setEnvironmentData(data)
       setSelectedEnvironment(data)
@@ -39,14 +39,12 @@ export const Environment: FC = () => {
 
   const fetchAgent = async() => {
     try {
-      const response = await authFetch(`/agent/${agentId}`)
+      const response = await authFetch(`/agent/${selectedAgent.agent_id}`)
       const data = await response.json()
       setAgentData(data)
-      setSelectedAgent(data)
     } catch (error) {
       console.error("failed to fetch agent", error)
     }
-
   }
 
   useEffect(() => {
@@ -76,11 +74,16 @@ export const Environment: FC = () => {
                     </TableRow>
                     <TableRow>
                       <TableCell>Secret Menu</TableCell>
-                      <TableCell><Link to={`/projects/${projectId}/${agentId}/${environmentId}/secret_menu`}>{environmentData?.secret_menu.enabled ? "Enabled" : "Disabled"}</Link></TableCell>
+                      <TableCell><Link to={`/secretmenu/${environmentId}`}>{environmentData?.secret_menu.enabled ? "Enabled" : "Disabled"}</Link></TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Owner Agent</TableCell>
-                      <TableCell><Link to={`/projects/${projectId}/${agentId}`}>{agentData?.name}</Link></TableCell>
+                      <TableCell><Link to={`/agents/${selectedAgent.agent_id}`}>{agentData?.name}</Link></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={2}>
+                        <Button variant={"contained"} color={"primary"} fullWidth>Edit</Button>
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
