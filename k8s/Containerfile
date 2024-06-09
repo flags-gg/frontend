@@ -16,6 +16,7 @@ COPY tsconfig.json ./
 COPY tsconfig.node.json ./
 COPY .eslintrc.cjs ./
 COPY index.html ./
+COPY k8s/serve.json ./serve.json
 
 # Build
 FROM base AS build
@@ -51,4 +52,4 @@ WORKDIR /runner
 COPY --from=build /frontend/dist /runner
 RUN npm install -g serve
 
-CMD ["serve", "-s", "/runner", "-l", "80"]
+CMD ["serve", "-l", "80", "-u", "/runner", "-c", "/runner/serve.json"]
