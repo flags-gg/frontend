@@ -63,6 +63,10 @@ jobs:
             FLAGS_AGENT_ID=c778cf4b-83f1-4c53-951e-604102c84898
             FLAGS_ENVIRONMENT_ID=81aca98e-3b01-4c3c-a4cf-c7eee26185c5
             FLAGS_SERVER=https://api.flags.gg/v1
+            UPLOADTHING_KEY=${{ secrets.UPLOADTHING_KEY }}
+            UPLOADTHING_SECRET=${{ secrets.UPLOADTHING_SECRET }}
+            STRIP_KEY=${{ secrets.STRIP_KEY }}
+            STRIP_SECRET=${{ secrets.STRIP_SECRET }}
 #  deploy:
 #    runs-on: ubuntu-latest
 #    needs: build
