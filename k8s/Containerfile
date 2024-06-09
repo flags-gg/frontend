@@ -50,6 +50,7 @@ RUN pnpm build
 FROM containers.chewed-k8s.net/docker_hub_cache/library/node:20-alpine AS runner
 WORKDIR /runner
 COPY --from=build /frontend/dist /runner
+COPY --from=build /frontend/serve.json /runner/serve.json
 RUN npm install -g serve
 
 CMD ["serve", "-l", "80", "-u", "/runner", "-c", "/runner/serve.json"]
