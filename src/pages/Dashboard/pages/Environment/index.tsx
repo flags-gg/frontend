@@ -4,24 +4,14 @@ import {useAtom} from "jotai";
 import {Button, Card, CardContent, Grid, Stack, Table, TableBody, TableCell, TableRow, Typography} from "@mui/material";
 
 import {Environments} from "./Environments.tsx";
-import {agentAtom, environmentAtom} from "@DL/statemanager";
+import {IEnvironment, agentAtom, environmentAtom} from "@DL/statemanager";
 import useAuthFetch from "@DL/fetcher";
 import {Flags} from "../Flags";
-
-interface Environment {
-  id: string;
-  name: string;
-  environment_id: string;
-  secret_menu: {
-    enabled: boolean,
-    id: string,
-  };
-}
 
 export const Environment: FC = () => {
   const {environmentId} = useParams()
   const authFetch = useAuthFetch()
-  const [environmentData, setEnvironmentData] = useState<Environment | null>(null)
+  const [environmentData, setEnvironmentData] = useState<IEnvironment | null>(null)
   const [agentData, setAgentData] = useState<any>(null)
   const [, setSelectedEnvironment] = useAtom(environmentAtom)
   const [selectedAgent] = useAtom(agentAtom)
@@ -54,9 +44,7 @@ export const Environment: FC = () => {
 
   return (
     <Stack spacing={3}>
-      <div>
-        <Typography variant={"h4"}>Environment Details</Typography>
-      </div>
+      <Typography variant={"h4"}>Environment Details</Typography>
       <Grid container spacing={4}>
         <Grid item={true} lg={4} md={6} xs={12}>
           <Card>

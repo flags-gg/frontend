@@ -3,13 +3,12 @@ import {MenuItem, Select, FormControl, InputLabel, Box} from "@mui/material";
 import { useAtom } from "jotai";
 
 import useAuthFetch from "@DL/fetcher";
-import { Project } from "./types";
-import {projectAtom} from "@DL/statemanager";
+import {IProject, projectAtom} from "@DL/statemanager";
 
 export const ProjectSelector: FC = () => {
   const [selectedProject, setSelectedProject] = useAtom(projectAtom);
   const authFetch = useAuthFetch();
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<IProject[]>([]);
 
   const fetchProjects = async () => {
     try {

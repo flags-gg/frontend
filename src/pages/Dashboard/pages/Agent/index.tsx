@@ -4,20 +4,9 @@ import {Link, useParams} from "react-router-dom";
 import {useAtom} from "jotai";
 
 import {Agents} from "./Agents.tsx"
-import {agentAtom} from "@DL/statemanager";
+import {FlagAgent, agentAtom} from "@DL/statemanager";
 import {Environments} from "../Environment";
 import useAuthFetch from "@DL/fetcher";
-
-interface FlagAgent {
-  id: string;
-  name: string;
-  agent_id: string;
-  environment_limit: number;
-  project_info: {
-    project_id: string;
-    name: string;
-  }
-}
 
 export const Agent: FC = () => {
   const {agentId} = useParams()
@@ -42,9 +31,7 @@ export const Agent: FC = () => {
 
   return (
     <Stack spacing={3}>
-      <div>
-        <Typography variant={"h4"}>Agent Details</Typography>
-      </div>
+      <Typography variant={"h4"}>Agent Details</Typography>
       <Grid container spacing={4}>
         <Grid item={true} lg={4} md={6} xs={12}>
           <Card>

@@ -17,13 +17,13 @@ import {
   TextField
 } from "@mui/material";
 
-import {Project} from "@DC/ProjectSelector/types";
 import useAuthFetch from "@DL/fetcher";
 import {Link} from "react-router-dom";
+import {IProject} from "@DL/statemanager";
 
 export const Projects: FC = () => {
   const authFetch = useAuthFetch();
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<IProject[]>([]);
   const [allowedProjects, setAllowedProjects] = useState<number>(1);
   const [showForm, setShowForm] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
