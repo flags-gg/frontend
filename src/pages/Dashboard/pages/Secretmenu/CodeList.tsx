@@ -7,6 +7,7 @@ import {DraggableKey} from "@DP/Secretmenu/DraggableKey.tsx";
 import {DropTarget} from "@DP/Secretmenu/DropTarget.tsx";
 import {KeyMap} from "@DP/Secretmenu/keymap";
 import {DndContext} from "@dnd-kit/core";
+import {Button, Card, CardActions, CardContent, CardHeader, Divider} from "@mui/material";
 
 export const CodeList: FC = () => {
   const [selectedEnvironment] = useAtom(environmentAtom)
@@ -19,7 +20,6 @@ export const CodeList: FC = () => {
     try {
       const response = await authFetch(`/environment/${selectedEnvironment.environment_id}/secret-menu`);
       const data = await response.json();
-      console.info("Menu Data:", data);
       setSelectedMenu(data);
       setMenuData(data);
       setCodeSequence(data.sequence);
@@ -67,16 +67,23 @@ export const CodeList: FC = () => {
   };
 
   return (
-     <div>
-      <h1>Drag and Drop Key Code Sequence</h1>
-      <DndContext onDragEnd={handleDragEnd}>
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px', gap: '10px', flexWrap: 'wrap' }}>
-          {KeyMap.map((key) => (
-            <DraggableKey key={key.id} id={key.id} icon={key.icon} />
-          ))}
-        </div>
-        <DropTarget id="drop-target" sequence={code} onRemove={handleRemove} />
-      </DndContext>
-    </div>
+     <Card>
+       <CardHeader title={"Build Secret Menu"} />
+       <CardContent>
+         You can drag and drop keys to build your secret menu.
+         <Divider />
+         <DndContext onDragEnd={handleDragEnd}>
+           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px', gap: '10px', flexWrap: 'wrap' }}>
+             {KeyMap.map((key, index) => (
+               <DraggableKey key={key.id} id={key.id} icon={key.icon} />
+             ))}
+           </div>
+           <DropTarget id="drop-target" sequence={code} onRemove={handleRemove} />
+         </DndContext>
+       </CardContent>
+       <CardActions>
+         <Button fullWidth variant={"contained"}>Save</Button>
+       </CardActions>
+    </Card>
   )
 }

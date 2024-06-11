@@ -1,15 +1,63 @@
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
 import {useAtom} from "jotai";
-import {Button, Card, CardContent, Grid, Stack, Table, TableBody, TableCell, TableRow, Typography} from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Stack,
+  Switch,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography
+} from "@mui/material";
 
-import {environmentAtom, agentAtom, projectAtom} from "@DL/statemanager";
+import {environmentAtom, agentAtom, projectAtom, secretMenu} from "@DL/statemanager";
 import {Link} from "react-router-dom";
 import {CodeList} from "@DP/Secretmenu/CodeList.tsx";
+import useAuthFetch from "@DL/fetcher";
 
 export const SecretMenu: FC = () => {
   const [selectedEnvironment] = useAtom(environmentAtom)
   const [selectedAgent] = useAtom(agentAtom)
   const [selectedProject] = useAtom(projectAtom)
+  const [menuData, setMenuData] = useState<secretMenu | null>(null);
+  const authFetch = useAuthFetch();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const handleDisable = async () => {
+    setIsSubmitting(true);
+    try {
+      await authFetch(`/environment/${selectedEnvironment.environment_id}/secret-menu`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          enabled: !menuData?.enabled,
+          id: menuData?.menu_id,
+        })
+      });
+      setMenuData(m => m ? {...m, enabled: !m.enabled} : null);
+    } catch (error) {
+      console.error("Failed to update secret menu:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  const fetchMenu = async () => {
+    try {
+      const response = await authFetch(`/environment/${selectedEnvironment.environment_id}/secret-menu`);
+      const data = await response.json();
+      setMenuData(data);
+    } catch (error) {
+      console.error("Failed to fetch menu:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchMenu().catch(error => console.error("Failed to fetch menu:", error));
+  }, [])
 
   return (
     <Stack spacing={3}>
@@ -34,9 +82,8 @@ export const SecretMenu: FC = () => {
                       <TableCell><Link to={`/environments/${selectedEnvironment.environment_id}`}>{selectedEnvironment.name}</Link></TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell colSpan={2}>
-                        <Button variant={"contained"} color={"primary"} fullWidth>Edit</Button>
-                      </TableCell>
+                      <TableCell>Enabled</TableCell>
+                      <TableCell><Switch checked={menuData?.enabled} onChange={handleDisable} disabled={isSubmitting} /></TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
