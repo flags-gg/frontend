@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 
 import useAuthFetch from "@DL/fetcher";
+import {FileCopy} from "@mui/icons-material";
 
 
 interface EnvironmentProps {
@@ -100,6 +101,7 @@ export const Environments: FC<EnvironmentProps> = ({
               <TableCell>Name</TableCell>
               <TableCell>ID</TableCell>
               <TableCell>Enabled</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -108,6 +110,7 @@ export const Environments: FC<EnvironmentProps> = ({
                 <TableCell><Link to={`/environments/${env.environment_id}`}>{env.name}</Link></TableCell>
                 <TableCell><Link to={`/environments/${env.environment_id}`}>{env.environment_id}</Link></TableCell>
                 <TableCell><Link to={`/environments/${env.environment_id}`}>{env.enabled ? "Enabled" : "Disabled"}</Link></TableCell>
+                <TableCell><Button variant={"contained"} endIcon={<FileCopy />}>Clone</Button></TableCell>
               </TableRow>
             ))}
           </TableBody>

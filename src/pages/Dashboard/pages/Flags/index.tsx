@@ -154,7 +154,7 @@ export const Flags: FC = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <form onSubmit={e => {
+        <form onSubmit={(e) => {
           e.preventDefault()
           setIsSubmitting(true)
           const formData = new FormData(e.target as HTMLFormElement)

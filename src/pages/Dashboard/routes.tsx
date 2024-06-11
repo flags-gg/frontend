@@ -6,6 +6,7 @@ import {Flags} from "@DP/Flags";
 import {UserAccount} from "@DP/User/";
 import {Project, Projects} from "@DP/Project";
 import {Environment} from "@DP/Environment";
+import {SecretMenu} from "@DP/Secretmenu";
 
 const dashboardRoutes = [
   {
@@ -66,6 +67,15 @@ const dashboardRoutes = [
                 element: <Flags/>
               }
             ]
+          }
+        ]
+      },
+      {
+        path: "secretmenu",
+        children: [
+          {
+            path: ":secretMenuId",
+            element: <SecretMenu />
           }
         ]
       },

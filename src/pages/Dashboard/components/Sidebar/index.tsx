@@ -18,14 +18,14 @@ import {
   Store,
   ChevronLeft,
   Menu,
-  Apps, BubbleChart, ScatterPlot, Schema
+  Apps, BubbleChart, ScatterPlot, Schema, Widgets
 } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {useFlags} from "@flags-gg/react-library";
 import {useAtom} from "jotai";
 
 import Logo from "@C/Logo";
-import {projectAtom, agentAtom, environmentAtom} from "@DL/statemanager";
+import {projectAtom, agentAtom, environmentAtom, menuAtom} from "@DL/statemanager";
 
 interface SidebarProps {
   open: boolean
@@ -37,6 +37,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
   const [selectedProject] = useAtom(projectAtom)
   const [selectedAgent] = useAtom(agentAtom)
   const [selectedEnvironment] = useAtom(environmentAtom)
+  const [selectedMenu] = useAtom(menuAtom)
 
   return (
     <Drawer
@@ -125,6 +126,16 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             <ListItemText sx={{
               marginLeft: '10px',
             }} primary={"Environment Info"} />
+          </MenuItem>
+        )}
+        {selectedMenu?.menu_id && is("secret menu").enabled() && (
+          <MenuItem component={Link} to={`/menus/${selectedMenu?.menu_id}`} onClick={() => {setOpen(!open)}}>
+            <ListItemIcon>
+              <Widgets />
+            </ListItemIcon>
+            <ListItemText sx={{
+              marginLeft: '10px',
+            }} primary={"Menu Info"} />
           </MenuItem>
         )}
       </MenuList>

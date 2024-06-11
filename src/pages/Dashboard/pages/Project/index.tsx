@@ -2,7 +2,7 @@ import {FC, useEffect, useState} from "react";
 import {Projects} from "./Projects"
 import {useAtom} from "jotai";
 import { useParams } from "react-router-dom";
-import {projectAtom} from "@DL/statemanager";
+import {IProject, projectAtom} from "@DL/statemanager";
 import useAuthFetch from "@DL/fetcher";
 import {
   Card,
@@ -18,19 +18,11 @@ import {
 } from "@mui/material";
 import {Agents} from "../Agent";
 
-interface Project {
-  id: string;
-  name: string;
-  project_id: string;
-  agent_limit: number;
-  logo: string;
-}
-
 export const Project: FC = () => {
   const [_, setSelectedProject] = useAtom(projectAtom);
   const {projectId} = useParams()
   const authFetch = useAuthFetch();
-  const [projectData, setProjectData] = useState<Project | null>(null);
+  const [projectData, setProjectData] = useState<IProject | null>(null);
 
   const fetchProject = async () => {
     try {
@@ -49,9 +41,7 @@ export const Project: FC = () => {
 
   return (
     <Stack spacing={3}>
-      <div>
-        <Typography variant={"h4"}>Project Details</Typography>
-      </div>
+      <Typography variant={"h4"}>Project Details</Typography>
       <Grid container spacing={4}>
         <Grid item={true} lg={4} md={6} xs={12}>
           <Card>
