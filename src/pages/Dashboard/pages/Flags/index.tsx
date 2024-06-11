@@ -11,7 +11,7 @@ import {
   TableBody,
   Box,
   Switch,
-  IconButton, Dialog, DialogTitle, DialogContentText, DialogActions, Button
+  IconButton, Dialog, DialogTitle, DialogContentText, DialogActions, Button, Tooltip
 } from "@mui/material";
 import {Flag} from "@flags-gg/react-library/types";
 import {Create, Delete} from "@mui/icons-material";
@@ -120,11 +120,15 @@ export const Flags: FC = () => {
                   <Switch checked={flag.enabled} color={"secondary"} onChange={() => handleSwitch(flag)} disabled={isSubmitting} />
                 </TableCell>
                 <TableCell>
-                  <IconButton onClick={() => handleEdit(flag)}><Create /></IconButton>
-                  <IconButton onClick={() => {
-                    setOpenDelete(true)
-                    setSelectedFlag(flag)
-                  }}><Delete /></IconButton>
+                  <Tooltip title={"Edit"}>
+                    <IconButton onClick={() => handleEdit(flag)}><Create /></IconButton>
+                  </Tooltip>
+                  <Tooltip title={"Delete"}>
+                    <IconButton onClick={() => {
+                      setOpenDelete(true)
+                      setSelectedFlag(flag)
+                    }}><Delete /></IconButton>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}
