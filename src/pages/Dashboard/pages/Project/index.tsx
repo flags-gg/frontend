@@ -49,16 +49,13 @@ export const Project: FC = () => {
               <Stack spacing={2} sx={{alignItems: "center"}}>
                 <Avatar src={projectData?.logo} sx={{
                   height: '80px',
-                  width: '80px',
-                  cursor: 'pointer'
+                  width: '80px'
                 }} />
                 <Table>
                   <TableBody>
                     <TableRow>
                       <TableCell>Name</TableCell>
-                      <TableCell sx={{
-                        cursor: 'pointer'
-                      }}>{projectData?.name}</TableCell>
+                      <TableCell>{projectData?.name}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Project ID</TableCell>

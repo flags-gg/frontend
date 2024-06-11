@@ -1,5 +1,6 @@
 import { useDraggable } from "@dnd-kit/core";
 import { FC } from "react";
+import {Tooltip} from "@mui/material";
 
 interface DraggableKeyProps {
   id: string;
@@ -17,8 +18,10 @@ export const DraggableKey: FC<DraggableKeyProps> = ({ id, icon }) => {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-      {icon}
-    </div>
+    <Tooltip title={id} placement="top">
+      <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
+        {icon}
+      </div>
+    </Tooltip>
   );
 };
