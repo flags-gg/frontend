@@ -19,7 +19,7 @@
     "@flags-gg/react-library": "^1.3.11",
     "@fontsource/roboto": "^5.0.13",
     "@mui/icons-material": "^5.15.19",
-    "@mui/material": "^5.15.19",
+    "@mui/material": "^5.15.20",
     "@mui/x-charts": "^7.6.2",
     "@phosphor-icons/react": "^2.1.5",
     "@tanstack/react-query": "^5.40.1",
