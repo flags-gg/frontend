@@ -1,9 +1,6 @@
 import {FC, useEffect, useState} from "react";
-import {Projects} from "./Projects"
 import {useAtom} from "jotai";
 import { useParams } from "react-router-dom";
-import {IProject, projectAtom} from "@DL/statemanager";
-import useAuthFetch from "@DL/fetcher";
 import {
   Card,
   CardContent,
@@ -16,10 +13,14 @@ import {
   Avatar,
   Table, Button,
 } from "@mui/material";
+
+import {IProject, projectAtom} from "@DL/statemanager";
+import useAuthFetch from "@DL/fetcher";
+import {Projects} from "./Projects"
 import {Agents} from "../Agent";
 
 export const Project: FC = () => {
-  const [_, setSelectedProject] = useAtom(projectAtom);
+  const [, setSelectedProject] = useAtom(projectAtom);
   const {projectId} = useParams()
   const authFetch = useAuthFetch();
   const [projectData, setProjectData] = useState<IProject | null>(null);

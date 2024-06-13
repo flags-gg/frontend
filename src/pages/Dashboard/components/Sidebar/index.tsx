@@ -18,7 +18,7 @@ import {
   Store,
   ChevronLeft,
   Menu,
-  Apps, BubbleChart, ScatterPlot, Schema, Widgets
+  Apps, BubbleChart, ScatterPlot, Schema, Widgets, LocationCity
 } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {useFlags} from "@flags-gg/react-library";
@@ -78,6 +78,16 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
             marginLeft: '10px',
           }} primary={"Overview"} />
         </MenuItem>
+        {is("company").enabled() && (
+          <MenuItem component={Link} to={"/company"} onClick={() => {setOpen(!open)}}>
+            <ListItemIcon>
+              <LocationCity />
+            </ListItemIcon>
+            <ListItemText sx={{
+              marginLeft: '10px',
+            }} primary={"Company"} />
+          </MenuItem>
+        )}
         {is("account").enabled() && (
           <MenuItem component={Link} to={"/company/account"} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
@@ -129,7 +139,7 @@ const Sidebar: FC<SidebarProps> = ({open, setOpen}) => {
           </MenuItem>
         )}
         {selectedMenu?.menu_id && is("secret menu").enabled() && (
-          <MenuItem component={Link} to={`/menus/${selectedMenu?.menu_id}`} onClick={() => {setOpen(!open)}}>
+          <MenuItem component={Link} to={`/secretmenu/${selectedMenu?.menu_id}`} onClick={() => {setOpen(!open)}}>
             <ListItemIcon>
               <Widgets />
             </ListItemIcon>

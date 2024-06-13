@@ -6,7 +6,7 @@ import useAuthFetch from "@DL/fetcher";
 import {DraggableKey} from "@DP/Secretmenu/DraggableKey.tsx";
 import {DropTarget} from "@DP/Secretmenu/DropTarget.tsx";
 import {KeyMap} from "@DP/Secretmenu/keymap";
-import {DndContext} from "@dnd-kit/core";
+import {DndContext, DragEndEvent} from "@dnd-kit/core";
 import {Button, Card, CardActions, CardContent, CardHeader, Divider} from "@mui/material";
 
 export const CodeList: FC = () => {
@@ -15,10 +15,14 @@ export const CodeList: FC = () => {
   const authFetch = useAuthFetch();
   const [menuData, setMenuData] = useState<secretMenu | null>(null);
   const [code, setCode] = useState<string[]>([]);
+  const [submitting, setSubmitting] = useState(false);
 
   const fetchMenu = async () => {
     try {
-      const response = await authFetch(`/environment/${selectedEnvironment.environment_id}/secret-menu`);
+      const response = await authFetch(`/secret-menu/${selectedEnvironment.environment_id}`);
+      if (response.status === 404) {
+        return;
+      }
       const data = await response.json();
       setSelectedMenu(data);
       setMenuData(data);
@@ -40,19 +44,51 @@ export const CodeList: FC = () => {
     setCode(newSequence);
   };
 
-  const saveMenu = async (menu: secretMenu) => {
-    try {
-      const response = await authFetch(`/agent/${selectedEnvironment.environment_id}/secret-menu/${menuData?.menu_id}`, {
-        method: "PUT",
-        body: JSON.stringify(menu)
-      });
-      const data = await response.json();
-    } catch (error) {
-      console.error("Failed to save menu:", error);
+  const saveMenu = async () => {
+    setSubmitting(true);
+    const menu = {
+      menu_id: menuData?.menu_id,
+      enabled: menuData?.enabled,
+      custom_style: menuData?.style,
+      sequence: code.map((key) => {
+        const keyObj = KeyMap.find((k) => k.icon === key);
+        return keyObj ? keyObj.id : key;
+      }),
+    };
+
+    if (menu.menu_id === "") {
+      try {
+        menu.enabled = true
+        const response = await authFetch(`/secret-menu/${selectedEnvironment.environment_id}`, {
+          method: "POST",
+          body: JSON.stringify(menu)
+        });
+        const data = await response.json();
+        setSelectedMenu(data);
+      } catch (error) {
+        console.error("Failed to save menu:", error);
+      } finally {
+        setSubmitting(false);
+      }
+    } else {
+      try {
+        const response = await authFetch(`/secret-menu/${menuData?.menu_id}`, {
+          method: "PUT",
+          body: JSON.stringify(menu)
+        });
+        if (response.status !== 200) {
+          console.error("Failed to save menu:", response);
+          return;
+        }
+      } catch (error) {
+        console.error("Failed to save menu:", error);
+      } finally {
+        setSubmitting(false);
+      }
     }
   }
 
-  const handleDragEnd = (event) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event
     if (over && active.id !== over.id) {
       const key = KeyMap.find((k) => k.id === active.id)
@@ -82,7 +118,7 @@ export const CodeList: FC = () => {
          </DndContext>
        </CardContent>
        <CardActions>
-         <Button fullWidth variant={"contained"}>Save</Button>
+         <Button fullWidth variant={"contained"} onClick={saveMenu} disabled={submitting}>Save</Button>
        </CardActions>
     </Card>
   )

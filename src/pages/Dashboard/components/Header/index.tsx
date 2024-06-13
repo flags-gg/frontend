@@ -12,16 +12,19 @@ const Header: FC = () => {
         <Box width={"72px"} sx={{
           display: 'flex',
         }} />
-        <Typography
-          variant={"h6"}
-          component={"h1"}
-          color={"inherit"}
-          noWrap
-          sx={{
-            flexGrow: 1
-        }}>
-          Flags.gg Dashboard
-        </Typography>
+          <Typography
+            variant={"h6"}
+            component={"h1"}
+            color={"inherit"}
+            align={"left"}
+            noWrap
+            sx={{
+              flexGrow: 1,
+              textAlign: 'left',
+            }}
+          >
+            Flags.gg Dashboard
+          </Typography>
         <ProjectSelector />
         <Notifications />
         <AccountMenu />

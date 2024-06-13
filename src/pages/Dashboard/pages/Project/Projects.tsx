@@ -16,9 +16,9 @@ import {
   TableRow,
   TextField
 } from "@mui/material";
+import {Link} from "react-router-dom";
 
 import useAuthFetch from "@DL/fetcher";
-import {Link} from "react-router-dom";
 import {IProject} from "@DL/statemanager";
 
 export const Projects: FC = () => {
