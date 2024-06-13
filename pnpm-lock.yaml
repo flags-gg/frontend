@@ -38,6 +38,12 @@ dependencies:
   '@phosphor-icons/react':
     specifier: ^2.1.5
     version: 2.1.5(react-dom@18.3.1)(react@18.3.1)
+  '@stripe/react-stripe-js':
+    specifier: ^2.7.1
+    version: 2.7.1(@stripe/stripe-js@3.5.0)(react-dom@18.3.1)(react@18.3.1)
+  '@stripe/stripe-js':
+    specifier: ^3.5.0
+    version: 3.5.0
   '@tanstack/react-query':
     specifier: ^5.45.0
     version: 5.45.0(react@18.3.1)
@@ -2679,6 +2685,24 @@ packages:
   /@rushstack/eslint-patch@1.10.3:
     resolution: {integrity: sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==}
     dev: true
+
+  /@stripe/react-stripe-js@2.7.1(@stripe/stripe-js@3.5.0)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-/i13alp27HaSBbMM6kW0jhy8KqdtOL1T/EcRjFjfhvt+CBtMEg8TD7y28W3oZG0+OBDdCyGGnXgNgrKPYQH40g==}
+    peerDependencies:
+      '@stripe/stripe-js': ^1.44.1 || ^2.0.0 || ^3.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@stripe/stripe-js': 3.5.0
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
+  /@stripe/stripe-js@3.5.0:
+    resolution: {integrity: sha512-pKS3wZnJoL1iTyGBXAvCwduNNeghJHY6QSRSNNvpYnrrQrLZ6Owsazjyynu0e0ObRgks0i7Rv+pe2M7/MBTZpQ==}
+    engines: {node: '>=12.16'}
+    dev: false
 
   /@tanstack/query-core@5.45.0:
     resolution: {integrity: sha512-RVfIZQmFUTdjhSAAblvueimfngYyfN6HlwaJUPK71PKd7yi43Vs1S/rdimmZedPWX/WGppcq/U1HOj7O7FwYxw==}

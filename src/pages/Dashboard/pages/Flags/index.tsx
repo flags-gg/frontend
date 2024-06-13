@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, FormEvent, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {
   CardHeader,
@@ -80,6 +80,29 @@ export const Flags: FC = () => {
     }
   }
 
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsSubmitting(true)
+    const formData = new FormData(event.target as HTMLFormElement)
+    const name = formData.get('name') as string
+    if (name) {
+      authFetch(`/flag`, {
+        method: 'POST',
+        body: JSON.stringify({
+          name: name,
+          agentId: selectedAgent.agent_id,
+          environmentId: environmentId,
+        })
+      }).then(() => {
+        fetchFlags().catch(error => console.error("Failed to fetch flags", error))
+      }).catch(error => console.error("Failed to create flag", error))
+        .finally(() => {
+          setIsSubmitting(false)
+          event.currentTarget.reset()
+        })
+    }
+  }
+
   if (flags.length === 0) {
     return (
       <Card>
@@ -158,34 +181,13 @@ export const Flags: FC = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <form onSubmit={(e) => {
-          e.preventDefault()
-          setIsSubmitting(true)
-          const formData = new FormData(e.target as HTMLFormElement)
-          const name = formData.get('name') as string
-          if (name) {
-            authFetch(`/flag`, {
-              method: 'POST',
-              body: JSON.stringify({
-                name: name,
-                agentId: selectedAgent.agent_id,
-                environmentId: environmentId,
-              })
-            }).then(() => {
-              fetchFlags().catch(error => console.error("Failed to fetch flags", error))
-            }).catch(error => console.error("Failed to create flag", error))
-              .finally(() => {
-                setIsSubmitting(false)
-                e.currentTarget.reset()
-              })
-          }
-        }}>
+        <form onSubmit={handleSubmit}>
           <Card>
             <CardHeader title={"Create Flag"} />
             <Divider />
             <Box sx={{display: 'flex', p: 2}}>
-              <input type="text" name="name" placeholder="Flag Name" required />
-              <Button type="submit" disabled={isSubmitting}>Create</Button>
+                <input type="text" name="name" placeholder="Flag Name" required disabled={isSubmitting} />
+                <Button type="submit" disabled={isSubmitting}>Create</Button>
             </Box>
           </Card>
         </form>

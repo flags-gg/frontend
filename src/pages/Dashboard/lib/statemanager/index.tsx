@@ -1,4 +1,4 @@
-import {atom} from 'jotai'
+import {atomWithStorage} from "jotai/utils";
 
 export interface IProject {
   id: string;
@@ -7,7 +7,7 @@ export interface IProject {
   agent_limit: number;
   logo: string;
 }
-const projectAtom = atom<IProject>({
+const projectAtom = atomWithStorage<IProject>("project", {
   id: '',
   name: '',
   project_id: '',
@@ -26,7 +26,7 @@ export interface FlagAgent {
     name: string;
   }
 }
-const agentAtom = atom<FlagAgent>({
+const agentAtom = atomWithStorage<FlagAgent>("agent", {
   id: '',
   name: '',
   agent_id: '',
@@ -48,7 +48,7 @@ export interface IEnvironment {
     id: string;
   }
 }
-const environmentAtom = atom<IEnvironment>({
+const environmentAtom = atomWithStorage<IEnvironment>("environment", {
   id: '',
   name: '',
   environment_id: '',
@@ -71,7 +71,7 @@ export interface secretMenu {
     style_id: string,
   }
 }
-const menuAtom = atom<secretMenu>({
+const menuAtom = atomWithStorage<secretMenu>("secretMenu", {
   id: '',
   menu_id: '',
   enabled: false,

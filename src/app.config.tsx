@@ -30,3 +30,7 @@ export const flagsFrontendConfig = {
   agentId: import.meta.env.VITE_FLAGS_FRONTEND_ID,
   environmentId: import.meta.env.VITE_FLAGS_FRONTEND_ENVIRONMENT_ID,
 }
+
+export const stripeConfig = {
+  stripe: import.meta.env.VITE_STRIPE_KEY,
+}

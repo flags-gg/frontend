@@ -12,7 +12,7 @@ export const Agent: FC = () => {
   const {agentId} = useParams()
   const authFetch = useAuthFetch();
   const [agentData, setAgentData] = useState<FlagAgent | null>(null);
-  const [_, setSelectedAgent] = useAtom(agentAtom);
+  const [, setSelectedAgent] = useAtom(agentAtom);
 
   const fetchAgent = async () => {
     try {

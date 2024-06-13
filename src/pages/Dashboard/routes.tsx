@@ -48,7 +48,7 @@ const dashboardRoutes = [
         children: [
           {
             path: ":agentId",
-            element: <Agent />
+            element: <Agent />,
           }
         ]
       },

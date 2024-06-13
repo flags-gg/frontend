@@ -12,16 +12,17 @@ import {
   TableRow,
   Typography
 } from "@mui/material";
-
-import {environmentAtom, agentAtom, projectAtom, secretMenu} from "@DL/statemanager";
 import {Link} from "react-router-dom";
-import {CodeList} from "@DP/Secretmenu/CodeList.tsx";
+
+import {environmentAtom, agentAtom, projectAtom, secretMenu, menuAtom} from "@DL/statemanager";
+import {CodeList} from "@DP/Secretmenu/CodeList";
 import useAuthFetch from "@DL/fetcher";
 
 export const SecretMenu: FC = () => {
   const [selectedEnvironment] = useAtom(environmentAtom)
   const [selectedAgent] = useAtom(agentAtom)
   const [selectedProject] = useAtom(projectAtom)
+  const [, setSelectedMenu] = useAtom(menuAtom)
   const [menuData, setMenuData] = useState<secretMenu | null>(null);
   const authFetch = useAuthFetch();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -29,14 +30,15 @@ export const SecretMenu: FC = () => {
   const handleDisable = async () => {
     setIsSubmitting(true);
     try {
-      await authFetch(`/environment/${selectedEnvironment.environment_id}/secret-menu`, {
+      if (!menuData) {
+        return;
+      }
+      menuData.enabled = !menuData.enabled;
+      await authFetch(`/secret-menu/${menuData?.menu_id}`, {
         method: 'PUT',
-        body: JSON.stringify({
-          enabled: !menuData?.enabled,
-          id: menuData?.menu_id,
-        })
+        body: JSON.stringify(menuData)
       });
-      setMenuData(m => m ? {...m, enabled: !m.enabled} : null);
+      setSelectedMenu(menuData);
     } catch (error) {
       console.error("Failed to update secret menu:", error);
     } finally {
@@ -46,7 +48,10 @@ export const SecretMenu: FC = () => {
 
   const fetchMenu = async () => {
     try {
-      const response = await authFetch(`/environment/${selectedEnvironment.environment_id}/secret-menu`);
+      const response = await authFetch(`/secret-menu/${selectedEnvironment.environment_id}`);
+      if (response.status === 404) {
+        return;
+      }
       const data = await response.json();
       setMenuData(data);
     } catch (error) {
@@ -82,7 +87,7 @@ export const SecretMenu: FC = () => {
                     </TableRow>
                     <TableRow>
                       <TableCell>Enabled</TableCell>
-                      <TableCell><Switch checked={menuData?.enabled} onChange={handleDisable} disabled={isSubmitting} /></TableCell>
+                      <TableCell><Switch checked={menuData?.enabled ?? false} onChange={handleDisable} disabled={isSubmitting} /></TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
