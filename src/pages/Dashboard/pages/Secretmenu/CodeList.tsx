@@ -4,19 +4,46 @@ import {useAtom} from "jotai";
 import {environmentAtom, menuAtom, secretMenu} from "@DL/statemanager";
 import useAuthFetch from "@DL/fetcher";
 import {KeyMap} from "@DP/Secretmenu/keymap";
-import {DndContext, DragEndEvent, useDraggable, useDroppable} from "@dnd-kit/core";
+import {DndContext, DragEndEvent, useDraggable, useDroppable, closestCenter} from "@dnd-kit/core";
 import {Button, Card, CardActions, CardContent, CardHeader, Divider, Tooltip} from "@mui/material";
+import {rectSortingStrategy, SortableContext, arrayMove, useSortable} from "@dnd-kit/sortable";
+import {CSS} from "@dnd-kit/utilities";
 
 interface DropTargetProps {
-  id: string;
-  sequence: string[];
+  sequence: {id: string, icon: string}[];
+  setCode: (sequence: {id: string, icon: string}[]) => void;
   onRemove: (index: number) => void;
 }
 
-export const DropTarget: FC<DropTargetProps> = ({ id, sequence, onRemove }) => {
-  const { setNodeRef } = useDroppable({
-    id,
+const SortableItem: FC<{item: { id: string; icon: string }; index: number; onRemove: (index: number) => void}> = ({item, index, onRemove}) => {
+  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({
+    id: item.id,
   });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    fontSize: 25,
+    cursor: "pointer",
+  };
+
+  return (
+    <span
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      onDoubleClick={() => onRemove(index)}
+    >
+      {item.icon}
+    </span>
+  );
+};
+
+const DropTarget: FC<DropTargetProps> = ({ sequence, onRemove, setCode }) => {
+  const { setNodeRef } = useDroppable({
+    id: 'drop-target',
+  })
 
   return (
     <div
@@ -30,11 +57,11 @@ export const DropTarget: FC<DropTargetProps> = ({ id, sequence, onRemove }) => {
         flexWrap: 'wrap',
       }}
     >
-      {sequence.map((icon, index) => (
-        <span key={index} style={{ fontSize: 25, cursor: "pointer" }} onClick={() => onRemove(index)}>
-          {icon}
-        </span>
-      ))}
+      <SortableContext items={sequence} strategy={rectSortingStrategy}>
+        {sequence.map((item, index) => (
+          <SortableItem key={item.id} item={item} index={index} onRemove={onRemove}/>
+        ))}
+      </SortableContext>
     </div>
   );
 };
@@ -44,7 +71,7 @@ interface DraggableKeyProps {
   icon: string; // Add the icon prop
 }
 
-export const DraggableKey: FC<DraggableKeyProps> = ({ id, icon }) => {
+const DraggableKey: FC<DraggableKeyProps> = ({ id, icon }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
 
   const style = {
@@ -68,7 +95,7 @@ export const CodeList: FC = () => {
   const [, setSelectedMenu] = useAtom(menuAtom)
   const authFetch = useAuthFetch();
   const [menuData, setMenuData] = useState<secretMenu | null>(null);
-  const [code, setCode] = useState<string[]>([]);
+  const [code, setCode] = useState<{ id: string; icon: string }[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
   const fetchMenu = async () => {
@@ -80,7 +107,9 @@ export const CodeList: FC = () => {
       const data = await response.json();
       setSelectedMenu(data);
       setMenuData(data);
-      setCodeSequence(data.sequence);
+      if (data.sequence !== undefined) {
+        setCodeSequence(data.sequence);
+      }
     } catch (error) {
       console.error("Failed to fetch menu:", error);
     }
@@ -93,7 +122,7 @@ export const CodeList: FC = () => {
   const setCodeSequence = (sequence: string[]) => {
     const newSequence = sequence.map((keyId) => {
       const key = KeyMap.find((k) => k.id === keyId);
-      return key ? key.icon : keyId; // Fallback to keyId if icon not found
+      return key ? { id: `${keyId}-${Math.random()}`, icon: key.icon } : { id: keyId, icon: keyId };
     });
     setCode(newSequence);
   };
@@ -105,8 +134,8 @@ export const CodeList: FC = () => {
       enabled: menuData?.enabled,
       custom_style: menuData?.style,
       sequence: code.map((key) => {
-        const keyObj = KeyMap.find((k) => k.icon === key);
-        return keyObj ? keyObj.id : key;
+        const keyObj = KeyMap.find((k) => k.icon === key.icon);
+        return keyObj ? keyObj.id : key.id;
       }),
     };
 
@@ -144,11 +173,30 @@ export const CodeList: FC = () => {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event
-    if (over && active.id !== over.id) {
-      const key = KeyMap.find((k) => k.id === active.id)
-      if (key) {
-        setCode([...code, key.icon])
+
+    if (!over) {
+      const index = code.findIndex((key) => key.id === active.id);
+      if (index === -1) {
+        setCode(code.filter((_, i) => i !== index))
       }
+      return
+    }
+
+    if (active.id === over.id) {
+      return;
+    }
+
+    const oldIndex = code.findIndex((item) => item.id === active.id);
+    const newIndex = code.findIndex((item) => item.id === over.id);
+    if (oldIndex === -1) {
+      const key = KeyMap.find((k) => k.id === active.id);
+      if (key) {
+        const updatedCode = [...code];
+        updatedCode.splice(newIndex, 0, { id: `${active.id}-${Math.random()}`, icon: key.icon });
+        setCode(updatedCode);
+      }
+    } else {
+      setCode(arrayMove(code, oldIndex, newIndex));
     }
   }
 
@@ -162,13 +210,13 @@ export const CodeList: FC = () => {
        <CardContent>
          You can drag and drop keys to build your secret menu.
          <Divider />
-         <DndContext onDragEnd={handleDragEnd}>
+         <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCenter}>
            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px', gap: '10px', flexWrap: 'wrap' }}>
              {KeyMap.map((key, index) => (
                <DraggableKey key={key.id} id={key.id} icon={key.icon} />
              ))}
            </div>
-           <DropTarget id="drop-target" sequence={code} onRemove={handleRemove} />
+           <DropTarget sequence={code} onRemove={handleRemove} setCode={setCode} />
          </DndContext>
        </CardContent>
        <CardActions>

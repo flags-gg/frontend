@@ -11,9 +11,15 @@ dependencies:
   '@dnd-kit/modifiers':
     specifier: ^7.0.0
     version: 7.0.0(@dnd-kit/core@6.1.0)(react@18.3.1)
+  '@dnd-kit/react':
+    specifier: ^0.0.2
+    version: 0.0.2(react-dom@18.3.1)(react@18.3.1)
   '@dnd-kit/sortable':
     specifier: ^8.0.0
     version: 8.0.0(@dnd-kit/core@6.1.0)(react@18.3.1)
+  '@dnd-kit/utilities':
+    specifier: ^3.2.2
+    version: 3.2.2(react@18.3.1)
   '@emotion/react':
     specifier: ^11.11.4
     version: 11.11.4(@types/react@18.3.3)(react@18.3.1)
@@ -1655,12 +1661,28 @@ packages:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
+  /@dnd-kit/abstract@0.0.2:
+    resolution: {integrity: sha512-hEqM7pg9S8fIHYYWviq9Er0ZdL7qVtmcuAWQEQACUNYoyLAIsu2zvFVGPCPxmJ3o38ZGrZ65Tjk+ku3vSGIXiw==}
+    dependencies:
+      '@dnd-kit/geometry': 0.0.2
+      '@dnd-kit/state': 0.0.2
+      tslib: 2.6.3
+    dev: false
+
   /@dnd-kit/accessibility@3.1.0(react@18.3.1):
     resolution: {integrity: sha512-ea7IkhKvlJUv9iSHJOnxinBcoOI3ppGnnL+VDJ75O45Nss6HtZd8IdN8touXPDtASfeI2T2LImb8VOZcL47wjQ==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
       react: 18.3.1
+      tslib: 2.6.3
+    dev: false
+
+  /@dnd-kit/collision@0.0.2:
+    resolution: {integrity: sha512-BgSRgRoLABTxyEz+jThe6o8Oeh149tq3eIgKrjS9ibn0Jl+CLZCxKL0IfM3KsnDs1zC4wbQ3DBwCw4QH6+sX9A==}
+    dependencies:
+      '@dnd-kit/abstract': 0.0.2
+      '@dnd-kit/geometry': 0.0.2
       tslib: 2.6.3
     dev: false
 
@@ -1677,6 +1699,23 @@ packages:
       tslib: 2.6.3
     dev: false
 
+  /@dnd-kit/dom@0.0.2:
+    resolution: {integrity: sha512-/wVkOHdFfhf1IIt1cV0JY4DDJWOX1uG06yQkHcf03v/XC+Yj20RGeEu8Oo5EgiqN0AndZGEGyOW3VWAUqr5ezw==}
+    dependencies:
+      '@dnd-kit/abstract': 0.0.2
+      '@dnd-kit/collision': 0.0.2
+      '@dnd-kit/geometry': 0.0.2
+      '@dnd-kit/state': 0.0.2
+      tslib: 2.6.3
+    dev: false
+
+  /@dnd-kit/geometry@0.0.2:
+    resolution: {integrity: sha512-zXJoWv6aqbiMRGSGUK91guPq23iW4I4h0Bfs/zPJGe2dzUDDrvTCQNb15U/NO4t4168bAe7OzOqC+T4gUuM+Og==}
+    dependencies:
+      '@dnd-kit/state': 0.0.2
+      tslib: 2.6.3
+    dev: false
+
   /@dnd-kit/modifiers@7.0.0(@dnd-kit/core@6.1.0)(react@18.3.1):
     resolution: {integrity: sha512-BG/ETy3eBjFap7+zIti53f0PCLGDzNXyTmn6fSdrudORf+OH04MxrW4p5+mPu4mgMk9kM41iYONjc3DOUWTcfg==}
     peerDependencies:
@@ -1689,6 +1728,20 @@ packages:
       tslib: 2.6.3
     dev: false
 
+  /@dnd-kit/react@0.0.2(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-4rbo8JzQpePnlTVuE3wM2lbxCX/88rT3K2lDvu3aZ5Pek7FTnccqVZAuBKiVDK91Hc93YssX4mItjN/Oyy7EMQ==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      '@dnd-kit/abstract': 0.0.2
+      '@dnd-kit/dom': 0.0.2
+      '@dnd-kit/state': 0.0.2
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      tslib: 2.6.3
+    dev: false
+
   /@dnd-kit/sortable@8.0.0(@dnd-kit/core@6.1.0)(react@18.3.1):
     resolution: {integrity: sha512-U3jk5ebVXe1Lr7c2wU7SBZjcWdQP+j7peHJfCspnA81enlu88Mgd7CC8Q+pub9ubP7eKVETzJW+IBAhsqbSu/g==}
     peerDependencies:
@@ -1698,6 +1751,13 @@ packages:
       '@dnd-kit/core': 6.1.0(react-dom@18.3.1)(react@18.3.1)
       '@dnd-kit/utilities': 3.2.2(react@18.3.1)
       react: 18.3.1
+      tslib: 2.6.3
+    dev: false
+
+  /@dnd-kit/state@0.0.2:
+    resolution: {integrity: sha512-kTAEN7TQhSsweI8xcCQVULMeygSPgAfmvPZCygovNorSVbopaGc4yMTRqF2+t1UG02PgomvrBkoDecTXZU4BaA==}
+    dependencies:
+      '@preact/signals-core': 1.6.1
       tslib: 2.6.3
     dev: false
 
@@ -2402,6 +2462,10 @@ packages:
 
   /@popperjs/core@2.11.8:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+
+  /@preact/signals-core@1.6.1:
+    resolution: {integrity: sha512-KXEEmJoKDlo0Igju/cj9YvKIgyaWFDgnprShQjzimUd5VynAAdTWMshawEOjUVeKbsI0aR58V6WOQp+DNcKApw==}
+    dev: false
 
   /@react-buddy/ide-toolbox@2.4.0(react@18.3.1):
     resolution: {integrity: sha512-TWHX6gwa0Gop7215uHhjFMbYLLdjM/b9rr0wYE3E0m7GNJ56gbPpbZiq86w9uI8zksl827acqGeT437MkuO64w==}
