@@ -3,11 +3,65 @@ import {useAtom} from "jotai";
 
 import {environmentAtom, menuAtom, secretMenu} from "@DL/statemanager";
 import useAuthFetch from "@DL/fetcher";
-import {DraggableKey} from "@DP/Secretmenu/DraggableKey.tsx";
-import {DropTarget} from "@DP/Secretmenu/DropTarget.tsx";
 import {KeyMap} from "@DP/Secretmenu/keymap";
-import {DndContext, DragEndEvent} from "@dnd-kit/core";
-import {Button, Card, CardActions, CardContent, CardHeader, Divider} from "@mui/material";
+import {DndContext, DragEndEvent, useDraggable, useDroppable} from "@dnd-kit/core";
+import {Button, Card, CardActions, CardContent, CardHeader, Divider, Tooltip} from "@mui/material";
+
+interface DropTargetProps {
+  id: string;
+  sequence: string[];
+  onRemove: (index: number) => void;
+}
+
+export const DropTarget: FC<DropTargetProps> = ({ id, sequence, onRemove }) => {
+  const { setNodeRef } = useDroppable({
+    id,
+  });
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        minHeight: '50px',
+        border: '1px dashed gray',
+        padding: '10px',
+        display: 'flex',
+        gap: '10px',
+        flexWrap: 'wrap',
+      }}
+    >
+      {sequence.map((icon, index) => (
+        <span key={index} style={{ fontSize: 25, cursor: "pointer" }} onClick={() => onRemove(index)}>
+          {icon}
+        </span>
+      ))}
+    </div>
+  );
+};
+
+interface DraggableKeyProps {
+  id: string;
+  icon: string; // Add the icon prop
+}
+
+export const DraggableKey: FC<DraggableKeyProps> = ({ id, icon }) => {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
+
+  const style = {
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+    fontSize: 25,
+    fontWeight: 'bold',
+    cursor: 'move',
+  };
+
+  return (
+    <Tooltip title={id} placement="top">
+      <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
+        {icon}
+      </div>
+    </Tooltip>
+  );
+};
 
 export const CodeList: FC = () => {
   const [selectedEnvironment] = useAtom(environmentAtom)
