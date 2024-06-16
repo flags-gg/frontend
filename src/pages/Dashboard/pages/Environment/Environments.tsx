@@ -39,15 +39,15 @@ export const Environments: FC<EnvironmentProps> = ({
       setShowForm(true);
     }
     setEnvData(data?.environments);
-    setIsLoading(false);
   }
   useEffect(() => {
-    fetchEnvData().catch(error => console.error("failed to fetch environment data:", error));
+    fetchEnvData().then(() => setIsLoading(false)).catch(error => console.error("failed to fetch environment data:", error));
   }, [envLimit]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
+    setIsLoading(true)
 
     const form = event.currentTarget
     const formData = new FormData(event.target as HTMLFormElement);

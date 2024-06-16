@@ -72,9 +72,9 @@ export const Flags: FC = () => {
       console.error("Failed to update flag", error)
     } finally {
       setIsSubmitting(false)
+      setIsLoading(true)
+      setFlags([])
     }
-    setIsLoading(true)
-    setFlags([])
   }
 
   const handleDelete = async (flag: Flag) => {
@@ -89,10 +89,10 @@ export const Flags: FC = () => {
       console.error("Failed to delete flag", error)
     } finally {
       setIsSubmitting(false)
+      setOpenDelete(false)
+      setIsLoading(true)
+      setFlags([])
     }
-    setOpenDelete(false)
-    setIsLoading(true)
-    setFlags([])
   }
 
   const handleCreate = async (event: FormEvent<HTMLFormElement>) => {
@@ -109,14 +109,14 @@ export const Flags: FC = () => {
           environmentId: environmentId,
         })
       }).then(() => {
-        fetchFlags().catch(error => console.error("Failed to fetch flags", error))
+        setIsLoading(true)
+        fetchFlags().then(() => setIsLoading(false)).catch(error => console.error("Failed to fetch flags", error))
       }).catch(error => console.error("Failed to create flag", error))
         .finally(() => {
           setIsSubmitting(false)
+          setFlags([])
         })
       event.currentTarget.reset()
-      setIsLoading(true)
-      setFlags([])
     }
   }
 
@@ -137,12 +137,12 @@ export const Flags: FC = () => {
       }).catch(error => console.error("Failed to create flag", error))
         .finally(() => {
           setIsSubmitting(false)
+          setOpenEdit(false)
+          setSelectedFlag(null)
+          setIsLoading(true)
+          setFlags([])
         })
       event.currentTarget.reset()
-      setOpenEdit(false)
-      setSelectedFlag(null)
-      setIsLoading(true)
-      setFlags([])
     }
   }
 

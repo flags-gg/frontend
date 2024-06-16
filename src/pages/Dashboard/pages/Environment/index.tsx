@@ -119,9 +119,9 @@ export const Environment: FC = () => {
               body: JSON.stringify(environmentData)
             }).catch(error => console.error("failed to update environment", error))
           } finally {
-            event.currentTarget.reset()
             setShowEdit(false)
           }
+          event.currentTarget.reset()
         }
       }}>
         <DialogTitle>Edit Environment</DialogTitle>
@@ -147,11 +147,10 @@ export const Environment: FC = () => {
           <Button variant={"contained"} color={"primary"} onClick={() => {
             authFetch(`/environment/${environmentId}`, {
               method: "DELETE"
-            }).then(() => {
+            }).catch(error => console.error("failed to delete environment", error)).finally(() => {
               setShowVerify(false)
-            }).catch(error => console.error("failed to delete environment", error))
-            redirect(`/agents/${selectedAgent.agent_id}`)
-          }}>Yes</Button>
+              return redirect(`/agents/${selectedAgent.agent_id}`)
+          })}}>Yes</Button>
           <Button variant={"contained"} color={"error"} onClick={() => setShowVerify(false)}>No</Button>
         </DialogActions>
       </Dialog>
