@@ -5,7 +5,17 @@ import {environmentAtom, menuAtom, secretMenu} from "@DL/statemanager";
 import useAuthFetch from "@DL/fetcher";
 import {KeyMap} from "@DP/Secretmenu/keymap";
 import {DndContext, DragEndEvent, useDraggable, useDroppable, closestCenter} from "@dnd-kit/core";
-import {Button, Card, CardActions, CardContent, CardHeader, Divider, Tooltip} from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CircularProgress,
+  Divider,
+  Tooltip
+} from "@mui/material";
 import {rectSortingStrategy, SortableContext, arrayMove, useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 
@@ -97,6 +107,7 @@ export const CodeList: FC = () => {
   const [menuData, setMenuData] = useState<secretMenu | null>(null);
   const [code, setCode] = useState<{ id: string; icon: string }[]>([]);
   const [submitting, setSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const fetchMenu = async () => {
     try {
@@ -107,6 +118,7 @@ export const CodeList: FC = () => {
       const data = await response.json();
       setSelectedMenu(data);
       setMenuData(data);
+      setIsLoading(false);
       if (data.sequence !== undefined) {
         setCodeSequence(data.sequence);
       }
@@ -204,9 +216,28 @@ export const CodeList: FC = () => {
     setCode(code.filter((_, i) => i !== index));
   };
 
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader title={"Build Secret Menu"} />
+        <Divider />
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+          p: 2
+        }}>
+          <CircularProgress />
+        </Box>
+      </Card>
+    );
+  }
+
   return (
      <Card>
        <CardHeader title={"Build Secret Menu"} />
+       <Divider />
        <CardContent>
          You can drag and drop keys to build your secret menu.
          <Divider />
