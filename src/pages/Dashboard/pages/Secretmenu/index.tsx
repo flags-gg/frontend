@@ -2,7 +2,7 @@ import {FC, useEffect, useState} from "react";
 import {useAtom} from "jotai";
 import {
   Card,
-  CardContent,
+  CardContent, CircularProgress,
   Grid,
   Stack,
   Switch,
@@ -26,6 +26,7 @@ export const SecretMenu: FC = () => {
   const [menuData, setMenuData] = useState<secretMenu | null>(null);
   const authFetch = useAuthFetch();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleDisable = async () => {
     setIsSubmitting(true);
@@ -54,6 +55,7 @@ export const SecretMenu: FC = () => {
       }
       const data = await response.json();
       setMenuData(data);
+      setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch menu:", error);
     }
@@ -71,26 +73,28 @@ export const SecretMenu: FC = () => {
           <Card>
             <CardContent>
               <Stack spacing={2} sx={{alignItems: "center"}}>
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>Owner Project</TableCell>
-                      <TableCell><Link to={`/projects/${selectedProject.project_id}`}>{selectedProject.name}</Link></TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Owner Agent</TableCell>
-                      <TableCell><Link to={`/agents/${selectedAgent.agent_id}`}>{selectedAgent.name}</Link></TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Owner Environment</TableCell>
-                      <TableCell><Link to={`/environments/${selectedEnvironment.environment_id}`}>{selectedEnvironment.name}</Link></TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Enabled</TableCell>
-                      <TableCell><Switch checked={menuData?.enabled ?? false} onChange={handleDisable} disabled={isSubmitting} /></TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                {isLoading ? <CircularProgress /> : (
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>Owner Project</TableCell>
+                        <TableCell><Link to={`/projects/${selectedProject.project_id}`}>{selectedProject.name}</Link></TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Owner Agent</TableCell>
+                        <TableCell><Link to={`/agents/${selectedAgent.agent_id}`}>{selectedAgent.name}</Link></TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Owner Environment</TableCell>
+                        <TableCell><Link to={`/environments/${selectedEnvironment.environment_id}`}>{selectedEnvironment.name}</Link></TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Enabled</TableCell>
+                        <TableCell><Switch checked={menuData?.enabled ?? false} onChange={handleDisable} disabled={isSubmitting} /></TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                )}
               </Stack>
             </CardContent>
           </Card>

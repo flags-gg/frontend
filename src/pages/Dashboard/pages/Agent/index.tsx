@@ -1,5 +1,17 @@
 import {FC, useEffect, useState} from "react";
-import {Card, Grid, Stack, Table, Typography, CardContent, TableBody, TableRow, TableCell, Button} from "@mui/material";
+import {
+  Card,
+  Grid,
+  Stack,
+  Table,
+  Typography,
+  CardContent,
+  TableBody,
+  TableRow,
+  TableCell,
+  Button,
+  CircularProgress
+} from "@mui/material";
 import {Link, useParams} from "react-router-dom";
 import {useAtom} from "jotai";
 
@@ -12,6 +24,7 @@ export const Agent: FC = () => {
   const {agentId} = useParams()
   const authFetch = useAuthFetch();
   const [agentData, setAgentData] = useState<FlagAgent | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [, setSelectedAgent] = useAtom(agentAtom);
 
   const fetchAgent = async () => {
@@ -20,6 +33,7 @@ export const Agent: FC = () => {
       const data = await response.json();
       setAgentData(data);
       setSelectedAgent(data)
+      setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch agent:", error);
     }
@@ -37,31 +51,33 @@ export const Agent: FC = () => {
           <Card>
             <CardContent>
               <Stack spacing={2} sx={{alignItems: "center"}}>
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell>{agentData?.name}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Agent ID</TableCell>
-                      <TableCell>{agentData?.agent_id}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Environment Limit</TableCell>
-                      <TableCell>{agentData?.environment_limit}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Owner Project</TableCell>
-                      <TableCell><Link to={`/projects/${agentData?.project_info.project_id}`}>{agentData?.project_info.name}</Link></TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell colSpan={2}>
-                        <Button variant={"contained"} color={"primary"} fullWidth>Edit</Button>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                {isLoading ? <CircularProgress /> : (
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>{agentData?.name}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Agent ID</TableCell>
+                        <TableCell>{agentData?.agent_id}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Environment Limit</TableCell>
+                        <TableCell>{agentData?.environment_limit}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Owner Project</TableCell>
+                        <TableCell><Link to={`/projects/${agentData?.project_info.project_id}`}>{agentData?.project_info.name}</Link></TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell colSpan={2}>
+                          <Button variant={"contained"} color={"primary"} fullWidth>Edit</Button>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                  )}
               </Stack>
             </CardContent>
           </Card>

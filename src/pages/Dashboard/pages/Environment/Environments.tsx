@@ -4,7 +4,7 @@ import {
   Box, Button,
   Card, CardActions,
   CardContent,
-  CardHeader,
+  CardHeader, CircularProgress,
   Divider, FormControl, Grid,
   Table,
   TableBody,
@@ -28,6 +28,7 @@ export const Environments: FC<EnvironmentProps> = ({
   const [envData, setEnvData] = useState<any>(null);
   const [showForm, setShowForm] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const {agentId} = useParams();
 
   const fetchEnvData = async () => {
@@ -38,27 +39,11 @@ export const Environments: FC<EnvironmentProps> = ({
       setShowForm(true);
     }
     setEnvData(data?.environments);
+    setIsLoading(false);
   }
   useEffect(() => {
     fetchEnvData().catch(error => console.error("failed to fetch environment data:", error));
   }, [envLimit]);
-
-  if (!envData) {
-    return (
-      <Card>
-        <CardHeader title={"Environments"} />
-        <Divider />
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%'
-        }}>
-          <p>No Environments found</p>
-        </Box>
-      </Card>
-    );
-  }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -86,6 +71,68 @@ export const Environments: FC<EnvironmentProps> = ({
     }
   }
 
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader title={"Environments"} />
+        <Divider />
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+          p: 2
+        }}>
+          <CircularProgress />
+        </Box>
+      </Card>
+    );
+  }
+
+  if (!envData) {
+    return (
+      <Card>
+        <CardHeader title={"Environments"} />
+        <Divider />
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%'
+        }}>
+          <p>No Environments found</p>
+        </Box>
+        {showForm && (
+        <>
+          <Divider />
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%'
+          }}>
+            <form onSubmit={handleSubmit}>
+              <Card>
+                <CardHeader title={"Create Environment"} />
+                <CardContent>
+                  <Grid container spacing={1}>
+                    <FormControl required>
+                      <TextField variant={"outlined"} label={"Environment Name"} margin={"dense"} required id={"envName"} name={"envName"} />
+                    </FormControl>
+                  </Grid>
+                </CardContent>
+                <CardActions>
+                  <Button color={"primary"} variant={"contained"} type={"submit"} disabled={isSubmitting}>Create Environment</Button>
+                </CardActions>
+              </Card>
+            </form>
+          </Box>
+        </>
+      )}
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader title={"Environments"} />
@@ -100,7 +147,6 @@ export const Environments: FC<EnvironmentProps> = ({
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>ID</TableCell>
-              <TableCell>Enabled</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -109,7 +155,6 @@ export const Environments: FC<EnvironmentProps> = ({
               <TableRow key={env.id}>
                 <TableCell><Link to={`/environments/${env.environment_id}`}>{env.name}</Link></TableCell>
                 <TableCell><Link to={`/environments/${env.environment_id}`}>{env.environment_id}</Link></TableCell>
-                <TableCell><Link to={`/environments/${env.environment_id}`}>{env.enabled ? "Enabled" : "Disabled"}</Link></TableCell>
                 <TableCell><Button variant={"contained"} endIcon={<FileCopy />}>Clone</Button></TableCell>
               </TableRow>
             ))}

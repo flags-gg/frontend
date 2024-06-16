@@ -11,7 +11,7 @@ import {
   Stack,
   Typography,
   Avatar,
-  Table, Button,
+  Table, Button, CircularProgress,
 } from "@mui/material";
 
 import {IProject, projectAtom} from "@DL/statemanager";
@@ -24,6 +24,7 @@ export const Project: FC = () => {
   const {projectId} = useParams()
   const authFetch = useAuthFetch();
   const [projectData, setProjectData] = useState<IProject | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const fetchProject = async () => {
     try {
@@ -31,6 +32,7 @@ export const Project: FC = () => {
       const data = await response.json();
       setSelectedProject(data);
       setProjectData(data);
+      setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch project:", error);
     }
@@ -47,33 +49,35 @@ export const Project: FC = () => {
         <Grid item={true} lg={4} md={6} xs={12}>
           <Card>
             <CardContent>
-              <Stack spacing={2} sx={{alignItems: "center"}}>
-                <Avatar src={projectData?.logo} sx={{
-                  height: '80px',
-                  width: '80px'
-                }} />
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell>{projectData?.name}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Project ID</TableCell>
-                      <TableCell>{projectData?.project_id}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Agent Limit</TableCell>
-                      <TableCell>{projectData?.agent_limit}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell colSpan={2}>
-                        <Button variant={"contained"} color={"primary"} fullWidth>Edit</Button>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </Stack>
+              {isLoading ? <CircularProgress /> : (
+                <Stack spacing={2} sx={{alignItems: "center"}}>
+                  <Avatar src={projectData?.logo} sx={{
+                    height: '80px',
+                    width: '80px'
+                  }} />
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>{projectData?.name}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Project ID</TableCell>
+                        <TableCell>{projectData?.project_id}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Agent Limit</TableCell>
+                        <TableCell>{projectData?.agent_limit}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell colSpan={2}>
+                          <Button variant={"contained"} color={"primary"} fullWidth>Edit</Button>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </Stack>
+                )}
             </CardContent>
           </Card>
         </Grid>

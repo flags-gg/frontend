@@ -11,14 +11,23 @@ import {
   TableBody,
   Box,
   Switch,
-  IconButton, Dialog, DialogTitle, DialogContentText, DialogActions, Button, Tooltip
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContentText,
+  DialogActions,
+  Button,
+  Tooltip,
+  CardContent,
+  CircularProgress,
+  DialogContent
 } from "@mui/material";
 import {Flag} from "@flags-gg/react-library/types";
 import {Create, Delete} from "@mui/icons-material";
 import {useAtom} from "jotai";
 
 import useAuthFetch from "@DL/fetcher";
-import {projectAtom, agentAtom} from "@DL/statemanager";
+import {agentAtom} from "@DL/statemanager";
 
 export const Flags: FC = () => {
   const authFetch = useAuthFetch()
@@ -27,15 +36,17 @@ export const Flags: FC = () => {
   const {environmentId} = useParams()
   const [openDelete, setOpenDelete] = useState<boolean>(false)
   const [selectedFlag, setSelectedFlag] = useState<Flag | null>(null)
-  const [selectedProject] = useAtom(projectAtom)
   const [selectedAgent] = useAtom(agentAtom)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [openEdit, setOpenEdit] = useState<boolean>(false)
 
 
   const fetchFlags = async () => {
     try {
-      const response = await authFetch(`/flags/${selectedProject.project_id}/${selectedAgent.agent_id}/${environmentId}`)
+      const response = await authFetch(`/environment/${environmentId}/flags`)
       const data = await response.json()
       setFlags(data)
+      setIsLoading(false)
     } catch (error) {
       console.error("Failed to fetch flags", error)
     }
@@ -56,16 +67,16 @@ export const Flags: FC = () => {
         })
       })
       setFlags(f => f.map(f => f.details.id === flag.details.id ? {...f, enabled: !f.enabled} : f))
+      fetchFlags().catch(error => console.error("Failed to fetch flags", error))
     } catch (error) {
       console.error("Failed to update flag", error)
     } finally {
       setIsSubmitting(false)
     }
+    setIsLoading(true)
+    setFlags([])
   }
 
-  const handleEdit = (flag: Flag) => {
-    console.log("Edit flag", flag)
-  }
   const handleDelete = async (flag: Flag) => {
     setIsSubmitting(true)
     try {
@@ -73,14 +84,18 @@ export const Flags: FC = () => {
         method: 'DELETE'
       })
       setFlags(f => f.filter(f => f.details.id !== flag.details.id))
+      fetchFlags().catch(error => console.error("Failed to fetch flags", error))
     } catch (error) {
       console.error("Failed to delete flag", error)
     } finally {
       setIsSubmitting(false)
     }
+    setOpenDelete(false)
+    setIsLoading(true)
+    setFlags([])
   }
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleCreate = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsSubmitting(true)
     const formData = new FormData(event.target as HTMLFormElement)
@@ -98,23 +113,76 @@ export const Flags: FC = () => {
       }).catch(error => console.error("Failed to create flag", error))
         .finally(() => {
           setIsSubmitting(false)
-          event.currentTarget.reset()
         })
+      event.currentTarget.reset()
+      setIsLoading(true)
+      setFlags([])
     }
+  }
+
+  const handleEdit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsSubmitting(true)
+    const formData = new FormData(event.target as HTMLFormElement)
+    const name = formData.get('name') as string
+    if (name) {
+      authFetch(`/flag/${selectedFlag?.details.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          name: name,
+          enabled: selectedFlag?.enabled,
+        })
+      }).then(() => {
+        fetchFlags().catch(error => console.error("Failed to fetch flags", error))
+      }).catch(error => console.error("Failed to create flag", error))
+        .finally(() => {
+          setIsSubmitting(false)
+        })
+      event.currentTarget.reset()
+      setOpenEdit(false)
+      setSelectedFlag(null)
+      setIsLoading(true)
+      setFlags([])
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader title={"Flags"} />
+        <Divider />
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+          p: 2
+        }}>
+          <CircularProgress />
+        </Box>
+      </Card>
+    );
   }
 
   if (flags.length === 0) {
     return (
       <Card>
-        <CardHeader title={"Flags"}/>
+        <CardHeader title={"No Flags"}/>
         <Divider/>
         <Box sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: 200
         }}>
-          No Flags
+          <form onSubmit={handleCreate}>
+            <Card>
+              <CardHeader title={"Create Flag"} />
+              <CardContent sx={{display: 'flex', p: 2}}>
+                <input type="text" name="name" placeholder="Flag Name" required disabled={isSubmitting} />
+                <Button type="submit" disabled={isSubmitting}>Create</Button>
+              </CardContent>
+            </Card>
+          </form>
         </Box>
       </Card>
     )
@@ -144,7 +212,10 @@ export const Flags: FC = () => {
                 </TableCell>
                 <TableCell>
                   <Tooltip title={"Edit"}>
-                    <IconButton onClick={() => handleEdit(flag)}><Create /></IconButton>
+                    <IconButton onClick={() => {
+                      setSelectedFlag(flag)
+                      setOpenEdit(true)
+                    }}><Create /></IconButton>
                   </Tooltip>
                   <Tooltip title={"Delete"}>
                     <IconButton onClick={() => {
@@ -176,19 +247,31 @@ export const Flags: FC = () => {
           }}>Delete</Button>
         </DialogActions>
       </Dialog>
+      <Dialog open={openEdit} onClose={() => {
+        setOpenEdit(false)
+      }}>
+        <form onSubmit={handleEdit}>
+          <DialogTitle>Edit "{selectedFlag?.details.name}"</DialogTitle>
+          <DialogContent>
+              <input type="text" name="name" placeholder="Flag Name" required disabled={isSubmitting} defaultValue={selectedFlag?.details.name} autoFocus={true} />
+          </DialogContent>
+          <DialogActions>
+            <Button type="submit" disabled={isSubmitting}>Save</Button>
+          </DialogActions>
+        </form>
+      </Dialog>
       <Box sx={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleCreate}>
           <Card>
             <CardHeader title={"Create Flag"} />
-            <Divider />
-            <Box sx={{display: 'flex', p: 2}}>
+            <CardContent sx={{display: 'flex', p: 2}}>
                 <input type="text" name="name" placeholder="Flag Name" required disabled={isSubmitting} />
                 <Button type="submit" disabled={isSubmitting}>Create</Button>
-            </Box>
+            </CardContent>
           </Card>
         </form>
       </Box>

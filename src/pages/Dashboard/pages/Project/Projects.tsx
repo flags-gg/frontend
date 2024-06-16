@@ -5,7 +5,7 @@ import {
   Card, CardActions,
   CardContent,
   CardHeader,
-  Chip,
+  Chip, CircularProgress,
   Divider,
   FormControl,
   Grid,
@@ -27,6 +27,7 @@ export const Projects: FC = () => {
   const [allowedProjects, setAllowedProjects] = useState<number>(1);
   const [showForm, setShowForm] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const fetchLimits = async () => {
     try {
@@ -54,6 +55,7 @@ export const Projects: FC = () => {
     })
     fetchProjects().then((projects) => {
       setProjects(Array.isArray(projects) ? projects : []);
+      setIsLoading(false);
     }).catch((error) => {
       console.error("failed to fetch projects", error);
     })
@@ -91,6 +93,24 @@ export const Projects: FC = () => {
       form.reset();
       setIsSubmitting(false);
     }
+  }
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader title={"Projects"} />
+        <Divider />
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+          p: 2
+        }}>
+          <CircularProgress />
+        </Box>
+      </Card>
+    );
   }
 
   if (!projects || projects.length === 0) {
