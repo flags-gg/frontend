@@ -1,5 +1,5 @@
 import {FC, FormEvent, useEffect, useState} from "react";
-import {Link, redirect, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useAtom} from "jotai";
 import {
   Button,
@@ -30,6 +30,7 @@ export const Environment: FC = () => {
   const [showEdit, setShowEdit] = useState(false)
   const [showVerify, setShowVerify] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
 
   const fetchEnvironment = async () => {
     try {
@@ -42,6 +43,18 @@ export const Environment: FC = () => {
     }
   }
 
+  const handleDelete = async() => {
+    setIsLoading(true)
+    try {
+      await authFetch(`/environment/${environmentId}`, {
+        method: "DELETE"
+      })
+      navigate(`/agents/${selectedAgent.agent_id}`)
+    } catch (error) {
+      console.error("failed to delete environment", error)
+    }
+  }
+
   const fetchAgent = async() => {
     try {
       const response = await authFetch(`/agent/${selectedAgent.agent_id}`)
@@ -51,6 +64,27 @@ export const Environment: FC = () => {
     } catch (error) {
       console.error("failed to fetch agent", error)
     }
+  }
+
+  const handleEdit = async(event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const data = Object.fromEntries(formData.entries())
+    if (environmentData) {
+      setEnvironmentData({...environmentData, ...data})
+    }
+    try {
+      authFetch(`/environment/${environmentId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(environmentData)
+      }).catch(error => console.error("failed to update environment", error))
+    } finally {
+      setShowEdit(false)
+    }
+    event.currentTarget.reset()
   }
 
   useEffect(() => {
@@ -103,26 +137,7 @@ export const Environment: FC = () => {
       </Grid>
       <Dialog open={showEdit} onClose={() => setShowEdit(false)} PaperProps={{
         component: 'form',
-        onSubmit: (event: FormEvent<HTMLFormElement>) => {
-          event.preventDefault()
-          const formData = new FormData(event.currentTarget)
-          const data = Object.fromEntries(formData.entries())
-          if (environmentData) {
-            setEnvironmentData({...environmentData, ...data})
-          }
-          try {
-            authFetch(`/environment/${environmentId}`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify(environmentData)
-            }).catch(error => console.error("failed to update environment", error))
-          } finally {
-            setShowEdit(false)
-          }
-          event.currentTarget.reset()
-        }
+        onSubmit: handleEdit,
       }}>
         <DialogTitle>Edit Environment</DialogTitle>
         <DialogContent>
@@ -140,17 +155,11 @@ export const Environment: FC = () => {
         <DialogTitle>Are you sure?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this environment?
+            Are you sure you want to delete this {environmentData?.name}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant={"contained"} color={"primary"} onClick={() => {
-            authFetch(`/environment/${environmentId}`, {
-              method: "DELETE"
-            }).catch(error => console.error("failed to delete environment", error)).finally(() => {
-              setShowVerify(false)
-              return redirect(`/agents/${selectedAgent.agent_id}`)
-          })}}>Yes</Button>
+          <Button variant={"contained"} color={"primary"} onClick={handleDelete}>Yes</Button>
           <Button variant={"contained"} color={"error"} onClick={() => setShowVerify(false)}>No</Button>
         </DialogActions>
       </Dialog>

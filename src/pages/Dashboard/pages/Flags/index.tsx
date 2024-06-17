@@ -18,16 +18,14 @@ import {
   DialogActions,
   Button,
   Tooltip,
-  CardContent,
   CircularProgress,
   DialogContent
 } from "@mui/material";
 import {Flag} from "@flags-gg/react-library/types";
 import {Create, Delete} from "@mui/icons-material";
-import {useAtom} from "jotai";
 
 import useAuthFetch from "@DL/fetcher";
-import {agentAtom} from "@DL/statemanager";
+import {CreateFlag} from "@DP/Flags/Create.tsx";
 
 export const Flags: FC = () => {
   const authFetch = useAuthFetch()
@@ -36,10 +34,8 @@ export const Flags: FC = () => {
   const {environmentId} = useParams()
   const [openDelete, setOpenDelete] = useState<boolean>(false)
   const [selectedFlag, setSelectedFlag] = useState<Flag | null>(null)
-  const [selectedAgent] = useAtom(agentAtom)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [openEdit, setOpenEdit] = useState<boolean>(false)
-
 
   const fetchFlags = async () => {
     try {
@@ -58,6 +54,7 @@ export const Flags: FC = () => {
 
   const handleSwitch = async (flag: Flag) => {
     setIsSubmitting(true)
+    setIsLoading(true)
     try {
       await authFetch(`/flag/${flag.details.id}`, {
         method: 'PUT',
@@ -67,62 +64,34 @@ export const Flags: FC = () => {
         })
       })
       setFlags(f => f.map(f => f.details.id === flag.details.id ? {...f, enabled: !f.enabled} : f))
-      fetchFlags().catch(error => console.error("Failed to fetch flags", error))
+      setIsSubmitting(false)
+      setIsLoading(false)
     } catch (error) {
       console.error("Failed to update flag", error)
-    } finally {
-      setIsSubmitting(false)
-      setIsLoading(true)
-      setFlags([])
     }
   }
 
   const handleDelete = async (flag: Flag) => {
     setIsSubmitting(true)
+    setIsLoading(true)
     try {
       await authFetch(`/flag/${flag.details.id}`, {
         method: 'DELETE'
       })
       setFlags(f => f.filter(f => f.details.id !== flag.details.id))
-      fetchFlags().catch(error => console.error("Failed to fetch flags", error))
+      setIsLoading(false)
+      setIsSubmitting(false)
     } catch (error) {
       console.error("Failed to delete flag", error)
     } finally {
-      setIsSubmitting(false)
       setOpenDelete(false)
-      setIsLoading(true)
-      setFlags([])
-    }
-  }
-
-  const handleCreate = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsSubmitting(true)
-    const formData = new FormData(event.target as HTMLFormElement)
-    const name = formData.get('name') as string
-    if (name) {
-      authFetch(`/flag`, {
-        method: 'POST',
-        body: JSON.stringify({
-          name: name,
-          agentId: selectedAgent.agent_id,
-          environmentId: environmentId,
-        })
-      }).then(() => {
-        setIsLoading(true)
-        fetchFlags().then(() => setIsLoading(false)).catch(error => console.error("Failed to fetch flags", error))
-      }).catch(error => console.error("Failed to create flag", error))
-        .finally(() => {
-          setIsSubmitting(false)
-          setFlags([])
-        })
-      event.currentTarget.reset()
     }
   }
 
   const handleEdit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsSubmitting(true)
+    setIsLoading(true)
     const formData = new FormData(event.target as HTMLFormElement)
     const name = formData.get('name') as string
     if (name) {
@@ -133,15 +102,11 @@ export const Flags: FC = () => {
           enabled: selectedFlag?.enabled,
         })
       }).then(() => {
-        fetchFlags().catch(error => console.error("Failed to fetch flags", error))
+        setFlags(f => f.map(f => f.details.id === selectedFlag?.details.id ? {...f, name: name} : f))
+        setIsLoading(false)
+        setIsSubmitting(false)
+        setSelectedFlag(null)
       }).catch(error => console.error("Failed to create flag", error))
-        .finally(() => {
-          setIsSubmitting(false)
-          setOpenEdit(false)
-          setSelectedFlag(null)
-          setIsLoading(true)
-          setFlags([])
-        })
       event.currentTarget.reset()
     }
   }
@@ -169,21 +134,7 @@ export const Flags: FC = () => {
       <Card>
         <CardHeader title={"No Flags"}/>
         <Divider/>
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-          <form onSubmit={handleCreate}>
-            <Card>
-              <CardHeader title={"Create Flag"} />
-              <CardContent sx={{display: 'flex', p: 2}}>
-                <input type="text" name="name" placeholder="Flag Name" required disabled={isSubmitting} />
-                <Button type="submit" disabled={isSubmitting}>Create</Button>
-              </CardContent>
-            </Card>
-          </form>
-        </Box>
+        <CreateFlag setIsLoading={setIsLoading} setFlags={setFlags} environmentId={environmentId} />
       </Card>
     )
   }
@@ -260,21 +211,7 @@ export const Flags: FC = () => {
           </DialogActions>
         </form>
       </Dialog>
-      <Box sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        <form onSubmit={handleCreate}>
-          <Card>
-            <CardHeader title={"Create Flag"} />
-            <CardContent sx={{display: 'flex', p: 2}}>
-                <input type="text" name="name" placeholder="Flag Name" required disabled={isSubmitting} />
-                <Button type="submit" disabled={isSubmitting}>Create</Button>
-            </CardContent>
-          </Card>
-        </form>
-      </Box>
+      <CreateFlag setIsLoading={setIsLoading} setFlags={setFlags} environmentId={environmentId} />
     </Card>
   )
 }
