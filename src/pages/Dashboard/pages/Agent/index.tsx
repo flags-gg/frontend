@@ -12,11 +12,11 @@ import {
   Button,
   CircularProgress, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions
 } from "@mui/material";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useAtom} from "jotai";
 
 import {Agents} from "./Agents.tsx"
-import {FlagAgent, agentAtom} from "@DL/statemanager";
+import {FlagAgent, agentAtom, projectAtom} from "@DL/statemanager";
 import {Environments} from "../Environment";
 import useAuthFetch from "@DL/fetcher";
 
@@ -26,8 +26,10 @@ export const Agent: FC = () => {
   const [agentData, setAgentData] = useState<FlagAgent | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [, setSelectedAgent] = useAtom(agentAtom);
+  const [selectedProject] = useAtom(projectAtom);
   const [showEdit, setShowEdit] = useState(false);
   const [showVerify, setShowVerify] = useState(false);
+  const navigate = useNavigate();
 
   const fetchAgent = async () => {
     try {
@@ -35,9 +37,10 @@ export const Agent: FC = () => {
       const data = await response.json();
       setAgentData(data);
       setSelectedAgent(data)
-      setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch agent:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -49,25 +52,29 @@ export const Agent: FC = () => {
     } catch (error) {
       console.error("Failed to delete agent:", error);
     }
+    navigate(`/projects/${selectedProject.project_id}`);
   }
 
   const handleEdit = (event: FormEvent<HTMLFormElement>) => {
+    setIsLoading(true)
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const data = Object.fromEntries(formData.entries())
+    const formObj = Object.fromEntries(formData.entries())
     if (agentData) {
-      setAgentData({...agentData, ...data})
-    }
-    try {
-      authFetch(`/agent/${agentId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(agentData)
-      }).catch(error => console.error("failed to update environment", error))
-    } finally {
-      setShowEdit(false)
+      const data = {...agentData, ...formObj}
+      try {
+        authFetch(`/agent/${agentId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        }).catch(error => console.error("failed to update environment", error))
+      } finally {
+        setShowEdit(false)
+        setAgentData(data)
+        setIsLoading(false)
+      }
     }
     event.currentTarget.reset()
   }
@@ -123,7 +130,7 @@ export const Agent: FC = () => {
         component: 'form',
         onSubmit: handleEdit,
       }}>
-        <DialogTitle>Edit Environment</DialogTitle>
+        <DialogTitle>Edit Agent</DialogTitle>
         <DialogContent>
           <DialogContentText sx={{p: 3}}>
             Rename or Delete the Agent
