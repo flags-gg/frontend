@@ -1,20 +1,20 @@
-import {FC, FormEvent, useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {
   Box, Button,
-  Card, CardActions,
-  CardContent,
+  Card,
   CardHeader, CircularProgress,
-  Divider, FormControl, Grid,
+  Divider,
   Table,
   TableBody,
   TableCell,
   TableHead,
-  TableRow, TextField
+  TableRow
 } from "@mui/material";
 
 import useAuthFetch from "@DL/fetcher";
 import {FileCopy} from "@mui/icons-material";
+import {CreateEnvironment} from "@DP/Environment/Create.tsx";
 
 
 interface EnvironmentProps {
@@ -26,50 +26,18 @@ export const Environments: FC<EnvironmentProps> = ({
 }) => {
   const authFetch = useAuthFetch();
   const [envData, setEnvData] = useState<any>(null);
-  const [showForm, setShowForm] = useState<boolean>(false);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const {agentId} = useParams();
 
   const fetchEnvData = async () => {
     const response = await authFetch(`/agent/${agentId}/environments`);
     const data = await response.json();
-
-    if (envLimit > data?.environments?.length) {
-      setShowForm(true);
-    }
     setEnvData(data?.environments);
     setIsLoading(false);
   }
   useEffect(() => {
-    fetchEnvData().catch(error => console.error("failed to fetch environment data:", error));
+    fetchEnvData().then(() => setIsLoading(false)).catch(error => console.error("failed to fetch environment data:", error));
   }, [envLimit]);
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-
-    const form = event.currentTarget
-    const formData = new FormData(event.target as HTMLFormElement);
-    const envName = formData.get("envName") as string;
-
-    try {
-      authFetch(`/agent/${agentId}/environment`, {
-        method: 'POST',
-        body: JSON.stringify({
-          name: envName
-        })
-      }).then(() => {
-        fetchEnvData().catch(error => console.error("failed to fetch agent data:", error));
-        setShowForm(false);
-      });
-    } catch (error) {
-      console.error("failed to create agent:", error)
-    } finally {
-      form.reset();
-      setIsSubmitting(false);
-    }
-  }
 
   if (isLoading) {
     return (
@@ -102,33 +70,7 @@ export const Environments: FC<EnvironmentProps> = ({
         }}>
           <p>No Environments found</p>
         </Box>
-        {showForm && (
-        <>
-          <Divider />
-          <Box sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100%'
-          }}>
-            <form onSubmit={handleSubmit}>
-              <Card>
-                <CardHeader title={"Create Environment"} />
-                <CardContent>
-                  <Grid container spacing={1}>
-                    <FormControl required>
-                      <TextField variant={"outlined"} label={"Environment Name"} margin={"dense"} required id={"envName"} name={"envName"} />
-                    </FormControl>
-                  </Grid>
-                </CardContent>
-                <CardActions>
-                  <Button color={"primary"} variant={"contained"} type={"submit"} disabled={isSubmitting}>Create Environment</Button>
-                </CardActions>
-              </Card>
-            </form>
-          </Box>
-        </>
-      )}
+        <CreateEnvironment agentId={agentId} envLimit={envLimit} setEnvData={setEnvData} setIsLoading={setIsLoading}/>
       </Card>
     );
   }
@@ -161,33 +103,7 @@ export const Environments: FC<EnvironmentProps> = ({
           </TableBody>
         </Table>
       </Box>
-      {showForm && (
-        <>
-          <Divider />
-          <Box sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100%'
-          }}>
-            <form onSubmit={handleSubmit}>
-              <Card>
-                <CardHeader title={"Create Environment"} />
-                <CardContent>
-                  <Grid container spacing={1}>
-                    <FormControl required>
-                      <TextField variant={"outlined"} label={"Environment Name"} margin={"dense"} required id={"envName"} name={"envName"} />
-                    </FormControl>
-                  </Grid>
-                </CardContent>
-                <CardActions>
-                  <Button color={"primary"} variant={"contained"} type={"submit"} disabled={isSubmitting}>Create Environment</Button>
-                </CardActions>
-              </Card>
-            </form>
-          </Box>
-        </>
-      )}
+      <CreateEnvironment agentId={agentId} envLimit={envLimit} setEnvData={setEnvData} setIsLoading={setIsLoading}/>
     </Card>
   );
 }
