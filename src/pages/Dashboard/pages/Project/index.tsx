@@ -1,6 +1,6 @@
-import {FC, useEffect, useState} from "react";
+import {FC, FormEvent, useEffect, useState} from "react";
 import {useAtom} from "jotai";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -11,7 +11,7 @@ import {
   Stack,
   Typography,
   Avatar,
-  Table, Button, CircularProgress,
+  Table, Button, CircularProgress, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions,
 } from "@mui/material";
 
 import {IProject, projectAtom} from "@DL/statemanager";
@@ -25,6 +25,42 @@ export const Project: FC = () => {
   const authFetch = useAuthFetch();
   const [projectData, setProjectData] = useState<IProject | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [showEdit, setShowEdit] = useState(false)
+  const [showVerify, setShowVerify] = useState(false)
+  const navigate = useNavigate()
+
+  const handleDelete = async() => {
+    setIsLoading(true)
+    try {
+      await authFetch(`/project/${projectId}`, {
+        method: "DELETE"
+      })
+      navigate(`/projects`)
+    } catch (error) {
+      console.error("failed to delete environment", error)
+    }
+  }
+
+  const handleEdit = async(event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const data = Object.fromEntries(formData.entries())
+    if (projectData) {
+      setProjectData({...projectData, ...data})
+    }
+    try {
+      authFetch(`/project/${projectId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(projectData)
+      }).catch(error => console.error("failed to update environment", error))
+    } finally {
+      setShowEdit(false)
+    }
+    event.currentTarget.reset()
+  }
 
   const fetchProject = async () => {
     try {
@@ -71,7 +107,7 @@ export const Project: FC = () => {
                       </TableRow>
                       <TableRow>
                         <TableCell colSpan={2}>
-                          <Button variant={"contained"} color={"primary"} fullWidth>Edit</Button>
+                          <Button variant={"contained"} color={"primary"} fullWidth onClick={() => setShowEdit(true)}>Edit</Button>
                         </TableCell>
                       </TableRow>
                     </TableBody>
@@ -85,6 +121,34 @@ export const Project: FC = () => {
           <Agents agentLimit={projectData?.agent_limit} />
         </Grid>
       </Grid>
+      <Dialog open={showEdit} onClose={() => setShowEdit(false)} PaperProps={{
+        component: 'form',
+        onSubmit: handleEdit,
+      }}>
+        <DialogTitle>Edit Project</DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{p: 3}}>
+            Rename or Delete the project
+          </DialogContentText>
+          <TextField autoFocus margin={"dense"} label={"Environment Name"} name={"name"} fullWidth defaultValue={projectData?.name} />
+        </DialogContent>
+        <DialogActions>
+          <Button variant={"contained"} color={"primary"} type={"submit"}>Rename</Button>
+          <Button variant={"contained"} color={"error"} onClick={() => setShowVerify(true)}>Delete</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={showVerify} onClose={() => setShowVerify(false)}>
+        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this {projectData?.name}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant={"contained"} color={"primary"} onClick={handleDelete}>Yes</Button>
+          <Button variant={"contained"} color={"error"} onClick={() => setShowVerify(false)}>No</Button>
+        </DialogActions>
+      </Dialog>
     </Stack>
   );
 }
