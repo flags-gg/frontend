@@ -5,6 +5,8 @@ import {useFlags} from "@flags-gg/react-library";
 
 import {BuildDetails} from "@/app.config";
 import Logo from "@C/Logo";
+import {GitHub} from "@mui/icons-material";
+import {GithubLogo} from "@phosphor-icons/react";
 
 function Copyright() {
   return (
@@ -107,13 +109,12 @@ const Footer: FC = () => {
             Tag: {BuildDetails.Tag}
           </Typography>
         </div>
-        <Stack direction={"row"} spacing={1} justifyContent={"left"} useFlexGap sx={{
-        color: 'text.secondary',
-        }}>
-          <IconButton color={"inherit"} href={"https://www.linkedin.com/company/chewedfeed"} sx={{
-            selfAlign: 'center',
-          }}>
+        <Stack direction={"row"} spacing={1} justifyContent={"left"} useFlexGap sx={{color: 'text.secondary'}}>
+          <IconButton color={"inherit"} href={"https://www.linkedin.com/company/chewedfeed"} sx={{selfAlign: 'center'}}>
             <LinkedInIcon />
+          </IconButton>
+          <IconButton color={"inherit"} href={"https://www.github.com/flags-gg"} sx={{selfAlign: 'center'}}>
+            <GithubLogo />
           </IconButton>
         </Stack>
       </Box>
