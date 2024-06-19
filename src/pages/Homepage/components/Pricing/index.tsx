@@ -1,68 +1,8 @@
 import {FC, useEffect, useState} from "react";
 import {Box, Card, CardContent, Chip, Container, Divider, Grid, Typography} from "@mui/material";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import {useFlags} from "@flags-gg/react-library";
 import {Item} from "@HC/Pricing/Item.tsx";
-
-// interface Tiers {
-//   title: string;
-//   price: number;
-//   subheader?: string;
-//   features: string[];
-// }
-//
-// const tiers: Tiers[] = [
-//   {
-//     title: 'Free',
-//     price: 0,
-//     features: [
-//       '10 Team Members',
-//       '1 Project',
-//       '1 Agent per Project',
-//       '2 Environment per Agent',
-//       '50,000 Requests per Environment a month',
-//       'Community Support',
-//     ]
-//   },
-//   {
-//     title: 'Startup',
-//     subheader: 'Most popular',
-//     price: 15,
-//     features: [
-//       '20 Team Members',
-//       '5 Projects',
-//       '2 Agents per Project',
-//       '2 Environment per Agent',
-//       '1,000,000 Requests per Environment a month',
-//       'A/B traffic based testing',
-//     ]
-//   },
-//   {
-//     title: 'Pro',
-//     price: 50,
-//     features: [
-//       '50 Team Members',
-//       '10 Projects',
-//       '2 Agents per Project',
-//       '3 Environment per Agent',
-//       '5,000,000 Requests per Environment a month',
-//       'Extended support',
-//     ]
-//   },
-//   {
-//     title: 'Enterprise',
-//     price: 200,
-//     features: [
-//       'Unlimited Team Members',
-//       'Unlimited Projects',
-//       '5 Agents per Project',
-//       '5 Environment per Agent',
-//       '20,000,000 Requests per Environment a month',
-//       'Priority Support',
-//     ]
-//   }
-// ]
 
 interface Extra {
   title: string;
@@ -195,23 +135,11 @@ const Pricing: FC = () => {
                 <Item itemText={`${tier.support_type} Support`} skipNumber={true} />
 
                 {tier.extras?.map((extra) => (
-                  <Box key={extra.title + tier.title} sx={{
-                      py: 1,
-                      display: 'flex',
-                      gap: 1.5,
-                      alignItems: 'center',
-                    }}>
-                    <CheckCircleRoundedIcon sx={{
-                        width: 20,
-                        color: tier.sub_title === undefined ? 'primary.main' : 'primary.light',
-                      }} />
-                    <Typography component="span"
-                      variant="subtitle2" sx={{
-                        color: tier.sub_title === undefined ? tier.sub_title : 'grey.200',
-                      }}>
-                      {extra.title} {extra.launched ? '' : '(Coming Soon)'}
-                    </Typography>
-                  </Box>
+                  <Item
+                    itemText={extra.title}
+                    skipNumber={true}
+                    extraInfo={extra.launched ? undefined : '(Coming Soon)'}
+                    subtitle={extra.launched ? undefined : "true"} />
                 ))}
               </CardContent>
             </Card>

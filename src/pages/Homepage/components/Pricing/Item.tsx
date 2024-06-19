@@ -7,6 +7,7 @@ interface ItemProps {
   subtitle?: string
   itemNumber?: number
   skipNumber?: boolean
+  extraInfo?: string
 }
 
 const formatNumber = (num: number) => {
@@ -19,12 +20,12 @@ const formatNumber = (num: number) => {
   return num.toString();
 }
 
-export const Item: FC<ItemProps> = ({itemText,  subtitle, itemNumber, skipNumber }) => {
+export const Item: FC<ItemProps> = ({itemText,  subtitle, itemNumber, skipNumber, extraInfo }) => {
   return (
-    <Box sx={{py: 1, display: 'flex', gap: 1.5, alignItems: 'center'}}>
+    <Box sx={{py: 1, display: 'flex', gap: 1.5, alignItems: 'center'}} key={itemText + extraInfo}>
       <CheckCircleRoundedIcon sx={{width: 20, color: subtitle === undefined ? 'primary.main' : 'primary.light'}} />
       <Typography component="span" variant="subtitle2" sx={{ color: subtitle === undefined ? subtitle : 'grey.200'}}>
-        {skipNumber ? '' : itemNumber === undefined ? "Unlimited" : formatNumber(itemNumber)} {itemText}
+        {skipNumber ? '' : itemNumber === undefined ? "Unlimited" : formatNumber(itemNumber)} {itemText} {extraInfo}
       </Typography>
     </Box>
   )
