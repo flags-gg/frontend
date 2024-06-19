@@ -1,70 +1,43 @@
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
 import {Box, Card, CardContent, Chip, Container, Divider, Grid, Typography} from "@mui/material";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import {useFlags} from "@flags-gg/react-library";
+import {Item} from "@HC/Pricing/Item.tsx";
 
-interface Tiers {
+interface Extra {
   title: string;
-  price: number;
-  subheader?: string;
-  features: string[];
+  launched: boolean;
 }
-
-const tiers: Tiers[] = [
-  {
-    title: 'Free',
-    price: 0,
-    features: [
-      '10 Team Members',
-      '1 Project',
-      '1 Agent per Project',
-      '2 Environment per Agent',
-      '50,000 Requests per Environment a month',
-      'Community Support',
-    ]
-  },
-  {
-    title: 'Startup',
-    subheader: 'Most popular',
-    price: 15,
-    features: [
-      '20 Team Members',
-      '5 Projects',
-      '2 Agents per Project',
-      '2 Environment per Agent',
-      '1,000,000 Requests per Environment a month',
-      'A/B traffic based testing',
-    ]
-  },
-  {
-    title: 'Pro',
-    price: 50,
-    features: [
-      '50 Team Members',
-      '10 Projects',
-      '2 Agents per Project',
-      '3 Environment per Agent',
-      '5,000,000 Requests per Environment a month',
-      'Extended support',
-    ]
-  },
-  {
-    title: 'Enterprise',
-    price: 200,
-    features: [
-      'Unlimited Team Members',
-      'Unlimited Projects',
-      '5 Agents per Project',
-      '5 Environment per Agent',
-      '20,000,000 Requests per Environment a month',
-      'Priority Support',
-    ]
-  }
-]
+interface Price {
+  title: string;
+  sub_title?: string;
+  price: number;
+  team_members?: number;
+  projects?: number;
+  agents: number;
+  environments: number;
+  requests: number;
+  support_type: string;
+  extras?: Extra[];
+}
 
 const Pricing: FC = () => {
   const {is} = useFlags();
+  const [prices, setPrices] = useState<Price[]>([]);
+
+  const getPricing = async () => {
+    const response = await fetch(`${import.meta.env.VITE_FLAGS_API_SERVER}/pricing`);
+    const data = await response.json();
+    return data;
+  }
+
+  useEffect(() => {
+    getPricing().then((data) => {
+      setPrices(data.prices);
+      console.info(data)
+    });
+  }, []);
+
   if (!is('pricing').enabled()) {
     return null;
   }
@@ -106,16 +79,16 @@ const Pricing: FC = () => {
         </Typography>
       </Box>
       <Grid container spacing={3} alignItems="center" justifyContent="center">
-        {tiers.map((tier) => (
+        {prices.map((tier) => (
           <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={3}>
             <Card sx={{
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 4,
-                border: tier.subheader === undefined ? tier.subheader : '1px solid',
-                borderColor: tier.subheader === undefined ? tier.subheader : 'primary.main',
-                background: tier.subheader === undefined ? tier.subheader : 'linear-gradient(#033363, #021F3B)',
+                border: tier.sub_title === undefined ? tier.sub_title : '1px solid',
+                borderColor: tier.sub_title === undefined ? tier.sub_title : 'primary.main',
+                background: tier.sub_title === undefined ? tier.sub_title : 'linear-gradient(#033363, #021F3B)',
               }}>
               <CardContent>
                 <Box sx={{
@@ -128,8 +101,8 @@ const Pricing: FC = () => {
                   <Typography component="h3" variant="h6">
                     {tier.title}
                   </Typography>
-                  {tier.subheader !== undefined && (
-                    <Chip icon={<AutoAwesomeIcon />} label={tier.subheader} size="small" sx={{
+                  {tier.sub_title !== undefined && (
+                    <Chip icon={<AutoAwesomeIcon />} label={tier.sub_title} size="small" sx={{
                         background: 'none',
                         backgroundColor: 'primary.contrastText',
                         '& .MuiChip-label': {
@@ -144,38 +117,29 @@ const Pricing: FC = () => {
                 <Box sx={{
                     display: 'flex',
                     alignItems: 'baseline',
-                    color: tier.subheader === undefined ? tier.subheader : 'grey.50',
+                    color: tier.sub_title === undefined ? tier.sub_title : 'grey.50',
                   }}>
                   <Typography component="h4" variant="h2">
-                    ${tier.price}
+                    ${tier.price === undefined ? '0' : tier.price}
                   </Typography>
                   <Typography component="h4" variant="h6">
                     &nbsp; per month
                   </Typography>
                 </Box>
-                <Divider sx={{
-                    my: 2,
-                    opacity: 0.2,
-                    borderColor: 'grey.500',
-                  }} />
-                {tier.features.map((line) => (
-                  <Box key={line} sx={{
-                      py: 1,
-                      display: 'flex',
-                      gap: 1.5,
-                      alignItems: 'center',
-                    }}>
-                    <CheckCircleRoundedIcon sx={{
-                        width: 20,
-                        color: tier.subheader === undefined ? 'primary.main' : 'primary.light',
-                      }} />
-                    <Typography component="span"
-                      variant="subtitle2" sx={{
-                        color: tier.subheader === undefined ? tier.subheader : 'grey.200',
-                      }}>
-                      {line}
-                    </Typography>
-                  </Box>
+                <Divider sx={{my: 2, opacity: 0.2, borderColor: 'grey.500'}} />
+                <Item itemText={"Team Members"} itemNumber={tier.team_members} />
+                <Item itemText={"Projects"} itemNumber={tier.projects} />
+                <Item itemText={"Agents per Project"} itemNumber={tier.agents} />
+                <Item itemText={"Environment per Agent"} itemNumber={tier.environments} />
+                <Item itemText={"Requests per Environment"} itemNumber={tier.requests} />
+                <Item itemText={`${tier.support_type} Support`} skipNumber={true} />
+
+                {tier.extras?.map((extra) => (
+                  <Item
+                    itemText={extra.title}
+                    skipNumber={true}
+                    extraInfo={extra.launched ? undefined : '(Coming Soon)'}
+                    subtitle={extra.launched ? undefined : "true"} />
                 ))}
               </CardContent>
             </Card>
