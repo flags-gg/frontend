@@ -27,8 +27,8 @@ dependencies:
     specifier: ^11.11.5
     version: 11.11.5(@emotion/react@11.11.4)(@types/react@18.3.3)(react@18.3.1)
   '@flags-gg/react-library':
-    specifier: ^1.3.11
-    version: 1.3.11
+    specifier: ^1.3.12
+    version: 1.3.12
   '@fontsource/roboto':
     specifier: ^5.0.13
     version: 5.0.13
@@ -2139,8 +2139,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@flags-gg/react-library@1.3.11:
-    resolution: {integrity: sha512-C3iaRs9SP60AHcTopKvfKTmYGZ/4w3yDRUPJNLIfsoNzIsOtmfhAGcoZWQQ/VKcb5DNQWNaCU9rpYTbPC9wFRg==}
+  /@flags-gg/react-library@1.3.12:
+    resolution: {integrity: sha512-1oiblu0UXoC2/uLwyQFLQfdX1jtXE2cWKyNg9FmDWkoDtVXf8Y/B9mbRgCBYvMeZ1oL21kxnJNTtUGiQwFcidw==}
     dependencies:
       fast-equals: 5.0.1
       react: 18.3.1
