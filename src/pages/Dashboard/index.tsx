@@ -38,12 +38,13 @@ export const Dashboard: FC = () => {
           <Box component="main" sx={{
             flexGrow: 1,
             bgcolor: 'background.default',
-            minWidth: '98vw',
+            minWidth: '95vw',
             overflow: 'auto',
             marginTop: 5,
             p: 1,
             paddingTop: '38px',
-            height: '95vh'
+            height: '95vh',
+            marginLeft: '1.5%',
           }}>
             <Header />
             <Container

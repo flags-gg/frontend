@@ -10,9 +10,7 @@ import {Form} from "./Form.tsx"
 export const Account: FC = () => {
   return (
     <Stack spacing={3}>
-      <div>
-        <Typography variant={"h4"}>User Account</Typography>
-      </div>
+      <Typography variant={"h4"}>User Account</Typography>
       <Grid container spacing={3}>
         <Grid lg={2} md={6} xs={12} item={true}>
           <Info />

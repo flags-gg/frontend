@@ -24,7 +24,7 @@ export const Item: FC<ItemProps> = ({itemText,  subtitle, itemNumber, skipNumber
   return (
     <Box sx={{py: 1, display: 'flex', gap: 1.5, alignItems: 'center'}} key={itemText + extraInfo}>
       <CheckCircleRoundedIcon sx={{width: 20, color: subtitle === undefined ? 'primary.main' : 'primary.light'}} />
-      <Typography component="span" variant="subtitle2" sx={{ color: subtitle === undefined ? subtitle : 'grey.200'}}>
+      <Typography component="span" variant="subtitle2" sx={{ color: subtitle === undefined ? subtitle : 'grey.200', textTransform: 'capitalize'}}>
         {skipNumber ? '' : itemNumber === undefined ? "Unlimited" : formatNumber(itemNumber)} {itemText} {extraInfo}
       </Typography>
     </Box>
