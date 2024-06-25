@@ -14,8 +14,8 @@ import useAuthFetch from "@DL/fetcher";
 export const Form: FC = () => {
   const authFetch = useAuthFetch();
   const [userDetails, setUserDetails] = useState({
-    knownAs: "",
-    emailAddress: ""
+    known_as: "",
+    email_address: ""
   });
 
   const fetchUserDetails = async () => {
@@ -74,12 +74,12 @@ export const Form: FC = () => {
               paddingRight: 2
             }} item={true}>
               <FormControl fullWidth required>
-                <TextField variant={"outlined"}  label={"Known As"} margin={"dense"} required id={"knownAs"} name={"knownAs"} value={userDetails?.knownAs} />
+                <TextField variant={"outlined"}  label={"Known As"} margin={"dense"} required id={"knownAs"} name={"knownAs"} value={userDetails?.known_as} />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12} item={true}>
               <FormControl fullWidth required>
-                <TextField variant={"outlined"} label={"Email"} margin={"dense"} required id={"emailAddress"} name={"emailAddress"} value={userDetails?.emailAddress} type={"email"} />
+                <TextField variant={"outlined"} label={"Email"} margin={"dense"} required id={"emailAddress"} name={"emailAddress"} value={userDetails?.email_address} type={"email"} />
               </FormControl>
             </Grid>
           </Grid>

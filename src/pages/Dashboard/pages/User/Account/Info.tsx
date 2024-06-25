@@ -1,44 +1,73 @@
-import { FC, useState } from "react";
+import {FC, useEffect, useState} from "react";
 import {
   Card,
   CardContent,
   Avatar,
   Stack,
-  Typography,
-  Divider
+  CircularProgress, Table, TableBody, TableRow, TableCell
 } from "@mui/material";
 
-const user = {
-  knownAs: "Keloran",
-  avatar: "https://avatars.githubusercontent.com/u/200350?v=4",
-  jobTitle: "Software Engineer",
-  location: "UK, Manchester",
-  timezone: "GMT"
-};
+import useAuthFetch from "@DL/fetcher";
+
+interface User {
+  known_as: string;
+  jobTitle: string;
+  timezone: string;
+  avatar: string;
+}
 
 export const Info: FC = () => {
-  const [avatarURL, setAvatarURL] = useState<string>(user.avatar);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const authFetch = useAuthFetch();
+  const [user, setUser] = useState<User>({
+    known_as: "",
+    jobTitle: "",
+    timezone: "",
+    avatar: ""
+  });
+
+  const fetchUserDetails = async () => {
+    try {
+      const response = await authFetch(`/user`);
+      const data = await response.json();
+      setUser(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Failed to fetch user details:", error);
+    }
+  }
+  useEffect(() => {
+    fetchUserDetails().catch(error => console.error("Failed to fetch user details:", error));
+  }, []);
 
   return (
     <Card>
       <CardContent>
-        <Stack spacing={2} sx={{ alignItems: "center" }}>
-          <Avatar
-            src={avatarURL}
-            sx={{ height: '80px', width: '80px', cursor: 'pointer' }}
-          />
-          <Stack spacing={1} sx={{ textAlign: "center" }}>
-            <Typography variant={"h5"}>{user.knownAs}</Typography>
-            <Typography variant={"body2"} color={"text.secondary"}>
-              {user.location}
-            </Typography>
-            <Typography variant={"body2"} color={"text.secondary"}>
-              {user.timezone}
-            </Typography>
+        {isLoading ? <CircularProgress /> : (
+          <Stack spacing={2} sx={{ alignItems: "center" }}>
+            <Avatar
+              src={user.avatar}
+              sx={{ height: '80px', width: '80px', cursor: 'pointer' }}
+            />
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Known As</TableCell>
+                  <TableCell>{user.known_as}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Job Title</TableCell>
+                  <TableCell>{user.jobTitle}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Timezone</TableCell>
+                  <TableCell>{user.timezone}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </Stack>
-        </Stack>
+        )}
       </CardContent>
-      <Divider />
     </Card>
   );
 };
