@@ -1,6 +1,6 @@
 import NotFound from "@C/NotFound";
 import {Dashboard, Summary} from "./";
-import {Company, CompanyAccount, CompanySettings} from "@DP/Company";
+import {Company} from "@DP/Company";
 import {Agent} from "@DP/Agent";
 import {Flags} from "@DP/Flags";
 import {UserAccount} from "@DP/User/";
@@ -24,14 +24,6 @@ const dashboardRoutes = [
             path: "",
             element: <Company />,
           },
-          {
-            path: "account",
-            element: <CompanyAccount />,
-          },
-          {
-            path: "settings",
-            element: <CompanySettings />,
-          }
         ],
       },
       {

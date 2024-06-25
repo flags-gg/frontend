@@ -3,10 +3,10 @@ import {loadStripe} from "@stripe/stripe-js";
 import {Elements} from "@stripe/react-stripe-js";
 import {Divider, Grid, Stack, Typography} from "@mui/material";
 
-import {Account} from "./Account"
-import {Settings} from "./Settings"
 import {stripeConfig} from "@/app.config.tsx";
 import {Info} from "@DP/Company/Info.tsx";
+import {Users} from "@DP/Company/Users";
+import {Settings} from "@DP/Company/Settings"
 
 export const Company: FC = () => {
   const stripePromise = loadStripe(stripeConfig.stripe)
@@ -22,15 +22,10 @@ export const Company: FC = () => {
           <Grid lg={7} md={6} xs={12} item={true}>
             <Settings />
             <Divider />
-            <Account />
+            <Users />
           </Grid>
         </Grid>
       </Elements>
     </Stack>
   );
-}
-
-export {
-  Account as CompanyAccount,
-  Settings as CompanySettings
 }

@@ -1,5 +1,15 @@
-import {useState} from "react";
-import {Avatar, Card, CardContent, Stack, Typography} from "@mui/material";
+import {FC, useState} from "react";
+import {
+  Avatar, Button,
+  Card,
+  CardContent,
+  CircularProgress, Dialog,
+  Stack,
+  Table,
+  TableBody, TableCell,
+  TableRow,
+  Typography
+} from "@mui/material";
 
 const company = {
   name: "ChewedFeed",
@@ -10,26 +20,50 @@ const company = {
 
 export const Info: FC = () => {
   const [avatarURL, setAvatarURL] = useState<string>(company.avatar);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showEdit, setShowEdit] = useState<boolean>(false);
+  const [showPlanDialog, setShowPlanDialog] = useState<boolean>(false);
 
   return (
     <Card>
       <CardContent>
-        <Stack spacing={2} sx={{ alignItems: "center" }}>
-          <Avatar
-            src={avatarURL}
-            sx={{ height: '80px', width: '80px', cursor: 'pointer' }}
-          />
-          <Stack spacing={1} sx={{ textAlign: "center" }}>
+        {isLoading ? <CircularProgress /> : (
+          <Stack spacing={2} sx={{ alignItems: "center" }}>
             <Typography variant={"h5"}>{company.name}</Typography>
-            <Typography variant={"body2"} color={"text.secondary"}>
-              {company.timezone}
-            </Typography>
-            <Typography variant={"body2"} color={"text.secondary"}>
-              {company.currentPlan}
-            </Typography>
+            <Avatar
+              src={avatarURL}
+              sx={{ height: '80px', width: '80px', cursor: 'pointer' }}
+            />
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Timezone</TableCell>
+                  <TableCell>{company.timezone}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Current Plan</TableCell>
+                  <TableCell>
+                    <Button variant={"contained"} size={"small"} onClick={() => setShowPlanDialog(true)}>{company.currentPlan}</Button>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell colSpan={2}>
+                    <Button variant={"contained"} color={"primary"} fullWidth onClick={() => setShowEdit(true)}>Edit</Button>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </Stack>
-        </Stack>
+        )}
       </CardContent>
+
+      <Dialog open={showEdit} onClose={() => setShowEdit(false)}>
+        Edit Company
+      </Dialog>
+
+      <Dialog open={showPlanDialog} onClose={() => setShowPlanDialog(false)}>
+        Plan Details
+      </Dialog>
     </Card>
   )
 }
