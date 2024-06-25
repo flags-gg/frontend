@@ -5,7 +5,6 @@ import {useFlags} from "@flags-gg/react-library";
 
 import {BuildDetails} from "@/app.config";
 import Logo from "@C/Logo";
-import {GitHub} from "@mui/icons-material";
 import {GithubLogo} from "@phosphor-icons/react";
 
 function Copyright() {

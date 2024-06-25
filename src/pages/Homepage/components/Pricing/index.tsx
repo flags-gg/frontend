@@ -98,7 +98,7 @@ const Pricing: FC = () => {
                     alignItems: 'center',
                     color: tier.title === 'Pro' ? 'grey.100' : '',
                   }}>
-                  <Typography component="h3" variant="h6">
+                  <Typography component="h3" variant="h6" sx={{textTransform: 'capitalize'}}>
                     {tier.title}
                   </Typography>
                   {tier.sub_title !== undefined && (
