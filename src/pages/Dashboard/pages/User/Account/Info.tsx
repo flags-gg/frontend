@@ -8,21 +8,22 @@ import {
 } from "@mui/material";
 
 import useAuthFetch from "@DL/fetcher";
+import {CustomUploadButton} from "@DC/UploadThing";
+import {useAuth} from "react-oidc-context";
+import {useFlags} from "@flags-gg/react-library";
 
 interface User {
-  known_as: string;
-  jobTitle: string;
-  timezone: string;
+  job_title: string;
   avatar: string;
 }
 
 export const Info: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const authFetch = useAuthFetch();
+  const auth = useAuth();
+  const {is} = useFlags()
   const [user, setUser] = useState<User>({
-    known_as: "",
-    jobTitle: "",
-    timezone: "",
+    job_title: "",
     avatar: ""
   });
 
@@ -52,19 +53,17 @@ export const Info: FC = () => {
             <Table>
               <TableBody>
                 <TableRow>
-                  <TableCell>Known As</TableCell>
-                  <TableCell>{user.known_as}</TableCell>
-                </TableRow>
-                <TableRow>
                   <TableCell>Job Title</TableCell>
-                  <TableCell>{user.jobTitle}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Timezone</TableCell>
-                  <TableCell>{user.timezone}</TableCell>
+                  <TableCell>{user.job_title}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
+            {is("imageUpload").enabled() && (
+              <CustomUploadButton
+                onClientUploadComplete={(res) => console.info("upload complete", res)}
+                onUploadError={(err) => console.error("upload error", err)}
+                onBeforeUploadBegin={(files) => {return files.map((f) => new File([f], auth.user?.profile.sub + "-" + f.name, {type: f.type}))}} />
+            )}
           </Stack>
         )}
       </CardContent>

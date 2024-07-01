@@ -31,6 +31,14 @@ export const flagsFrontendConfig = {
   environmentId: import.meta.env.VITE_FLAGS_FRONTEND_ENVIRONMENT_ID,
 }
 
+export const flagsAPIConfig = {
+  URL: import.meta.env.VITE_FLAGS_API_SERVER,
+}
+
 export const stripeConfig = {
   stripe: import.meta.env.VITE_STRIPE_KEY,
+}
+
+export const uploadThingConfig = {
+  uploadURL: import.meta.env.VITE_FLAGS_API_SERVER + "/uploadthing",
 }

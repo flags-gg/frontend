@@ -34,7 +34,6 @@ const Pricing: FC = () => {
   useEffect(() => {
     getPricing().then((data) => {
       setPrices(data.prices);
-      console.info(data)
     });
   }, []);
 

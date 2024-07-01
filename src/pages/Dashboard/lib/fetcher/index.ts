@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from 'react-oidc-context';
+import {flagsAPIConfig} from "@/app.config.tsx";
 
 interface CacheEntry {
   data: Blob;
@@ -31,7 +32,7 @@ function useAuthFetch() {
       return new Response(cacheEntry.data);
     }
 
-    const url = `${import.meta.env.VITE_FLAGS_API_SERVER}${apiPath}`;
+    const url = `${flagsAPIConfig.URL}${apiPath}`;
     const response = await fetch(url, {
       ...options,
       headers: setupHeaders(auth, options.headers),
