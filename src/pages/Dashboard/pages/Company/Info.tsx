@@ -57,12 +57,12 @@ export const Info: FC = () => {
         )}
       </CardContent>
 
-      <Dialog open={showEdit} onClose={() => setShowEdit(false)}>
-        Edit Company
-      </Dialog>
-
       <Dialog open={showPlanDialog} onClose={() => setShowPlanDialog(false)}>
         Plan Details
+      </Dialog>
+
+      <Dialog open={showEdit} onClose={() => setShowEdit(false)}>
+        Edit Company
       </Dialog>
     </Card>
   )

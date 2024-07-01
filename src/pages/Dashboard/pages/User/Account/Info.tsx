@@ -1,44 +1,72 @@
-import { FC, useState } from "react";
+import {FC, useEffect, useState} from "react";
 import {
   Card,
   CardContent,
   Avatar,
   Stack,
-  Typography,
-  Divider
+  CircularProgress, Table, TableBody, TableRow, TableCell
 } from "@mui/material";
 
-const user = {
-  knownAs: "Keloran",
-  avatar: "https://avatars.githubusercontent.com/u/200350?v=4",
-  jobTitle: "Software Engineer",
-  location: "UK, Manchester",
-  timezone: "GMT"
-};
+import useAuthFetch from "@DL/fetcher";
+import {CustomUploadButton} from "@DC/UploadThing";
+import {useAuth} from "react-oidc-context";
+import {useFlags} from "@flags-gg/react-library";
+
+interface User {
+  job_title: string;
+  avatar: string;
+}
 
 export const Info: FC = () => {
-  const [avatarURL, setAvatarURL] = useState<string>(user.avatar);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const authFetch = useAuthFetch();
+  const auth = useAuth();
+  const {is} = useFlags()
+  const [user, setUser] = useState<User>({
+    job_title: "",
+    avatar: ""
+  });
+
+  const fetchUserDetails = async () => {
+    try {
+      const response = await authFetch(`/user`);
+      const data = await response.json();
+      setUser(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Failed to fetch user details:", error);
+    }
+  }
+  useEffect(() => {
+    fetchUserDetails().catch(error => console.error("Failed to fetch user details:", error));
+  }, []);
 
   return (
     <Card>
       <CardContent>
-        <Stack spacing={2} sx={{ alignItems: "center" }}>
-          <Avatar
-            src={avatarURL}
-            sx={{ height: '80px', width: '80px', cursor: 'pointer' }}
-          />
-          <Stack spacing={1} sx={{ textAlign: "center" }}>
-            <Typography variant={"h5"}>{user.knownAs}</Typography>
-            <Typography variant={"body2"} color={"text.secondary"}>
-              {user.location}
-            </Typography>
-            <Typography variant={"body2"} color={"text.secondary"}>
-              {user.timezone}
-            </Typography>
+        {isLoading ? <CircularProgress /> : (
+          <Stack spacing={2} sx={{ alignItems: "center" }}>
+            <Avatar
+              src={user.avatar}
+              sx={{ height: '80px', width: '80px', cursor: 'pointer' }}
+            />
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Job Title</TableCell>
+                  <TableCell>{user.job_title}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+            {is("imageUpload").enabled() && (
+              <CustomUploadButton
+                onClientUploadComplete={(res) => console.info("upload complete", res)}
+                onUploadError={(err) => console.error("upload error", err)}
+                onBeforeUploadBegin={(files) => {return files.map((f) => new File([f], auth.user?.profile.sub + "-" + f.name, {type: f.type}))}} />
+            )}
           </Stack>
-        </Stack>
+        )}
       </CardContent>
-      <Divider />
     </Card>
   );
 };

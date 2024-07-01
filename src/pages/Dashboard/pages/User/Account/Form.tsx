@@ -7,22 +7,33 @@ import {
   FormControl,
   Grid,
   CardActions,
-  Button, TextField
+  Button, TextField, Select, MenuItem, CircularProgress
 } from "@mui/material";
+import ct from "countries-and-timezones";
+
 import useAuthFetch from "@DL/fetcher";
+
 
 export const Form: FC = () => {
   const authFetch = useAuthFetch();
   const [userDetails, setUserDetails] = useState({
-    knownAs: "",
-    emailAddress: ""
+    known_as: "",
+    email_address: "",
+    first_name: "",
+    last_name: "",
+    timezone: "",
+    country: ""
   });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const timezones = ct.getAllTimezones();
+  const sortedTimezones = Object.values(timezones).sort((a, b) => a.name.localeCompare(b.name));
 
   const fetchUserDetails = async () => {
     try {
       const response = await authFetch(`/user`);
       const data = await response.json();
       setUserDetails(data);
+      setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch user details:", error);
     }
@@ -57,6 +68,9 @@ export const Form: FC = () => {
       event.preventDefault()
 
       updateDetails({
+        firstName: formData.get("firstName") as string,
+        lastName: formData.get("lastName") as string,
+        timezone: formData.get("timezone") as string,
         knownAs: formData.get("knownAs") as string,
         emailAddress: formData.get("emailAddress") as string
       }).catch(error => console.error("Failed to update user details:", error))
@@ -64,30 +78,51 @@ export const Form: FC = () => {
       <Card sx={{
         p: 3
       }}>
-        <CardHeader subheader={"The information can be edited"} title={"Profile"}/>
-        <Divider />
-        <CardContent sx={{
-          p: 5,
-        }}>
-          <Grid container spacing={1}>
-            <Grid md={6} xs={12} sx={{
-              paddingRight: 2
-            }} item={true}>
-              <FormControl fullWidth required>
-                <TextField variant={"outlined"}  label={"Known As"} margin={"dense"} required id={"knownAs"} name={"knownAs"} value={userDetails?.knownAs} />
-              </FormControl>
-            </Grid>
-            <Grid md={6} xs={12} item={true}>
-              <FormControl fullWidth required>
-                <TextField variant={"outlined"} label={"Email"} margin={"dense"} required id={"emailAddress"} name={"emailAddress"} value={userDetails?.emailAddress} type={"email"} />
-              </FormControl>
-            </Grid>
-          </Grid>
-        </CardContent>
-        <Divider />
-        <CardActions sx={{ justifyContent: "flex-end" }}>
-          <Button color={"primary"} variant={"contained"} type={"submit"}>Save details</Button>
-        </CardActions>
+        {isLoading ? <CircularProgress /> : (
+          <>
+            <CardHeader subheader={"The information can be edited"} title={"Profile"}/>
+            <Divider />
+            <CardContent sx={{
+              p: 5,
+            }}>
+              <Grid container spacing={1}>
+                <Grid md={6} xs={12} item={true}>
+                  <FormControl fullWidth required>
+                    <TextField variant={"outlined"}  label={"First Name"} margin={"dense"} required id={"first_name"} name={"first_name"} value={userDetails?.first_name} />
+                  </FormControl>
+                </Grid>
+                <Grid md={6} xs={12} item={true}>
+                  <FormControl fullWidth required>
+                    <TextField variant={"outlined"}  label={"Last Name"} margin={"dense"} required id={"last_name"} name={"last_name"} value={userDetails?.last_name} />
+                  </FormControl>
+                </Grid>
+                <Grid md={6} xs={12} item={true}>
+                  <FormControl fullWidth required>
+                    <TextField variant={"outlined"}  label={"Known As"} margin={"dense"} required id={"knownAs"} name={"knownAs"} value={userDetails?.known_as} />
+                  </FormControl>
+                </Grid>
+                <Grid md={6} xs={12} item={true}>
+                  <FormControl fullWidth required>
+                    <TextField variant={"outlined"} label={"Email"} margin={"dense"} required id={"emailAddress"} name={"emailAddress"} value={userDetails?.email_address} type={"email"} />
+                  </FormControl>
+                </Grid>
+                <Grid md={6} xs={12} item={true}>
+                  <FormControl fullWidth required>
+                    <Select variant={"outlined"} label={"Timezone"} margin={"dense"} required id={"timezone"} name={"timezone"} value={"Europe/London"}>
+                      {sortedTimezones.map((timezone) => (
+                        <MenuItem key={`zone-${timezone.name}`} value={timezone.name}>{timezone.name}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </CardContent>
+            <Divider />
+            <CardActions sx={{ justifyContent: "flex-end" }}>
+              <Button color={"primary"} variant={"contained"} type={"submit"}>Save details</Button>
+            </CardActions>
+          </>
+        )}
       </Card>
     </form>
   )
