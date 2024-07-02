@@ -8,7 +8,6 @@ const SiteRouter = () => {
   const auth = useAuth()
   useEffect(() => {
     return auth.events.addAccessTokenExpired((error) => {
-      console.error("access token expired", error)
       auth.signoutSilent().catch(error => console.error("silent sign-out error", error))
     })
   }, [auth])
