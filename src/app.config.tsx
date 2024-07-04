@@ -5,9 +5,15 @@ export const oidcConfig = {
   authority: "https://keys.chewedfeed.com/realms/flags-gg",
   client_id: "dashboard",
   client_secret: import.meta.env.VITE_KEYCLOAK_SECRET,
-  redirect_uri: window.location.origin,
+  redirect_uri: (() => {
+    const url = new URL(window.location.origin)
+    const inviteCode = new URLSearchParams(window.location.search).get("invite")
+    if (inviteCode) {
+      url.searchParams.append("invite", inviteCode)
+    }
+    return url.toString()
+  })(),
   onSigninCallback: (_user: User | void) => {
-    window.history.replaceState({}, document.title, window.location.pathname)
   },
   useStore: new WebStorageStateStore({store: window.localStorage}),
 } as AuthProviderProps
