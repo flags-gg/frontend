@@ -60,8 +60,8 @@ importers:
         specifier: ^6.7.2
         version: 6.7.2(react@18.3.1)(uploadthing@6.13.2)
       apexcharts:
-        specifier: ^3.49.2
-        version: 3.49.2
+        specifier: ^3.50.0
+        version: 3.50.0
       countries-and-timezones:
         specifier: ^3.6.0
         version: 3.6.0
@@ -76,7 +76,7 @@ importers:
         version: 18.3.1
       react-apexcharts:
         specifier: ^1.4.1
-        version: 1.4.1(apexcharts@3.49.2)(react@18.3.1)
+        version: 1.4.1(apexcharts@3.50.0)(react@18.3.1)
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
@@ -1778,8 +1778,8 @@ packages:
     resolution: {integrity: sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==}
     engines: {node: '>=10'}
 
-  apexcharts@3.49.2:
-    resolution: {integrity: sha512-vBB8KgwfD9rSObA7s4kY2rU6DeaN67gTR3JN7r32ztgKVf8lKkdFQ6iUhk6oIHrV7W8PoHhr5EwKymn0z5Fz6A==}
+  apexcharts@3.50.0:
+    resolution: {integrity: sha512-LJT1PNAm+NoIU3aogL2P+ViC0y/Cjik54FdzzGV54UNnGQLBoLe5ok3fxsJDTgyez45BGYT8gqNpYKqhdfy5sg==}
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
@@ -5200,7 +5200,7 @@ snapshots:
 
   ansi-styles@5.2.0: {}
 
-  apexcharts@3.49.2:
+  apexcharts@3.50.0:
     dependencies:
       '@yr/monotone-cubic-spline': 1.0.3
       svg.draggable.js: 2.2.2
@@ -6572,9 +6572,9 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-apexcharts@1.4.1(apexcharts@3.49.2)(react@18.3.1):
+  react-apexcharts@1.4.1(apexcharts@3.50.0)(react@18.3.1):
     dependencies:
-      apexcharts: 3.49.2
+      apexcharts: 3.50.0
       prop-types: 15.8.1
       react: 18.3.1
 
