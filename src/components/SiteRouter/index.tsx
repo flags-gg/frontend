@@ -12,11 +12,7 @@ const SiteRouter = () => {
     })
   }, [auth])
 
-  let routes = [...homeRoutes]
-  if (auth.isAuthenticated) {
-    routes = [...dashboardRoutes]
-  }
-
+  const routes = auth.isAuthenticated ? dashboardRoutes : homeRoutes;
   return useRoutes(routes)
 }
 

@@ -2,15 +2,23 @@ import {User, WebStorageStateStore} from "oidc-client-ts";
 import {AuthProviderProps} from "react-oidc-context";
 
 export const oidcConfig = {
-  authority: "https://keys.chewedfeed.com/realms/flags-gg",
-  client_id: "dashboard",
-  client_secret: import.meta.env.VITE_KEYCLOAK_SECRET,
-  redirect_uri: window.location.origin,
+  authority: import.meta.env.VITE_AUTH_SERVER,
+  client_id: import.meta.env.VITE_AUTH_ID,
+  client_secret: import.meta.env.VITE_AUTH_SECRET,
+  scope: "openid profile email",
+  redirect_uri: (() => {
+    const url = new URL(window.location.origin)
+    const inviteCode = new URLSearchParams(window.location.search).get("invite")
+    if (inviteCode) {
+      url.searchParams.append("invite", inviteCode)
+    }
+    return url.toString()
+  })(),
   onSigninCallback: (_user: User | void) => {
-    window.history.replaceState({}, document.title, window.location.pathname)
   },
   useStore: new WebStorageStateStore({store: window.localStorage}),
 } as AuthProviderProps
+
 
 export const BuildDetails = {
     Hash: import.meta.env.VITE_COMMIT_HASH,
