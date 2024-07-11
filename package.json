@@ -20,7 +20,7 @@
     "@emotion/styled": "^11.11.5",
     "@flags-gg/react-library": "^1.5.1",
     "@fontsource/roboto": "^5.0.13",
-    "@mui/icons-material": "^5.16.0",
+    "@mui/icons-material": "^5.16.1",
     "@mui/material": "^5.16.1",
     "@mui/x-charts": "^7.9.0",
     "@phosphor-icons/react": "^2.1.7",
