@@ -15,12 +15,8 @@ export const AuthWrapper: FC<{children: ReactNode}> = ({children}) => {
       if (inviteCode && location.pathname !== '/company/setup') {
         navigate(`/company/setup?invite=${inviteCode}`, {replace: true});
       }
-    } else if (auth.isLoading) {
-      console.log("Auth is loading...");
-    } else {
-      console.log("User is not authenticated");
     }
-  }, [auth.isAuthenticated, auth.user, auth.isLoading, location, navigate]);
+  }, [auth, location, navigate]);
 
   return <>{children}</>;
 }

@@ -1,19 +1,9 @@
-import {FC, useEffect} from "react";
+import {FC} from "react";
 import {Box, Button, Stack, Typography} from "@mui/material";
 import {ArrowLeft} from "@mui/icons-material";
-import {Link, useNavigate} from "react-router-dom";
-import {useAuth} from "react-oidc-context";
+import {Link} from "react-router-dom";
 
 const NotFound: FC = () => {
-  const auth = useAuth()
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!auth.isAuthenticated) {
-      navigate("/")
-    }
-  }, [auth, navigate])
-
   return (
     <Box
       component={"main"}

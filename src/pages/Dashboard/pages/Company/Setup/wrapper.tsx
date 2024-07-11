@@ -1,7 +1,8 @@
 import {FC, useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from 'react-oidc-context';
+
 import { Setup } from '@DP/Company/Setup';
-import { useAuth } from 'react-oidc-context'; // Assuming you're using react-oidc-context
 
 export const SetupWrapper: FC = () => {
   const location = useLocation();
