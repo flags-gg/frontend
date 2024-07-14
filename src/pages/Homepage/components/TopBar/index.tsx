@@ -10,8 +10,8 @@ import {
   Drawer, Divider
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import {useAuth} from "react-oidc-context";
 import {useFlags} from "@flags-gg/react-library";
+import {useNavigate} from "react-router-dom";
 
 import Logo from "@C/Logo";
 
@@ -36,8 +36,8 @@ const links: MenuLinks[] = [
 
 
 const TopBar: FC = () => {
-  const auth = useAuth()
   const {is} = useFlags()
+  const navigate = useNavigate()
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -117,7 +117,7 @@ const TopBar: FC = () => {
               },
               gap: 0.5,
               alignItems: 'center'}}>
-              <Button color={"primary"} variant={"contained"} sx={{ml: 2}} onMouseDown={() => auth.signinRedirect().catch((error) => console.error("failed login", error))}>
+              <Button color={"primary"} variant={"contained"} sx={{ml: 2}} onMouseDown={() => navigate("https://dashboard.flags.gg")}>
                 Sign In
               </Button>
             </Box>
@@ -148,7 +148,7 @@ const TopBar: FC = () => {
                   ))}
                   <Divider />
                   <MenuItem>
-                    <Button color={"primary"} variant={"contained"} onMouseDown={() => auth.signinRedirect().catch((error) => console.error("failed login", error))}>
+                    <Button color={"primary"} variant={"contained"} onMouseDown={() => navigate("https://dashboard.flags.gg")}>
                       Sign In
                     </Button>
                   </MenuItem>
