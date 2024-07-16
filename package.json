@@ -21,7 +21,7 @@
     "@flags-gg/react-library": "^1.5.8",
     "@fontsource/roboto": "^5.0.13",
     "@mui/icons-material": "^5.16.4",
-    "@mui/material": "^5.16.1",
+    "@mui/material": "^5.16.4",
     "@mui/x-charts": "^7.10.0",
     "@phosphor-icons/react": "^2.1.7",
     "@stripe/react-stripe-js": "^2.7.3",
