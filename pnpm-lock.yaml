@@ -42,8 +42,8 @@ importers:
         specifier: ^5.16.7
         version: 5.16.7(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/x-charts':
-        specifier: ^7.13.0
-        version: 7.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^7.14.0
+        version: 7.14.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@phosphor-icons/react':
         specifier: ^2.1.7
         version: 2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1290,11 +1290,11 @@ packages:
       '@types/react':
         optional: true
 
-  '@mui/x-charts-vendor@7.13.0':
-    resolution: {integrity: sha512-Db2KRvTOZZhXHGiP2rb/YmlXrOA+dTuD8ltk6luqXK4YMxy18z59IR9cyn/KzfrrzGnpnCERrws/a9vOkCKcKA==}
+  '@mui/x-charts-vendor@7.14.0':
+    resolution: {integrity: sha512-hhEwqQ5Gt2uEFCIna7OPycyu/CzVlywmH5SIX9O3Rxe/y0muLhafEX2ooOQpopcrgGPmP+2/zTf7cssXPiMmAQ==}
 
-  '@mui/x-charts@7.13.0':
-    resolution: {integrity: sha512-uYTKYQFrP0yl7I8k5pTatWbsTzoKr0AeWDa8Ttb0iEoyx7XdG9ZPVPEG8L86WB0aJ8+Rwjefq+7QX2V9kV55TQ==}
+  '@mui/x-charts@7.14.0':
+    resolution: {integrity: sha512-yjBEGk9fl7rMnCaTqibQEf2Dq8oVMzMVDkEXOztJbb8XG+iC/EtRPOWRahgFVi5xitiKR+lLJ/ezBWzuYK739A==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
@@ -4700,7 +4700,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.4
 
-  '@mui/x-charts-vendor@7.13.0':
+  '@mui/x-charts-vendor@7.14.0':
     dependencies:
       '@babel/runtime': 7.25.0
       '@types/d3-color': 3.1.3
@@ -4718,13 +4718,13 @@ snapshots:
       delaunator: 5.0.1
       robust-predicates: 3.0.2
 
-  '@mui/x-charts@7.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@mui/x-charts@7.14.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.0
       '@mui/material': 5.16.7(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/system': 5.16.7(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1))(@types/react@18.3.4)(react@18.3.1)
       '@mui/utils': 5.16.6(@types/react@18.3.4)(react@18.3.1)
-      '@mui/x-charts-vendor': 7.13.0
+      '@mui/x-charts-vendor': 7.14.0
       '@react-spring/rafz': 9.7.4
       '@react-spring/web': 9.7.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
