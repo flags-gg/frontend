@@ -22,7 +22,7 @@
     "@fontsource/roboto": "^5.0.14",
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
-    "@mui/x-charts": "^7.14.0",
+    "@mui/x-charts": "^7.15.0",
     "@phosphor-icons/react": "^2.1.7",
     "@stripe/react-stripe-js": "^2.8.0",
     "@stripe/stripe-js": "^4.4.0",
