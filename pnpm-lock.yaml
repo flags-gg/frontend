@@ -42,8 +42,8 @@ importers:
         specifier: ^5.16.7
         version: 5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/x-charts':
-        specifier: ^7.16.0
-        version: 7.16.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mui/system@5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^7.17.0
+        version: 7.17.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mui/system@5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@phosphor-icons/react':
         specifier: ^2.1.7
         version: 2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1293,8 +1293,8 @@ packages:
   '@mui/x-charts-vendor@7.16.0':
     resolution: {integrity: sha512-MyMCCl7eAM53rLbjqP4zbMy5hYtdeqCjAYCH2jpvBKdgugm2eaPLKOPM8bUVfen0wHA8BXleQrIrNceytFPyZA==}
 
-  '@mui/x-charts@7.16.0':
-    resolution: {integrity: sha512-YnimCNnLpmSu93LEGYAy8HaMoa6xqqQNFRD8BtzGs492sk/coM9uh6OwHJekF5302fDpANu3rYSF0KEpFWZM2Q==}
+  '@mui/x-charts@7.17.0':
+    resolution: {integrity: sha512-xDH/lOnb57+VBIA7q+1KlC0Ht1O46d/N2MEl1tUq1JYIXhA2Owi5cp+bcaof8Rvw5ApCmkoBxyUIjqT0guNIwA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
@@ -1309,8 +1309,8 @@ packages:
       '@emotion/styled':
         optional: true
 
-  '@mui/x-internals@7.16.0':
-    resolution: {integrity: sha512-ijer5XYmWlJqWaTmF6TGH1odG7EAupv8iDWYmDm2yVR9IQ+L2nQSuhiFClI+wmGx40KS2VKOlzDMPpF0t7/HCg==}
+  '@mui/x-internals@7.17.0':
+    resolution: {integrity: sha512-FLlAGSJl/vsuaA/8hPGazXFppyzIzxApJJDZMoTS0geUmHd0hyooISV2ltllLmrZ/DGtHhI08m8GGnHL6/vVeg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
@@ -4725,14 +4725,14 @@ snapshots:
       delaunator: 5.0.1
       robust-predicates: 3.0.2
 
-  '@mui/x-charts@7.16.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mui/system@5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@mui/x-charts@7.17.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mui/system@5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.6
       '@mui/material': 5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/system': 5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)
       '@mui/utils': 5.16.6(@types/react@18.3.5)(react@18.3.1)
       '@mui/x-charts-vendor': 7.16.0
-      '@mui/x-internals': 7.16.0(@types/react@18.3.5)(react@18.3.1)
+      '@mui/x-internals': 7.17.0(@types/react@18.3.5)(react@18.3.1)
       '@react-spring/rafz': 9.7.4
       '@react-spring/web': 9.7.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
@@ -4745,7 +4745,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@mui/x-internals@7.16.0(@types/react@18.3.5)(react@18.3.1)':
+  '@mui/x-internals@7.17.0(@types/react@18.3.5)(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.6
       '@mui/utils': 5.16.6(@types/react@18.3.5)(react@18.3.1)
