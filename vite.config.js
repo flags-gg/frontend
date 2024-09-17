@@ -10,10 +10,8 @@ export default defineConfig({
         alias: {
             '@': path.resolve(__dirname, '/src'),
             '@C': path.resolve(__dirname, '/src/components'),
-            '@HC': path.resolve(__dirname, '/src/pages/Homepage/components'),
-            '@DC': path.resolve(__dirname, '/src/pages/Dashboard/components'),
-            '@DL': path.resolve(__dirname, '/src/pages/Dashboard/lib'),
-            '@DP': path.resolve(__dirname, '/src/pages/Dashboard/pages'),
+            '@HC': path.resolve(__dirname, '/src/Homepage/components'),
+            '@H': path.resolve(__dirname, '/src/Homepage'),
         },
     },
     plugins: [
