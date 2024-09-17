@@ -30,8 +30,8 @@ importers:
         specifier: ^11.13.0
         version: 11.13.0(@emotion/react@11.13.3(@types/react@18.3.6)(react@18.3.1))(@types/react@18.3.6)(react@18.3.1)
       '@flags-gg/react-library':
-        specifier: ^1.5.8
-        version: 1.5.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.6.1
+        version: 1.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@fontsource/roboto':
         specifier: ^5.1.0
         version: 5.1.0
@@ -1150,8 +1150,8 @@ packages:
     resolution: {integrity: sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@flags-gg/react-library@1.5.8':
-    resolution: {integrity: sha512-fsLfCp5D0cf24O6uCtBQ41ZKvfQlboWR00anZeMzYQP/vUrxamnk4j8JysAjV3yfJdR2SybxQPSp/3ygUnztFQ==}
+  '@flags-gg/react-library@1.6.1':
+    resolution: {integrity: sha512-4WMyKFSE864UXHiZAnON+5ofw2k/nVggv+19jvWpmEutWx8WQb2+H+RuvlH+/tiuBQYjp6VNqyNn1GJE2bvDCw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -4570,7 +4570,7 @@ snapshots:
 
   '@eslint/js@8.57.1': {}
 
-  '@flags-gg/react-library@1.5.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@flags-gg/react-library@1.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       fast-equals: 5.0.1
       react: 18.3.1
