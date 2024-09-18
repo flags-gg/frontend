@@ -38,6 +38,13 @@ ENV VITE_FLAGS_PROJECT_ID=$FLAGS_PROJECT_ID
 ENV VITE_FLAGS_AGENT_ID=$FLAGS_AGENT_ID
 ENV VITE_FLAGS_ENVIRONMENT_ID=$FLAGS_ENVIRONMENT_ID
 
+## Create .env.production file
+RUN echo "VITE_COMMIT_HASH=$GIT_BUILD" > .env.production && \
+    echo "VITE_GIT_TAG=$GIT_VERSION" >> .env.production && \
+    echo "VITE_FLAGS_PROJECT_ID=$FLAGS_PROJECT_ID" >> .env.production && \
+    echo "VITE_FLAGS_AGENT_ID=$FLAGS_AGENT_ID" >> .env.production && \
+    echo "VITE_FLAGS_ENVIRONMENT_ID=$FLAGS_ENVIRONMENT_ID" >> .env.production
+
 RUN pnpm build
 
 # Runner

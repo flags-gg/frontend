@@ -1,6 +1,6 @@
 export const BuildDetails = {
-    Hash: import.meta.env.VITE_COMMIT_HASH,
-    Tag: import.meta.env.VITE_GIT_TAG,
+  Hash: import.meta.env.VITE_COMMIT_HASH,
+  Tag: import.meta.env.VITE_GIT_TAG,
 }
 
 export const flagsConfig = {
