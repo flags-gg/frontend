@@ -44,12 +44,14 @@ RUN echo "VITE_COMMIT_HASH=$GIT_BUILD" > .env.production && \
 # Build
 FROM base AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+COPY --from=base /frontend/.env.production /frontend/.env.production
 RUN pnpm build
 
 # Runner
 FROM containers.chewed-k8s.net/docker_hub_cache/library/node:20-alpine AS runner
 WORKDIR /runner
 COPY --from=build /frontend/dist /runner
+COPY --from=build /frontend/.env.production /runner/.env.production
 COPY --from=build /frontend/serve.json /runner/serve.json
 RUN npm install -g serve
 
