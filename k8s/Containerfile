@@ -4,7 +4,7 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-## Copy the files
+# Copy the files
 WORKDIR /frontend
 COPY package*.json ./
 COPY pnpm-lock.yaml ./
@@ -18,11 +18,7 @@ COPY .eslintrc.cjs ./
 COPY index.html ./
 COPY k8s/serve.json ./serve.json
 
-# Build
-FROM base AS build
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-
-## Set Args
+# Set Args
 ARG GIT_BUILD
 ARG GIT_VERSION
 
@@ -30,7 +26,7 @@ ARG FLAGS_PROJECT_ID
 ARG FLAGS_AGENT_ID
 ARG FLAGS_ENVIRONMENT_ID
 
-## Set Envs for build
+# Set Envs for build
 ENV VITE_COMMIT_HASH=$GIT_BUILD
 ENV VITE_GIT_TAG=$GIT_VERSION
 
@@ -38,13 +34,16 @@ ENV VITE_FLAGS_PROJECT_ID=$FLAGS_PROJECT_ID
 ENV VITE_FLAGS_AGENT_ID=$FLAGS_AGENT_ID
 ENV VITE_FLAGS_ENVIRONMENT_ID=$FLAGS_ENVIRONMENT_ID
 
-## Create .env.production file
+# Create .env.production file
 RUN echo "VITE_COMMIT_HASH=$GIT_BUILD" > .env.production && \
     echo "VITE_GIT_TAG=$GIT_VERSION" >> .env.production && \
     echo "VITE_FLAGS_PROJECT_ID=$FLAGS_PROJECT_ID" >> .env.production && \
     echo "VITE_FLAGS_AGENT_ID=$FLAGS_AGENT_ID" >> .env.production && \
     echo "VITE_FLAGS_ENVIRONMENT_ID=$FLAGS_ENVIRONMENT_ID" >> .env.production
 
+# Build
+FROM base AS build
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm build
 
 # Runner
