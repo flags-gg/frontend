@@ -110,17 +110,19 @@ const TopBar: FC = () => {
                 )}
               </Box>
             </Box>
-            <Box sx={{
-              display: {
-                xs: 'none',
-                md: 'flex'
-              },
-              gap: 0.5,
-              alignItems: 'center'}}>
-              <Button color={"primary"} variant={"contained"} sx={{ml: 2}} onMouseDown={() => navigate("https://dashboard.flags.gg")}>
-                Sign In
-              </Button>
-            </Box>
+            {is("login").enabled() && (
+              <Box sx={{
+                     display: {
+                       xs: 'none',
+                       md: 'flex'
+                     },
+                     gap: 0.5,
+                     alignItems: 'center'}}>
+                <Button color={"primary"} variant={"contained"} sx={{ml: 2}} onMouseDown={() => navigate("https://dashboard.flags.gg")}>
+                  Sign In
+                </Button>
+              </Box>
+            )}
             <Box sx={{
               display: {sm: '', md: 'none'},
               gap: 0.5,
@@ -146,12 +148,16 @@ const TopBar: FC = () => {
                       </Typography>
                     </MenuItem>
                   ))}
-                  <Divider />
-                  <MenuItem>
-                    <Button color={"primary"} variant={"contained"} onMouseDown={() => navigate("https://dashboard.flags.gg")}>
-                      Sign In
-                    </Button>
-                  </MenuItem>
+                  {is("login").enabled() && (
+                    <>
+                      <Divider />
+                      <MenuItem>
+                        <Button color={"primary"} variant={"contained"} onMouseDown={() => navigate("https://dashboard.flags.gg")}>
+                          Sign In
+                        </Button>
+                      </MenuItem>
+                    </>
+                  )}
                 </Box>
               </Drawer>
             </Box>
