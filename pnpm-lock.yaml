@@ -15,8 +15,8 @@ importers:
         specifier: ^11.13.0
         version: 11.13.0(@emotion/react@11.13.3(@types/react@18.3.9)(react@18.3.1))(@types/react@18.3.9)(react@18.3.1)
       '@flags-gg/react-library':
-        specifier: ^1.7.2
-        version: 1.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.8.0
+        version: 1.8.0(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@fontsource/roboto':
         specifier: ^5.1.0
         version: 5.1.0
@@ -1051,8 +1051,8 @@ packages:
     resolution: {integrity: sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@flags-gg/react-library@1.7.2':
-    resolution: {integrity: sha512-a2Q0v5MD67q401irP7ladKPJTR9IfW4xqzmeC/ZnC9iYhkXpQrLdw2nG1+K21e2e8c3AOg9pbmvYZGlu3gR6Rw==}
+  '@flags-gg/react-library@1.8.0':
+    resolution: {integrity: sha512-rDTm6NOK+vHzvL6eT2Vh2xe0EYfEftxD8oSi6XnU0UVeZG6I/9+DjSeEADJd4xBJArlned22PiLwwaBgkcF1WQ==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -2432,6 +2432,11 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  lucide-react@0.446.0:
+    resolution: {integrity: sha512-BU7gy8MfBMqvEdDPH79VhOXSEgyG8TSPOKWaExWGCQVqnGH7wGgDngPbofu+KdtVjPQBWbEmnfMTq90CTiiDRg==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -4112,11 +4117,15 @@ snapshots:
 
   '@eslint/js@8.57.1': {}
 
-  '@flags-gg/react-library@1.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@flags-gg/react-library@1.8.0(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       fast-equals: 5.0.1
+      jotai: 2.10.0(@types/react@18.3.9)(react@18.3.1)
+      lucide-react: 0.446.0(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+    transitivePeerDependencies:
+      - '@types/react'
 
   '@fontsource/roboto@5.1.0': {}
 
@@ -5798,6 +5807,10 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  lucide-react@0.446.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   lz-string@1.5.0: {}
 
