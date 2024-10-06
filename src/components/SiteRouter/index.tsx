@@ -7,8 +7,11 @@ import {useRoutes} from "react-router-dom";
 const SiteRouter = () => {
   const auth = useAuth()
   useEffect(() => {
-    return auth.events.addAccessTokenExpired((error) => {
-      auth.signoutSilent().catch(error => console.error("silent sign-out error", error))
+    return auth.events.addAccessTokenExpired((error: any) => {
+      if (error) {
+        console.error("Access token expired", error)
+      }
+      auth.signoutSilent().catch((error: any) => console.error("silent sign-out error", error))
     })
   }, [auth])
 
