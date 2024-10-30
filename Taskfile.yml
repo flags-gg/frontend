@@ -40,18 +40,22 @@ tasks:
     vars:
       COMMIT_HASH:
         sh: cat .commit_hash
+  publish-hash:
+    cmds:
+      - task: get-commit-hash
+        vars:
+          COMMIT_HASH:
+            sh: cat .commit_hash
+      - nerdctl push containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.COMMIT_HASH}} --all-platforms
+    vars:
+      COMMIT_HASH:
+        sh: cat .commit_hash
 
   # Build Commands
   build-images:
     cmds:
       - task: get-latest-tag
-        vars:
-          LATEST_TAG:
-            sh: cat .latest_tag
       - task: get-commit-hash
-        vars:
-          COMMIT_HASH:
-            sh: cat .commit_hash
       - |
         nerdctl build \
           --platform=amd64,arm64 \
@@ -69,13 +73,43 @@ tasks:
         sh: cat .latest_tag
       COMMIT_HASH:
         sh: cat .commit_hash
+
   build-push-latest:
     cmds:
       - task: get-latest-tag
       - task: get-commit-hash
-      - task: build-images
-      - nerdctl build --platform=amd64,arm64 --tag containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest --build-arg VERSION={{.LATEST_TAG}} --build-arg BUILD={{.COMMIT_HASH}} --build-arg SERVICE_NAME={{.SERVICE_NAME}} -f ./k8s/Containerfile .
+      - |
+        nerdctl build \
+          --platform=amd64,arm64 \
+          --tag containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest \
+          --build-arg GIT_VERSION={{.LATEST_TAG}} \
+          --build-arg GIT_BUILD={{.COMMIT_HASH}} \
+          --build-arg SERVICE_NAME={{.SERVICE_NAME}} \
+          --build-arg FLAGS_PROJECT_ID=b0c5020e-760e-4156-a88b-344fb725a9b7 \
+          --build-arg FLAGS_AGENT_ID=a7978e82-bee0-4357-808d-53ee33d3bc55 \
+          --build-arg FLAGS_ENVIRONMENT_ID=f8f84114-0706-40b7-a929-995d675f1f6d \ 
+          -f ./k8s/Containerfile .
       - nerdctl push containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest --all-platforms
+    vars:
+      LATEST_TAG:
+        sh: cat .latest_tag
+      COMMIT_HASH:
+        sh: cat .commit_hash
+
+  build-test-images:
+    cmds:
+      - task: get-latest-tag
+      - task: get-commit-hash
+      - |
+        docker build \
+          --tag containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:tester \
+          --build-arg GIT_VERSION={{.LATEST_TAG}} \
+          --build-arg GIT_BUILD={{.COMMIT_HASH}} \
+          --build-arg SERVICE_NAME={{.SERVICE_NAME}} \
+          --build-arg FLAGS_PROJECT_ID=b0c5020e-760e-4156-a88b-344fb725a9b7 \
+          --build-arg FLAGS_AGENT_ID=a7978e82-bee0-4357-808d-53ee33d3bc55 \
+          --build-arg FLAGS_ENVIRONMENT_ID=f8f84114-0706-40b7-a929-995d675f1f6d \
+          -f ./k8s/Containerfile .
     vars:
       LATEST_TAG:
         sh: cat .latest_tag
@@ -104,13 +138,42 @@ tasks:
       LATEST_TAG:
         sh: cat .latest_tag
 
-  # Extras
+  # Build
   build-deploy:
     cmds:
       - task: build-images
       - task: publish-images
       - task: deploy
+  build-publish:
+    cmds:
+      - task: get-latest-tag
+      - task: build-images
+      - task: publish-images
   build-deploy-latest:
-     cmds:
+    cmds:
       - task: build-push-latest
       - task: deploy-latest
+  build-deploy-hash:
+    cmds:
+      - task: get-commit-hash
+      - task: build-hash
+      - task: publish-hash
+      - task: deploy
+
+  # Cleanup
+  clean-images:
+    cmds:
+      - docker image prune -f
+      - docker rmi `docker image ls | grep -E "flags-gg" | awk '{print $1":"$2}'`
+      - docker container prune -f
+
+  # Run
+  run-image:
+    cmds:
+      - docker image prune -f
+      - docker container prune -f
+      - docker run --rm -it --name tester containers.chewed-k8s.net/flags-gg/frontend:tester
+  build-run-test:
+    cmds:
+      - task: build-test-images
+      - task: run-image
