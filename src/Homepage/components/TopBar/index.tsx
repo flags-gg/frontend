@@ -1,4 +1,4 @@
-import {FC} from "react";
+import { FC } from "react";
 import {
   AppBar,
   Box,
@@ -10,7 +10,7 @@ import {
   Drawer, Divider
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import {useFlags} from "@flags-gg/react-library";
+import { useFlags } from "@flags-gg/react-library";
 
 import Logo from "@C/Logo";
 
@@ -35,15 +35,15 @@ const links: MenuLinks[] = [
 
 
 const TopBar: FC = () => {
-  const {is} = useFlags()
+  const { is } = useFlags()
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
     const offset = 128
     if (element) {
       const targetScroll = element.offsetTop - offset
-      element.scrollIntoView({behavior: 'smooth'})
-      window.scrollTo({top: targetScroll, behavior: 'smooth'})
+      element.scrollIntoView({ behavior: 'smooth' })
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' })
     }
   }
 
@@ -73,7 +73,7 @@ const TopBar: FC = () => {
               flexGrow: 1
             }}>
               <Logo />
-              <Box sx={{display: {xs: 'none', md: 'flex'}}}>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 {is("hero").enabled() && (
                   <MenuItem onMouseDown={() => scrollToSection("hero")} sx={{
                     py: '0.6rem',
@@ -106,23 +106,33 @@ const TopBar: FC = () => {
                     <Typography variant={"body2"} color={"text.primary"}>FAQ</Typography>
                   </MenuItem>
                 )}
+
+                {is("docs").enabled() && (
+                  <MenuItem onMouseDown={() => window.location.href = "https://docs.flags.gg"} sx={{
+                    py: '0.6rem',
+                    px: '1.2rem'
+                  }}>
+                    <Typography variant={"body2"} color={"text.primary"}>Docs</Typography>
+                  </MenuItem>
+                )}
               </Box>
             </Box>
             {is("login").enabled() && (
               <Box sx={{
-                     display: {
-                       xs: 'none',
-                       md: 'flex'
-                     },
-                     gap: 0.5,
-                     alignItems: 'center'}}>
-                <Button color={"primary"} variant={"contained"} sx={{ml: 2}} onMouseDown={() => window.location.href = "https://dashboard.flags.gg"}>
+                display: {
+                  xs: 'none',
+                  md: 'flex'
+                },
+                gap: 0.5,
+                alignItems: 'center'
+              }}>
+                <Button color={"primary"} variant={"contained"} sx={{ ml: 2 }} onMouseDown={() => window.location.href = "https://dashboard.flags.gg"}>
                   Sign In
                 </Button>
               </Box>
             )}
             <Box sx={{
-              display: {sm: '', md: 'none'},
+              display: { sm: '', md: 'none' },
               gap: 0.5,
               alignItems: 'center',
             }}>
@@ -139,7 +149,7 @@ const TopBar: FC = () => {
                   backgroundColor: 'background.paper',
                   flexGrow: 1,
                 }}>
-                  {links.map(({id, name}, index) => (
+                  {links.map(({ id, name }, index) => (
                     <MenuItem key={index} onMouseDown={() => scrollToSection(id)}>
                       <Typography variant={"body2"} color={"text.primary"}>
                         {name}
