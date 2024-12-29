@@ -74,12 +74,12 @@ const TopBar: FC = () => {
             }}>
               <Logo />
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                {is("hero").enabled() && (
-                  <MenuItem onMouseDown={() => scrollToSection("hero")} sx={{
+                {is("what-is-flags-gg").enabled() && (
+                  <MenuItem onMouseDown={() => scrollToSection("what-is-flags-gg")} sx={{
                     py: '0.6rem',
                     px: '1.2rem'
                   }}>
-                    <Typography variant={"body2"} color={"text.primary"}>Hero</Typography>
+                    <Typography variant={"body2"} color={"text.primary"}>What is Flags.gg?</Typography>
                   </MenuItem>
                 )}
                 {is("showFeatures").enabled() && (
