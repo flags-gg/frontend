@@ -21,13 +21,13 @@ const items: Feature[] = [
     title: 'Agent Environments',
     description: 'Each agent can have upto 2 environments.\nAllowing you to test different configurations',
     icon: <Filter2Outlined />,
-    image: 'image2'
+    image: '/images/feature-flags.png'
   },
   {
     title: 'Secret Menu',
     description: "You can enable a secret menu per environment so that you can test flags on the fly.\nYou decide on the key-combo to open it",
     icon: <SummarizeOutlined />,
-    image: '/images/secretMenu.png'
+    image: '/images/feature-secretmenu.png'
   },
 ]
 
