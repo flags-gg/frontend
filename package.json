@@ -27,7 +27,7 @@
   "devDependencies": {
     "@react-buddy/ide-toolbox": "^2.4.0",
     "@react-buddy/palette-mui": "^5.0.2",
-    "@testing-library/react": "^16.1.0",
+    "@testing-library/react": "^16.2.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.6",
     "@types/react": "^18.3.13",
