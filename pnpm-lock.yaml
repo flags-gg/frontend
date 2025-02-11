@@ -33,8 +33,8 @@ importers:
         specifier: ^5.66.0
         version: 5.66.0(react@18.3.1)
       jotai:
-        specifier: ^2.11.3
-        version: 2.11.3(@types/react@18.3.13)(react@18.3.1)
+        specifier: ^2.12.0
+        version: 2.12.0(@types/react@18.3.13)(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -2514,8 +2514,8 @@ packages:
     resolution: {integrity: sha512-z6EbKajIpqGKU56y5KBUgy1dt1ihhQJgWzUlZHArA/+X2ad7Cb5iF+AK1EWVL/Bo7Rz9uurpqw6SiBCefUbCGA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
-  jotai@2.11.3:
-    resolution: {integrity: sha512-B/PsewAQ0UOS5e2+TTWegUPQ3SCLPCjPY24LYUjfn2EorGlluTA2dFjVLgF1+xHLjK9Jit3y5mKHyMG3Xq/GZg==}
+  jotai@2.12.0:
+    resolution: {integrity: sha512-j5B4NmUw8gbuN7AG4NufWw00rfpm6hexL2CVhKD7juoP2YyD9FEUV5ar921JMvadyrxQhU1NpuKUL3QfsAlVpA==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -4531,7 +4531,7 @@ snapshots:
   '@flags-gg/react-library@1.10.0(@types/react@18.3.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       fast-equals: 5.2.2
-      jotai: 2.11.3(@types/react@18.3.13)(react@18.3.1)
+      jotai: 2.12.0(@types/react@18.3.13)(react@18.3.1)
       lucide-react: 0.471.2(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6180,7 +6180,7 @@ snapshots:
       graceful-fs: 4.2.11
       picomatch: 2.3.1
 
-  jotai@2.11.3(@types/react@18.3.13)(react@18.3.1):
+  jotai@2.12.0(@types/react@18.3.13)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.3.13
       react: 18.3.1
