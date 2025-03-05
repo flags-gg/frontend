@@ -26,7 +26,7 @@ const Pricing: FC = () => {
   const [prices, setPrices] = useState<Price[]>([]);
 
   const getPricing = async () => {
-    const response = await fetch(`https://api.flags.gg/v1/pricing`);
+    const response = await fetch(`https://api.flags.gg/pricing`);
     const data = await response.json();
     return data;
   }
