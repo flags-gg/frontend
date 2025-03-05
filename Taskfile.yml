@@ -35,8 +35,8 @@ tasks:
         vars:
           COMMIT_HASH:
             sh: cat .commit_hash
-      - nerdctl push containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.COMMIT_HASH}} --all-platforms
-      - nerdctl push containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest --all-platforms
+      - docker push containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.COMMIT_HASH}} --all-platforms
+      - docker push containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest --all-platforms
     vars:
       COMMIT_HASH:
         sh: cat .commit_hash
@@ -46,7 +46,7 @@ tasks:
         vars:
           COMMIT_HASH:
             sh: cat .commit_hash
-      - nerdctl push containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.COMMIT_HASH}} --all-platforms
+      - docker push containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.COMMIT_HASH}} --all-platforms
     vars:
       COMMIT_HASH:
         sh: cat .commit_hash
@@ -57,9 +57,8 @@ tasks:
       - task: get-latest-tag
       - task: get-commit-hash
       - |
-        nerdctl build \
-          --platform=amd64,arm64 \
-          --tag containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.COMMIT_HASH}} \
+        docker build \
+          --tag container1s.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.COMMIT_HASH}} \
           --build-arg GIT_VERSION={{.LATEST_TAG}} \
           --build-arg GIT_BUILD={{.COMMIT_HASH}} \
           --build-arg SERVICE_NAME={{.SERVICE_NAME}} \
@@ -67,7 +66,7 @@ tasks:
           --build-arg FLAGS_AGENT_ID=a7978e82-bee0-4357-808d-53ee33d3bc55 \
           --build-arg FLAGS_ENVIRONMENT_ID=f8f84114-0706-40b7-a929-995d675f1f6d \
           -f ./k8s/Containerfile .
-      - nerdctl tag containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.COMMIT_HASH}} containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest
+      - docker tag containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:{{.COMMIT_HASH}} containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest
     vars:
       LATEST_TAG:
         sh: cat .latest_tag
@@ -79,7 +78,7 @@ tasks:
       - task: get-latest-tag
       - task: get-commit-hash
       - |
-        nerdctl build \
+        docker build \
           --platform=amd64,arm64 \
           --tag containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest \
           --build-arg GIT_VERSION={{.LATEST_TAG}} \
@@ -89,7 +88,7 @@ tasks:
           --build-arg FLAGS_AGENT_ID=a7978e82-bee0-4357-808d-53ee33d3bc55 \
           --build-arg FLAGS_ENVIRONMENT_ID=f8f84114-0706-40b7-a929-995d675f1f6d \ 
           -f ./k8s/Containerfile .
-      - nerdctl push containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest --all-platforms
+      - docker push containers.chewed-k8s.net/{{.NAMESPACE}}/{{.SERVICE_NAME}}:latest --all-platforms
     vars:
       LATEST_TAG:
         sh: cat .latest_tag
